@@ -1,0 +1,4 @@
+--by flashtynooo--
+while wait() do
+   game:GetService("ReplicatedStorage").Remote.Event.Coin["[C-S]TryAddCoin"]:FireServer()
+end
