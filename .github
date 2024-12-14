@@ -1,1 +1,4 @@
-game:GetService("ReplicatedStorage").Remotes.Duplicate:FireServer(199)
+--by flashtynooo--
+while wait() do
+   game:GetService("ReplicatedStorage").Remotes.Duplicate:FireServer(199)
+end
