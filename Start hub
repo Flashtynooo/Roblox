@@ -1,0 +1,47 @@
+local TweenService = game:GetService("TweenService")
+local player = game.Players.LocalPlayer
+local gui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
+gui.IgnoreGuiInset = true
+gui.ResetOnSpawn = false
+
+-- Ligne de scan
+local scanLine = Instance.new("Frame", gui)
+scanLine.BackgroundColor3 = Color3.fromRGB(0, 255, 255)
+scanLine.Size = UDim2.new(1, 0, 0, 2)
+scanLine.Position = UDim2.new(0, 0, 1, 0)
+scanLine.BackgroundTransparency = 0.25
+
+-- Titre
+local title = Instance.new("TextLabel", gui)
+title.Text = "Flashtynooo Hub"
+title.Size = UDim2.new(0.6, 0, 0.1, 0)
+title.Position = UDim2.new(0.2, 0, 0.45, 0)
+title.TextScaled = true
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.BackgroundTransparency = 1
+title.TextTransparency = 1
+title.Font = Enum.Font.GothamBold
+
+-- Animation de la ligne
+TweenService:Create(scanLine, TweenInfo.new(1.5, Enum.EasingStyle.Linear), {
+    Position = UDim2.new(0, 0, 0, 0)
+}):Play()
+
+-- Apparition du titre
+wait(0.5)
+TweenService:Create(title, TweenInfo.new(1, Enum.EasingStyle.Sine), {
+    TextTransparency = 0
+}):Play()
+
+-- Disparition après 3 secondes
+wait(2)
+TweenService:Create(title, TweenInfo.new(1, Enum.EasingStyle.Sine), {
+    TextTransparency = 1
+}):Play()
+TweenService:Create(scanLine, TweenInfo.new(1, Enum.EasingStyle.Linear), {
+    BackgroundTransparency = 1
+}):Play()
+
+-- Suppression du GUI
+wait(1.2)
+gui:Destroy()
