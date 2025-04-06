@@ -1,3 +1,317 @@
 --by flashtynooo--
 
-game:GetService("ReplicatedStorage").Remotes.Duplicate:FireServer()
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local gui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
+gui.ResetOnSpawn = false
+gui.Name = "FlashtynoooMsg"
+
+-- Création du cadre stylé
+local frame = Instance.new("Frame", gui)
+frame.Size = UDim2.new(0, 350, 0, 70)
+frame.Position = UDim2.new(0.5, -175, 0.5, -35)
+frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+frame.BackgroundTransparency = 0.5
+frame.BorderSizePixel = 0
+frame.AnchorPoint = Vector2.new(0.5, 0.5)
+
+-- Coins arrondis
+local corner = Instance.new("UICorner", frame)
+corner.CornerRadius = UDim.new(0, 20)
+
+-- Texte
+local text = Instance.new("TextLabel", frame)
+text.Size = UDim2.new(1, 0, 1, 0)
+text.BackgroundTransparency = 1
+text.Text = "Flashtynooo Hub"
+text.TextColor3 = Color3.new(1, 1, 1)
+text.Font = Enum.Font.SourceSansBold
+text.TextSize = 30
+text.TextScaled = false
+text.TextWrapped = true
+text.TextStrokeTransparency = 0.6
+
+-- Attente de 3 secondes
+wait(1)
+
+-- Rotation (360° en 36 frames)
+for i = 1, 36 do
+	frame.Rotation = frame.Rotation + 10
+	wait(0.03)
+end
+
+-- Attente de 2 secondes
+wait(1)
+
+-- Déplacement hors écran en diagonale bas droite (pendant 1 sec)
+local startPos = frame.Position
+local endPos = UDim2.new(1.5, 0, 1.5, 0) -- Hors de l'écran
+local duration = 0.5
+local startTime = tick()
+
+-- Lerp du mouvement
+while tick() - startTime < duration do
+	local alpha = (tick() - startTime) / duration
+	frame.Position = UDim2.new(
+		startPos.X.Scale + (endPos.X.Scale - startPos.X.Scale) * alpha,
+		startPos.X.Offset + (endPos.X.Offset - startPos.X.Offset) * alpha,
+		startPos.Y.Scale + (endPos.Y.Scale - startPos.Y.Scale) * alpha,
+		startPos.Y.Offset + (endPos.Y.Offset - startPos.Y.Offset) * alpha
+	)
+	wait()
+end
+
+-- Nettoyage
+gui:Destroy()
+
+wait(0.5)
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+
+local lp = Players.LocalPlayer
+local char = lp.Character or lp.CharacterAdded:Wait()
+local hum = char:WaitForChild("Humanoid")
+local hrp = char:WaitForChild("HumanoidRootPart")
+
+local gui
+local frame
+local hubImage
+local isHubVisible = true
+local contentElements = {}
+
+local function createHub()
+    gui = Instance.new("ScreenGui", game.CoreGui)
+    gui.Name = "FlashtyHub"
+
+    frame = Instance.new("Frame", gui)
+    frame.Size = UDim2.new(0, 280, 0, 250)
+    frame.Position = UDim2.new(0.05, 0, 0.2, 0)
+    frame.BackgroundColor3 = Color3.fromRGB(30,30,30)
+    frame.BorderSizePixel = 0
+    frame.Active = true
+    frame.Draggable = true
+    table.insert(contentElements, frame)
+
+    local title = Instance.new("TextLabel", frame)
+    title.Size = UDim2.new(1, 0, 0, 35)
+    title.Text = "Flashtynooo HUB (BETA)"
+    title.BackgroundTransparency = 1
+    title.TextColor3 = Color3.new(1,1,1)
+    title.Font = Enum.Font.GothamBold
+    title.TextSize = 20
+    table.insert(contentElements, title)
+
+    hubImage = Instance.new("ImageButton", gui)
+    hubImage.Size = UDim2.new(0, 40, 0, 40)
+    hubImage.Position = UDim2.new(0.05, 0, 0.2, 0)
+    hubImage.Image = "rbxassetid://80777483293351"
+    hubImage.Visible = true
+
+    local draggingImage = false
+    local dragStart = Vector2.new()
+    local startPos = Vector2.new()
+
+    hubImage.InputBegan:Connect(function(input, gameProcessed)
+        if gameProcessed then return end
+        if input.UserInputType == Enum.UserInputType.Touch then
+            draggingImage = true
+            dragStart = input.Position
+            startPos = hubImage.Position
+        end
+    end)
+
+    hubImage.InputChanged:Connect(function(input)
+        if draggingImage and input.UserInputType == Enum.UserInputType.Touch then
+            local delta = input.Position - dragStart
+            hubImage.Position = UDim2.new(0, startPos.X.Offset + delta.X, 0, startPos.Y.Offset + delta.Y)
+        end
+    end)
+
+    local function createButton(txt, y, callback)
+        local b = Instance.new("TextButton", frame)
+        b.Size = UDim2.new(0.9, 0, 0, 35)
+        b.Position = UDim2.new(0.05, 0, 0, y)
+        b.Text = txt
+        b.BackgroundColor3 = Color3.fromRGB(60,60,60)
+        b.TextColor3 = Color3.new(1,1,1)
+        b.Font = Enum.Font.Gotham
+        b.TextSize = 16
+        b.MouseButton1Click:Connect(callback)
+        table.insert(contentElements, b)
+        return b
+    end
+
+    local speedLabel = Instance.new("TextLabel", frame)
+    speedLabel.Size = UDim2.new(1, 0, 0, 25)
+    speedLabel.Position = UDim2.new(0, 0, 0, 35)
+    speedLabel.BackgroundTransparency = 1
+    speedLabel.TextColor3 = Color3.fromRGB(100, 255, 100)
+    speedLabel.Font = Enum.Font.Gotham
+    speedLabel.TextSize = 16
+    table.insert(contentElements, speedLabel)
+
+    RunService.RenderStepped:Connect(function()
+        if hum and hum.Parent then
+            local currentSpeed = hum.WalkSpeed
+            speedLabel.Text = "Speed: " .. math.floor(currentSpeed)
+            if currentSpeed == 16 then
+                speedLabel.TextColor3 = Color3.fromRGB(100, 255, 100)
+            else
+                speedLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+            end
+        end
+    end)
+
+    createButton("Speed +", 70, function()
+        hum.WalkSpeed = hum.WalkSpeed + 4
+    end)
+
+    createButton("Speed -", 110, function()
+        hum.WalkSpeed = math.max(4, hum.WalkSpeed - 4)
+    end)
+
+    local flying = false
+    local bodyVelocity = Instance.new("BodyVelocity")
+    local bodyGyro = Instance.new("BodyGyro")
+
+    createButton("Freeze", 150, function()
+        if not flying then
+            flying = true
+            bodyVelocity.MaxForce = Vector3.new(4000, 4000, 4000)
+            bodyVelocity.Velocity = Vector3.new(0, 0, 0)
+            bodyVelocity.Parent = hrp
+
+            bodyGyro.MaxTorque = Vector3.new(4000, 4000, 4000)
+            bodyGyro.CFrame = hrp.CFrame
+            bodyGyro.Parent = hrp
+
+            hum.PlatformStand = true
+            hrp.Anchored = true
+        else
+            flying = false
+            bodyVelocity.Parent = nil
+            bodyGyro.Parent = nil
+            hum.PlatformStand = false
+            hrp.Anchored = false
+        end
+    end)
+
+    -- ESP dynamique
+    local espEnabled = false
+    local espConnections = {}
+
+    local function createESP(player)
+        if player == lp then return end
+
+        local function setup()
+            local char = player.Character
+            if char and not char:FindFirstChild("FlashtyESP") then
+                local hrp = char:FindFirstChild("HumanoidRootPart")
+                if hrp then
+                    local esp = Instance.new("Highlight")
+                    esp.Name = "FlashtyESP"
+                    esp.Parent = char
+                    esp.FillTransparency = 0.8
+                    esp.OutlineTransparency = 0.1
+                    esp.FillColor = player.TeamColor.Color
+                    esp.OutlineColor = player.TeamColor.Color
+
+                    local gui = Instance.new("BillboardGui", char)
+                    gui.Name = "ESPName"
+                    gui.Size = UDim2.new(0, 200, 0, 30)
+                    gui.StudsOffset = Vector3.new(0, 3, 0)
+                    gui.AlwaysOnTop = true
+
+                    local text = Instance.new("TextLabel", gui)
+                    text.Size = UDim2.new(1, 0, 1, 0)
+                    text.BackgroundTransparency = 1
+                    text.TextColor3 = player.TeamColor.Color
+                    text.TextStrokeTransparency = 0.7
+                    text.Font = Enum.Font.Gotham
+                    text.TextSize = 14
+                    text.Text = player.DisplayName .. " @" .. player.Name
+                end
+            end
+        end
+
+        local charConn = player.CharacterAdded:Connect(function()
+            if espEnabled then
+                task.wait(1)
+                setup()
+            end
+        end)
+        table.insert(espConnections, charConn)
+
+        if player.Character then
+            setup()
+        end
+    end
+
+    local function removeESP(player)
+        if player.Character then
+            local c = player.Character
+            local e = c:FindFirstChild("FlashtyESP")
+            if e then e:Destroy() end
+            local n = c:FindFirstChild("ESPName")
+            if n then n:Destroy() end
+        end
+    end
+
+    local function clearAllESP()
+        for _, p in pairs(Players:GetPlayers()) do
+            removeESP(p)
+        end
+    end
+
+    local function toggleESP()
+        espEnabled = not espEnabled
+
+        if espEnabled then
+            for _, p in ipairs(Players:GetPlayers()) do
+                createESP(p)
+            end
+
+            local joinConn = Players.PlayerAdded:Connect(function(p)
+                if espEnabled then
+                    createESP(p)
+                end
+            end)
+            table.insert(espConnections, joinConn)
+
+            local leaveConn = Players.PlayerRemoving:Connect(function(p)
+                removeESP(p)
+            end)
+            table.insert(espConnections, leaveConn)
+        else
+            clearAllESP()
+            for _, conn in pairs(espConnections) do
+                conn:Disconnect()
+            end
+            espConnections = {}
+        end
+    end
+
+    createButton("ESP", 190, toggleESP)
+
+    hubImage.MouseButton1Click:Connect(function()
+        isHubVisible = not isHubVisible
+        for _, el in ipairs(contentElements) do
+            el.Visible = isHubVisible
+        end
+    end)
+
+    local creatorText = Instance.new("TextLabel", frame)
+    creatorText.Size = UDim2.new(1, 0, 0, 25)
+    creatorText.Position = UDim2.new(0, 0, 1, -25)
+    creatorText.BackgroundTransparency = 1
+
+    creatorText.Text = "Creator #flashtynooo"
+    creatorText.TextColor3 = Color3.fromRGB(255, 255, 255)
+    creatorText.Font = Enum.Font.Gotham
+    creatorText.TextSize = 14
+    table.insert(contentElements, creatorText)
+end
+
+createHub()
+
