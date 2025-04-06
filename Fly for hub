@@ -1,0 +1,37 @@
+local flyEnabled = false
+local flyConn
+
+createButton("Fly", 230, function()
+    flyEnabled = not flyEnabled
+
+    if flyEnabled then
+        hum.PlatformStand = true
+
+        local bv = Instance.new("BodyVelocity")
+        bv.MaxForce = Vector3.new(1e5, 1e5, 1e5)
+        bv.Velocity = Vector3.zero
+        bv.Name = "FlashtyFlyVelocity"
+        bv.Parent = hrp
+
+        local bg = Instance.new("BodyGyro")
+        bg.MaxTorque = Vector3.new(1e5, 1e5, 1e5)
+        bg.CFrame = hrp.CFrame
+        bg.P = 10000
+        bg.Name = "FlashtyFlyGyro"
+        bg.Parent = hrp
+
+        flyConn = RunService.RenderStepped:Connect(function()
+            if not flyEnabled then return end
+            local camCF = workspace.CurrentCamera.CFrame
+            local dir = camCF.LookVector * 50  -- vitesse de vol
+            bv.Velocity = Vector3.new(dir.X, dir.Y, dir.Z)
+            bg.CFrame = CFrame.new(hrp.Position, hrp.Position + Vector3.new(camCF.LookVector.X, 0, camCF.LookVector.Z))
+        end)
+
+    else
+        hum.PlatformStand = false
+        if flyConn then flyConn:Disconnect() end
+        if hrp:FindFirstChild("FlashtyFlyVelocity") then hrp.FlashtyFlyVelocity:Destroy() end
+        if hrp:FindFirstChild("FlashtyFlyGyro") then hrp.FlashtyFlyGyro:Destroy() end
+    end
+end)
