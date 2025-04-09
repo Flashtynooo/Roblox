@@ -1,0 +1,16 @@
+createButton("Freeze (FE)", 140, function()
+    isFrozen = not isFrozen
+    if isFrozen then
+        hum.PlatformStand = true
+        char:WaitForChild("HumanoidRootPart").Anchored = true
+        if not isFlying then
+            toggleFly() -- Active le vol si ce n'est pas déjà fait
+        end
+    else
+        hum.PlatformStand = false
+        char:WaitForChild("HumanoidRootPart").Anchored = false
+        if isFlying then
+            toggleFly() -- Désactive le vol si c'est activé
+        end
+    end
+end)
