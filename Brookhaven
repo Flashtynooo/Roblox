@@ -1,17 +1,181 @@
--- Fonction pour tuer ton propre personnage
-local function killMyself()
-    local player = game.Players.LocalPlayer
-    local character = player.Character
-    
-    if character then
-        -- Détruire les joints du personnage
-        for _, part in ipairs(character:GetChildren()) do
-            if part:IsA("BasePart") then
-                part:BreakJoints() -- Supprimer les joints pour tuer le joueur
-            end
-        end
-    end
+local gui = Instance.new("ScreenGui", game.CoreGui)
+gui.Name = "FlashtynoooEggCollection2025"
+
+-- Main frame
+local mainFrame = Instance.new("Frame")
+mainFrame.Parent = gui
+mainFrame.Size = UDim2.new(0, 300, 0, 300)
+mainFrame.Position = UDim2.new(0.3, 0, 0.3, 0)
+mainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+mainFrame.BorderSizePixel = 0
+mainFrame.Active = true
+mainFrame.Draggable = true
+
+-- Invisible space au-dessus du texte
+local invisibleSpace = Instance.new("Frame")
+invisibleSpace.Parent = gui
+invisibleSpace.Size = UDim2.new(1, 0, 0, 60)
+invisibleSpace.Position = UDim2.new(0, 0, 0, 0)
+invisibleSpace.BackgroundTransparency = 1
+invisibleSpace.BorderSizePixel = 0
+
+-- Drag bar
+local dragBar = Instance.new("TextLabel")
+dragBar.Parent = mainFrame
+dragBar.Size = UDim2.new(1, 0, 0, 30)
+dragBar.Position = UDim2.new(0, 0, 0, 0)
+dragBar.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+dragBar.Text = "🥚 Flashtynooo Egg Collection 2025"
+dragBar.TextColor3 = Color3.new(1, 1, 1)
+dragBar.Font = Enum.Font.GothamBold
+dragBar.TextScaled = true
+dragBar.BorderSizePixel = 0
+
+-- Control frame
+local controlFrame = Instance.new("Frame")
+controlFrame.Parent = mainFrame
+controlFrame.Size = UDim2.new(1, -20, 1, -70)
+controlFrame.Position = UDim2.new(0, 10, 0, 40)
+controlFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+controlFrame.BorderSizePixel = 0
+controlFrame.ClipsDescendants = true
+
+-- Bas de page
+local creditText = Instance.new("TextLabel")
+creditText.Parent = mainFrame
+creditText.Size = UDim2.new(1, 0, 0, 30)
+creditText.Position = UDim2.new(0, 0, 1, -30)
+creditText.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+creditText.Text = "by @flashtynooo"
+creditText.TextColor3 = Color3.new(1, 1, 1)
+creditText.Font = Enum.Font.Gotham
+creditText.TextScaled = true
+creditText.BorderSizePixel = 0
+
+-- Bouton Fermer
+local closeBtn = Instance.new("TextButton")
+closeBtn.Parent = mainFrame
+closeBtn.Size = UDim2.new(0, 50, 0, 30)
+closeBtn.Position = UDim2.new(1, -60, 0, 5)
+closeBtn.Text = "❌"
+closeBtn.BackgroundColor3 = Color3.fromRGB(255, 100, 100)
+closeBtn.TextColor3 = Color3.new(1, 1, 1)
+closeBtn.Font = Enum.Font.GothamBold
+closeBtn.TextScaled = true
+closeBtn.BorderSizePixel = 0
+
+-- Bouton Réduire
+local shrinkBtn = Instance.new("TextButton")
+shrinkBtn.Parent = mainFrame
+shrinkBtn.Size = UDim2.new(0, 50, 0, 30)
+shrinkBtn.Position = UDim2.new(1, -120, 0, 5)
+shrinkBtn.Text = "➖"
+shrinkBtn.BackgroundColor3 = Color3.fromRGB(100, 100, 255)
+shrinkBtn.TextColor3 = Color3.new(1, 1, 1)
+shrinkBtn.Font = Enum.Font.GothamBold
+shrinkBtn.TextScaled = true
+shrinkBtn.BorderSizePixel = 0
+
+-- Bouton Agrandir
+local expandBtn = Instance.new("TextButton")
+expandBtn.Parent = mainFrame
+expandBtn.Size = UDim2.new(0, 50, 0, 30)
+expandBtn.Position = UDim2.new(1, -180, 0, 5)
+expandBtn.Text = "➕"
+expandBtn.BackgroundColor3 = Color3.fromRGB(100, 255, 100)
+expandBtn.TextColor3 = Color3.new(1, 1, 1)
+expandBtn.Font = Enum.Font.GothamBold
+expandBtn.TextScaled = true
+expandBtn.BorderSizePixel = 0
+
+-- Fermeture
+closeBtn.MouseButton1Click:Connect(function()
+	mainFrame:TweenSize(UDim2.new(0, 300, 0, 50), "Out", "Quad", 0.5, true)
+	task.wait(0.5)
+	gui:Destroy()
+end)
+
+-- Réduire
+shrinkBtn.MouseButton1Click:Connect(function()
+	mainFrame:TweenSize(UDim2.new(0, 300, 0, 100), "Out", "Quad", 0.5, true)
+end)
+
+-- Agrandir
+expandBtn.MouseButton1Click:Connect(function()
+	mainFrame:TweenSize(UDim2.new(0, 300, 0, 300), "Out", "Quad", 0.5, true)
+end)
+
+-- Son
+local sound = Instance.new("Sound", gui)
+sound.SoundId = "rbxassetid://6026984224"
+sound.Volume = 1
+
+-- Notification
+local function showNotification(text)
+	local notif = Instance.new("TextLabel")
+	notif.Parent = gui
+	notif.Size = UDim2.new(0, 300, 0, 30)
+	notif.Position = UDim2.new(0.5, -150, 0.05, 0)
+	notif.BackgroundColor3 = Color3.fromRGB(255, 100, 100)
+	notif.Text = text
+	notif.TextColor3 = Color3.new(1, 1, 1)
+	notif.Font = Enum.Font.GothamBold
+	notif.TextScaled = true
+	notif.BorderSizePixel = 0
+
+	sound:Play()
+
+	game:GetService("Debris"):AddItem(notif, 2)
 end
 
--- Appeler la fonction pour tuer le joueur
-killMyself()
+-- Modes
+local buttonInfos = {
+	{Text = "🐣 Baby Mode", Color = Color3.fromRGB(255, 180, 150), Difficulty = "Baby", Count = 13},
+	{Text = "🥚 Easy Mode", Color = Color3.fromRGB(150, 200, 255), Difficulty = "Easy", Count = 18},
+	{Text = "🥚 Medium Mode", Color = Color3.fromRGB(255, 255, 120), Difficulty = "Medium", Count = 23},
+	{Text = "🔥 Hard Mode", Color = Color3.fromRGB(255, 120, 120), Difficulty = "Hard", Count = 28},
+	{Text = "💀 Extreme Mode", Color = Color3.fromRGB(180, 100, 255), Difficulty = "Extreme", Count = 38},
+}
+
+local used = {}
+local inProgress = false
+
+for i, info in ipairs(buttonInfos) do
+	local btn = Instance.new("TextButton")
+	btn.Parent = controlFrame
+	btn.Size = UDim2.new(1, -20, 0, 40)
+	btn.Position = UDim2.new(0, 10, 0, (i - 1) * 45 + 5)
+	btn.Text = info.Text
+	btn.BackgroundColor3 = info.Color
+	btn.TextScaled = true
+	btn.Font = Enum.Font.GothamBold
+	btn.TextColor3 = Color3.new(1, 1, 1)
+	btn.BorderSizePixel = 0
+
+	btn.MouseButton1Click:Connect(function()
+		if inProgress then
+			showNotification("⛔ An action is already in progress, please wait!")
+			return
+		end
+		if used[info.Difficulty] then
+			showNotification("❌ You have already completed this mode.")
+			return
+		end
+
+		inProgress = true
+		showNotification("⚙️ Action in progress... Please wait.")
+
+		local args = { [1] = info.Difficulty }
+		game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ChangeDifficulty"):FireServer(unpack(args))
+		game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("RequestEggs"):InvokeServer(unpack(args))
+
+		for j = 1, info.Count do
+			game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EggCollected"):InvokeServer()
+			task.wait(0.6)
+		end
+
+		inProgress = false
+		used[info.Difficulty] = true
+		showNotification(info.Difficulty .. " mode completed! You can now go back or choose another mode.")
+	end)
+end
