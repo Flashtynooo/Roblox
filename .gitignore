@@ -298,6 +298,15 @@ local function createHub()
     createButton("Brookhaven", 290, function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flashtynooo-hub/Brookhaven"))()
     end)
+
+createButton("Line to CHICKEN JOCKEY!", 290, function()
+        -- Vérifie si l'ID du jeu actuel correspond à 108049414495683
+
+    -- Exécute le loadstring depuis GitHub
+   if game.PlaceId == 108049414495683 then loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flashtynooo-hub/Line%20to%20CHICKEN%20JOCKEY!"))()
+end
+
+    end)
 end
 
 createHub()
