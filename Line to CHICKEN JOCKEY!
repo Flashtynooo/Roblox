@@ -1,0 +1,164 @@
+-- Chargement du script de démarrage
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flashtynooo-hub/Start%20hub"))()
+
+-- Création du ScreenGui
+local gui = Instance.new("ScreenGui", game.CoreGui)
+gui.Name = "LineToChickenJockeyHub"
+gui.ResetOnSpawn = false
+
+-- Hub principal
+local MainFrame = Instance.new("Frame", gui)
+MainFrame.Size = UDim2.new(0, 220, 0, 200)  -- Augmenté la taille pour plus d'espace
+MainFrame.Position = UDim2.new(0.5, -110, 0.5, -100)  -- Ajusté pour compenser la taille
+MainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+MainFrame.Active = true
+MainFrame.Draggable = true
+Instance.new("UICorner", MainFrame).CornerRadius = UDim.new(0, 8)
+
+-- Conteneur de l’en-tête
+local Header = Instance.new("Frame", MainFrame)
+Header.Size = UDim2.new(1, 0, 0, 30)
+Header.BackgroundTransparency = 1
+
+-- Titre
+local Title = Instance.new("TextLabel", Header)
+Title.Size = UDim2.new(1, -60, 1, 0)
+Title.Position = UDim2.new(0, 5, 0, 0)
+Title.BackgroundTransparency = 1
+Title.Text = "Line to CHICKEN JOCKEY!"
+Title.Font = Enum.Font.GothamBold
+Title.TextColor3 = Color3.fromRGB(255, 255, 0)
+Title.TextSize = 14
+Title.TextXAlignment = Enum.TextXAlignment.Left
+
+-- Resize
+local ResizeButton = Instance.new("TextButton", Header)
+ResizeButton.Size = UDim2.new(0, 25, 1, 0)
+ResizeButton.Position = UDim2.new(1, -55, 0, 0)
+ResizeButton.Text = "-"
+ResizeButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+ResizeButton.TextColor3 = Color3.new(1, 1, 1)
+Instance.new("UICorner", ResizeButton).CornerRadius = UDim.new(0, 6)
+
+-- Fermer
+local CloseButton = Instance.new("TextButton", Header)
+CloseButton.Size = UDim2.new(0, 25, 1, 0)
+CloseButton.Position = UDim2.new(1, -30, 0, 0)
+CloseButton.Text = "X"
+CloseButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+CloseButton.TextColor3 = Color3.new(1, 1, 1)
+Instance.new("UICorner", CloseButton).CornerRadius = UDim.new(0, 6)
+
+-- Bouton auto-cut-line
+local CutButton = Instance.new("TextButton", MainFrame)
+CutButton.Size = UDim2.new(0.8, 0, 0, 30)
+CutButton.Position = UDim2.new(0.1, 0, 0, 40)
+CutButton.Text = "auto-cut-line"
+CutButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+CutButton.TextColor3 = Color3.new(1, 1, 1)
+Instance.new("UICorner", CutButton).CornerRadius = UDim.new(0, 6)
+
+-- État
+local StatusLabel = Instance.new("TextLabel", MainFrame)
+StatusLabel.Size = UDim2.new(1, 0, 0, 20)
+StatusLabel.Position = UDim2.new(0, 0, 0, 70)
+StatusLabel.BackgroundTransparency = 1
+StatusLabel.Text = ""
+StatusLabel.Font = Enum.Font.Gotham
+StatusLabel.TextColor3 = Color3.fromRGB(100, 255, 100)
+StatusLabel.TextSize = 13
+
+-- Texte "🤑Cash 💸"
+local CashLabel = Instance.new("TextLabel", MainFrame)
+CashLabel.Size = UDim2.new(1, 0, 0, 20)
+CashLabel.Position = UDim2.new(0, 0, 0, 100)
+CashLabel.BackgroundTransparency = 1
+CashLabel.Text = "🤑Cash 💸"
+CashLabel.Font = Enum.Font.GothamBold
+CashLabel.TextColor3 = Color3.fromRGB(255, 255, 0)
+CashLabel.TextSize = 14
+CashLabel.TextXAlignment = Enum.TextXAlignment.Center
+
+-- Zone de cash
+local CashBox = Instance.new("TextBox", MainFrame)
+CashBox.Size = UDim2.new(0.8, 0, 0, 30)
+CashBox.Position = UDim2.new(0.1, 0, 0, 120)
+CashBox.PlaceholderText = "Enter amount of cash"
+CashBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+CashBox.TextColor3 = Color3.new(1, 1, 1)
+CashBox.Font = Enum.Font.Gotham
+CashBox.TextSize = 14
+Instance.new("UICorner", CashBox).CornerRadius = UDim.new(0, 6)
+
+-- Texte "Too much cash!" sous la zone de cash
+local TooMuchCashLabel = Instance.new("TextLabel", MainFrame)
+TooMuchCashLabel.Size = UDim2.new(1, 0, 0, 20)
+TooMuchCashLabel.Position = UDim2.new(0, 0, 0, 155)  -- Positionné sous la zone de saisie
+TooMuchCashLabel.BackgroundTransparency = 1
+TooMuchCashLabel.Text = ""
+TooMuchCashLabel.Font = Enum.Font.Gotham
+TooMuchCashLabel.TextColor3 = Color3.fromRGB(255, 100, 100)
+TooMuchCashLabel.TextSize = 13
+TooMuchCashLabel.TextXAlignment = Enum.TextXAlignment.Center
+
+-- Fonction bouton auto-cut-line
+local isSpamming = false
+CutButton.MouseButton1Click:Connect(function()
+	if not isSpamming then
+		isSpamming = true
+		StatusLabel.Text = "Working..."
+		local success, err = pcall(function()
+			while isSpamming do
+				game:GetService("ReplicatedStorage"):WaitForChild("CutLineEvent"):FireServer()
+				wait(0.1)
+			end
+		end)
+		if not success then
+			StatusLabel.Text = "Error"
+			StatusLabel.TextColor3 = Color3.fromRGB(255, 80, 80)
+			isSpamming = false
+		end
+	else
+		isSpamming = false
+		StatusLabel.Text = "Stopped"
+	end
+end)
+
+-- Exécuter le cash
+CashBox.FocusLost:Connect(function(enterPressed)
+	if enterPressed and tonumber(CashBox.Text) then
+		local cash = tonumber(CashBox.Text)
+		if cash > 1e15 then
+			TooMuchCashLabel.Text = "Too much cash!"  -- Afficher "Too much cash!" ici
+			CashBox.Text = ""
+			return
+		else
+			TooMuchCashLabel.Text = ""  -- Réinitialiser le texte si la saisie est correcte
+		end
+		local args = {
+			[1] = -cash
+		}
+		local success, err = pcall(function()
+			game:GetService("ReplicatedStorage"):WaitForChild("SubtractCash"):FireServer(unpack(args))
+		end)
+		if not success then warn("Cash error:", err) end
+		CashBox.Text = ""
+	end
+end)
+
+-- Resize & Close
+local isMinimized = false
+ResizeButton.MouseButton1Click:Connect(function()
+	isMinimized = not isMinimized
+	local goalSize = isMinimized and UDim2.new(0, 220, 0, 40) or UDim2.new(0, 220, 0, 200)
+	MainFrame:TweenSize(goalSize, Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.3, true)
+	CutButton.Visible = not isMinimized
+	StatusLabel.Visible = not isMinimized
+	CashBox.Visible = not isMinimized
+	CashLabel.Visible = not isMinimized  -- Cacher le texte Cash quand minimisé
+	TooMuchCashLabel.Visible = not isMinimized  -- Cacher le texte "Too much cash!" quand minimisé
+end)
+
+CloseButton.MouseButton1Click:Connect(function()
+	gui:Destroy()
+end)
