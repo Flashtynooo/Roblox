@@ -57,7 +57,7 @@ local function createHub()
 
     local title = Instance.new("TextLabel", frame)
     title.Size = UDim2.new(1, 0, 0, 35)
-    title.Text = "Flashtynooo Hub 1.05"
+    title.Text = "Flashtynooo Hub 1.06"
     title.BackgroundTransparency = 1
     title.TextColor3 = Color3.new(1,1,1)
     title.Font = Enum.Font.GothamBold
@@ -179,7 +179,6 @@ local function createHub()
 
     createSpeedButton(70)
 
-    -- Combined Freeze + Fly button
     createButton("Freeze (FE)", 140, function()
         isFrozen = not isFrozen
         if isFrozen then
@@ -197,7 +196,6 @@ local function createHub()
         end
     end)
 
-    -- ESP
     local espEnabled = false
     local espConnections = {}
 
@@ -291,9 +289,14 @@ local function createHub()
 
     createButton("ESP", 190, toggleESP)
 
-    -- Animation button (executing the exact loadstring you provided)
-    createButton("Animation", 240, function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flashtynooo-hub/Fly%20for%20hub"))()
+    createButton("Animation (NO WORK)", 240, function()
+        local animationScript = "loadstring(game:HttpGet('https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flashtynooo-hub/Fly%20for%20hub'))()"  -- Replace with actual URL
+        loadstring(animationScript)()
+    end)
+
+    -- BOUTON BROOKHAVEN (ajout demandé)
+    createButton("Brookhaven", 290, function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flashtynooo-hub/Brookhaven"))()
     end)
 end
 
