@@ -1,5 +1,3 @@
--- Chargement du script de démarrage
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flashtynooo-hub/Start%20hub"))()
 
 -- Création du ScreenGui
 local gui = Instance.new("ScreenGui", game.CoreGui)
