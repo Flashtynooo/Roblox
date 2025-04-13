@@ -298,6 +298,11 @@ local function createHub()
     createButton("🕹️flshty-games🎮", 310, function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flashtynooo-hub/Flshty%20games"))()
     end)
+createButton("DISCORD", 310, function()
+local url = "https://discord.gg/vnguanfgKw"
+setclipboard(url)  -- Cette fonction copie le lien dans le presse-papier
+
+    end)
 end
 
 createHub()
