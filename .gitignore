@@ -59,7 +59,7 @@ local function createHub()
     title.Size = UDim2.new(1, 0, 0, 35)
     title.Text = "Flashtynooo Hub 1.06"
     title.BackgroundTransparency = 1
-    title.TextColor3 = Color3.new(1,1,1)
+    title.TextColor3 = Color3.new(1,2,1)
     title.Font = Enum.Font.GothamBold
     title.TextSize = 20
     table.insert(contentElements, title)
@@ -295,17 +295,8 @@ local function createHub()
     end)
 
     -- BOUTON BROOKHAVEN (ajout demandé)
-    createButton("Brookhaven", 290, function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flashtynooo-hub/Brookhaven"))()
-    end)
-
-createButton("Line to CHICKEN JOCKEY!", 290, function()
-        -- Vérifie si l'ID du jeu actuel correspond à 108049414495683
-
-    -- Exécute le loadstring depuis GitHub
-   if game.PlaceId == 108049414495683 then loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flashtynooo-hub/Line%20to%20CHICKEN%20JOCKEY!"))()
-end
-
+    createButton("🕹️flshty-games🎮", 310, function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flashtynooo-hub/Flshty%20games"))()
     end)
 end
 
