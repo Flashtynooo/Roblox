@@ -1,0 +1,199 @@
+-- Services
+local TweenService = game:GetService("TweenService")
+local RunService = game:GetService("RunService")
+
+-- Création du ScreenGui
+local gui = Instance.new("ScreenGui", game.Players.LocalPlayer:WaitForChild("PlayerGui"))
+gui.Name = "FLSHTY_HACKER_HUB"
+gui.ResetOnSpawn = false
+
+-- Frame principale du hub
+local main = Instance.new("Frame", gui)
+main.Name = "MainFrame"
+main.Size = UDim2.new(0, 350, 0, 250)
+main.Position = UDim2.new(0.5, -175, 0.5, -125)
+main.AnchorPoint = Vector2.new(0.5, 0.5)
+main.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+main.BorderSizePixel = 2
+main.BorderColor3 = Color3.fromRGB(50, 50, 50)
+main.Active = true
+main.Draggable = true
+
+-- Frame de fond Matrix (en bas, ZIndex 0)
+local matrixFrame = Instance.new("Frame", main)
+matrixFrame.Name = "MatrixFrame"
+matrixFrame.Size = UDim2.new(1, 0, 1, 0)
+matrixFrame.Position = UDim2.new(0, 0, 0, 0)
+matrixFrame.BackgroundTransparency = 1  -- transparent pour voir uniquement les lignes
+matrixFrame.ZIndex = 0
+
+-- TopBar contenant les boutons
+local topBar = Instance.new("Frame", main)
+topBar.Name = "TopBar"
+topBar.Size = UDim2.new(1, 0, 0, 30)
+topBar.Position = UDim2.new(0, 0, 0, 0)
+topBar.BackgroundTransparency = 1
+topBar.ZIndex = 2
+
+local minimize = Instance.new("TextButton", topBar)
+minimize.Name = "Minimize"
+minimize.Size = UDim2.new(0, 30, 1, 0)
+minimize.Position = UDim2.new(1, -60, 0, 0)
+minimize.Text = "-"
+minimize.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+minimize.TextColor3 = Color3.new(0, 0, 0)
+minimize.Font = Enum.Font.Code
+minimize.TextSize = 20
+minimize.ZIndex = 3
+
+local close = Instance.new("TextButton", topBar)
+close.Name = "Close"
+close.Size = UDim2.new(0, 30, 1, 0)
+close.Position = UDim2.new(1, -30, 0, 0)
+close.Text = "X"
+close.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+close.TextColor3 = Color3.new(0, 0, 0)
+close.Font = Enum.Font.Code
+close.TextSize = 20
+close.ZIndex = 3
+
+-- Frame titre (conserve fond noir et bordure) pour afficher le titre
+local titleFrame = Instance.new("Frame", main)
+titleFrame.Name = "TitleFrame"
+titleFrame.Size = UDim2.new(1, 0, 0, 40)
+titleFrame.Position = UDim2.new(0, 0, 0, 30)
+titleFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+titleFrame.BorderSizePixel = 2
+titleFrame.BorderColor3 = Color3.fromRGB(50, 50, 50)
+titleFrame.ZIndex = 2
+
+local titleLabel = Instance.new("TextLabel", titleFrame)
+titleLabel.Name = "TitleLabel"
+titleLabel.Size = UDim2.new(1, 0, 1, 0)
+titleLabel.BackgroundTransparency = 1
+titleLabel.Text = "🕹️ FLSHTY-GAMES 🎮"
+titleLabel.TextColor3 = Color3.fromRGB(0, 255, 0)
+titleLabel.Font = Enum.Font.Code
+titleLabel.TextSize = 22
+titleLabel.ZIndex = 3
+
+-- Frame des boutons (pour ajouter d'autres boutons à l'avenir)
+local buttonsFrame = Instance.new("Frame", main)
+buttonsFrame.Name = "ButtonsFrame"
+buttonsFrame.Position = UDim2.new(0, 0, 0, 75)
+buttonsFrame.Size = UDim2.new(1, 0, 1, -75)
+buttonsFrame.BackgroundTransparency = 1
+buttonsFrame.ZIndex = 2
+
+-- Exemple : Bouton Brookhaven
+local brookhavenBtn = Instance.new("TextButton", buttonsFrame)
+brookhavenBtn.Name = "Brookhaven"
+brookhavenBtn.Size = UDim2.new(0.8, 0, 0, 40)
+brookhavenBtn.Position = UDim2.new(0.1, 0, 0, 10)
+brookhavenBtn.Text = "Brookhaven"
+brookhavenBtn.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+brookhavenBtn.TextColor3 = Color3.new(0, 0, 0)
+brookhavenBtn.Font = Enum.Font.Code
+brookhavenBtn.TextSize = 20
+brookhavenBtn.ZIndex = 3
+
+brookhavenBtn.MouseButton1Click:Connect(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flashtynooo-hub/Brookhaven"))()
+end)
+
+-- Nouveau bouton CHICKEN JOCKEY!
+local chickenJockeyBtn = Instance.new("TextButton", buttonsFrame)
+chickenJockeyBtn.Name = "ChickenJockey"
+chickenJockeyBtn.Size = UDim2.new(0.8, 0, 0, 40)
+chickenJockeyBtn.Position = UDim2.new(0.1, 0, 0, 60)  -- Positionné juste en dessous du bouton Brookhaven
+chickenJockeyBtn.Text = "CHICKEN JOCKEY!"
+chickenJockeyBtn.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+chickenJockeyBtn.TextColor3 = Color3.new(0, 0, 0)
+chickenJockeyBtn.Font = Enum.Font.Code
+chickenJockeyBtn.TextSize = 20
+chickenJockeyBtn.ZIndex = 3
+
+chickenJockeyBtn.MouseButton1Click:Connect(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flashtynooo-hub/Line%20to%20CHICKEN%20JOCKEY!"))()
+end)
+
+-- Bouton Close
+close.MouseButton1Click:Connect(function()
+    gui:Destroy()
+end)
+
+-- Minimize / Déminimiser avec animation de glissement (changement de la taille de main)
+local minimizedState = false
+local fullSize = UDim2.new(0, 350, 0, 250)
+local minimizedSize = UDim2.new(0, 350, 0, 30)
+minimize.MouseButton1Click:Connect(function()
+    minimizedState = not minimizedState
+    minimize.Text = minimizedState and "+" or "-"
+
+    local tweenInfo = TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+    local targetSize = minimizedState and minimizedSize or fullSize
+    TweenService:Create(main, tweenInfo, {Size = targetSize}):Play()
+
+    task.delay(0.1, function()
+        -- Cache ou affiche TitleFrame et ButtonsFrame en fonction de l'état
+        titleFrame.Visible = not minimizedState
+        buttonsFrame.Visible = not minimizedState
+    end)
+end)
+
+---------------------------------------
+-- Effet Matrix – création de lignes de code animées
+
+local matrixLetters = {"0", "1"}  -- on peut ajouter d'autres caractères si désiré
+
+-- Fonction pour générer une chaîne aléatoire de longueur aléatoire
+local function generateRandomLine()
+    local len = math.random(8, 20)
+    local str = ""
+    for i = 1, len do
+        str = str .. matrixLetters[math.random(1, #matrixLetters)]
+    end
+    return str
+end
+
+-- Container pour les lignes Matrix (au sein de matrixFrame)
+local matrixContainer = Instance.new("Frame", matrixFrame)
+matrixContainer.Name = "MatrixContainer"
+matrixContainer.Size = UDim2.new(1,0,1,0)
+matrixContainer.BackgroundTransparency = 1
+matrixContainer.ClipsDescendants = true
+matrixContainer.ZIndex = 0
+
+-- Fonction qui crée et anime une "ligne" Matrix
+local function createMatrixLine()
+    local line = Instance.new("TextLabel", matrixContainer)
+    line.BackgroundTransparency = 1
+    line.Size = UDim2.new(1, 0, 0, 20)
+    line.Text = generateRandomLine()
+    line.Font = Enum.Font.Code
+    line.TextSize = 18
+    line.TextColor3 = Color3.fromRGB(0, 255, 0)
+    line.TextTransparency = 0.3
+    line.ZIndex = 0
+    
+    -- Position de départ en haut, avec une position X aléatoire (optionnel, ici on occupe toute la largeur)
+    line.Position = UDim2.new(0, 0, 0, -20)
+    
+    -- Animation : faire défiler du haut vers le bas du matrixContainer
+    local duration = math.random(4, 7)
+    local tween = TweenService:Create(line, TweenInfo.new(duration, Enum.EasingStyle.Linear), {
+        Position = UDim2.new(0, 0, 1, 0)
+    })
+    tween:Play()
+    tween.Completed:Connect(function()
+        line:Destroy()
+    end)
+end
+
+-- Boucle pour générer des lignes Matrix de façon continue
+spawn(function()
+    while true do
+        createMatrixLine()
+        wait(0.2)  -- intervalle entre chaque ligne (ajuster pour l'intensité de l'effet)
+    end
+end)
