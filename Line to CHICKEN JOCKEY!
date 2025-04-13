@@ -1,5 +1,3 @@
-
--- Création du ScreenGui
 local gui = Instance.new("ScreenGui", game.CoreGui)
 gui.Name = "LineToChickenJockeyHub"
 gui.ResetOnSpawn = false
