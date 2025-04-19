@@ -182,7 +182,7 @@ equipButton.TextSize = 14
 equipButton.Parent = leftPanel
 
 equipButton.MouseButton1Click:Connect(function()
-    loadstring(game:HttpGet(""))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Slap-battle/Equip%20golden"))()
 end)
 -- Cadre "General ability" dans le panel droit
 local abilityFrame = Instance.new("Frame")
