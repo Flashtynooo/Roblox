@@ -169,7 +169,7 @@ equipButton.Parent = leftPanel
 
 equipButton.MouseButton1Click:Connect(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Slap-battle/Eggler%20equip"))()
-end)
+
 -- Ajouter le bouton "Equip" qui charge un script depuis l'URL
 local equipButton = Instance.new("TextButton")
 equipButton.Size = UDim2.new(1, 0, 0, 40)
@@ -184,6 +184,7 @@ equipButton.Parent = leftPanel
 equipButton.MouseButton1Click:Connect(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Slap-battle/Equip%20golden"))()
 end)
+
 -- Cadre "General ability" dans le panel droit
 local abilityFrame = Instance.new("Frame")
 abilityFrame.Size = UDim2.new(1, 0, 0, 40)
