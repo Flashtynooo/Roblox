@@ -1,0 +1,33 @@
+-- Fonction pour téléporter le joueur à une position donnée
+local function teleportToPosition(position)
+    game.Players.LocalPlayer.Character:MoveTo(position)
+end
+
+-- Fonction pour cliquer sur Golden et effectuer la téléportation
+local function clickGoldenAndTeleport()
+    -- Téléporte d'abord le joueur à la position -653, 320, 16
+    teleportToPosition(Vector3.new(-653, 320, 16))
+    
+    -- Attendre un peu pour s'assurer que le joueur a le temps de se téléporter
+    task.wait(1)
+
+    -- Recherche du modèle Golden dans workspace
+    for _, obj in pairs(workspace:GetDescendants()) do
+        -- Vérifie si l'objet est un ClickDetector et appartient à Golden
+        if obj:IsA("ClickDetector") and obj.Parent and obj.Parent.Name == "Golden" then
+            -- Clique 3 fois sur le ClickDetector
+            for i = 1, 3 do
+                fireclickdetector(obj)
+                task.wait(0.2)  -- Pause entre les clics
+            end
+            
+            -- Après les clics, téléporte le joueur à la position -901, 328, -2
+            teleportToPosition(Vector3.new(-901, 328, -2))
+            return true  -- Si le clic est effectué et la téléportation a eu lieu
+        end
+    end
+    return false  -- Si aucun ClickDetector n'est trouvé sous Golden
+end
+
+-- Exécuter la fonction
+clickGoldenAndTeleport()
