@@ -70,7 +70,7 @@ leftPanel.Parent = centerFrame
 local rightPanel = Instance.new("Frame")
 rightPanel.Size = UDim2.new(0, 100, 1, 0)
 rightPanel.Position = UDim2.new(1, 0, 0, 0)
-rightPanel.BackgroundColor3 = Color3.fromRGB(255, 170,70)
+rightPanel.BackgroundColor3 = Color3.fromRGB(255, 170, 70)
 rightPanel.Visible = false
 rightPanel.Parent = centerFrame
 
@@ -102,7 +102,7 @@ egglerEButton.MouseButton1Click:Connect(function()
     game:GetService("ReplicatedStorage"):WaitForChild("GeneralAbility"):FireServer()
 end)
 
--- Ajouter Eggler E dans le panel central
+-- Ajouter Golden E dans le panel central
 local goldenEButton = Instance.new("TextButton")
 goldenEButton.Size = UDim2.new(1, 0, 0, 40)
 goldenEButton.Position = UDim2.new(0, 0, 0, 80) -- Position ajustée dans le panel central
@@ -114,13 +114,13 @@ goldenEButton.TextSize = 14
 goldenEButton.Parent = centerFrame  -- Panel central
 
 goldenEButton.MouseButton1Click:Connect(function()
-    -- Action pour Eggler E
-   local args = {
-    [1] = true,
-    [2] = BrickColor.new(194)
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("Goldify"):FireServer(unpack(args))
+    -- Action pour Golden E
+    local args = {
+        [1] = true,
+        [2] = BrickColor.new(194)
+    }
+    game:GetService("ReplicatedStorage"):WaitForChild("Goldify"):FireServer(unpack(args))
+end)
 
 -- Ajouter Eggler R dans le panel droit
 local egglerRButton = Instance.new("TextButton")
@@ -156,7 +156,7 @@ equipGloveLabel.Font = Enum.Font.GothamBold
 equipGloveLabel.TextSize = 14
 equipGloveLabel.Parent = equipGloveFrame
 
--- Ajouter le bouton "Equip" qui charge un script depuis l'URL
+-- Ajouter le premier bouton "Equip"
 local equipButton = Instance.new("TextButton")
 equipButton.Size = UDim2.new(1, 0, 0, 40)
 equipButton.Position = UDim2.new(0, 0, 0, 40)
@@ -169,19 +169,20 @@ equipButton.Parent = leftPanel
 
 equipButton.MouseButton1Click:Connect(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Slap-battle/Eggler%20equip"))()
+end)
 
--- Ajouter le bouton "Equip" qui charge un script depuis l'URL
-local equipButton = Instance.new("TextButton")
-equipButton.Size = UDim2.new(1, 0, 0, 40)
-equipButton.Position = UDim2.new(0, 0, 0, 80)
-equipButton.Text = "Equip"
-equipButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-equipButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-equipButton.Font = Enum.Font.GothamBold
-equipButton.TextSize = 14
-equipButton.Parent = leftPanel
+-- Ajouter le second bouton "Equip" pour Golden dans le panel gauche
+local equipButtonGolden = Instance.new("TextButton")
+equipButtonGolden.Size = UDim2.new(1, 0, 0, 40)
+equipButtonGolden.Position = UDim2.new(0, 0, 0, 80)
+equipButtonGolden.Text = "Equip Golden"
+equipButtonGolden.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+equipButtonGolden.TextColor3 = Color3.fromRGB(255, 255, 255)
+equipButtonGolden.Font = Enum.Font.GothamBold
+equipButtonGolden.TextSize = 14
+equipButtonGolden.Parent = leftPanel
 
-equipButton.MouseButton1Click:Connect(function()
+equipButtonGolden.MouseButton1Click:Connect(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Slap-battle/Equip%20golden"))()
 end)
 
