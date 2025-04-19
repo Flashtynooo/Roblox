@@ -91,7 +91,7 @@ local egglerEButton = Instance.new("TextButton")
 egglerEButton.Size = UDim2.new(1, 0, 0, 40)
 egglerEButton.Position = UDim2.new(0, 0, 0, 40) -- Position ajustée dans le panel central
 egglerEButton.Text = "Eggler E"
-egglerEButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+egglerEButton.BackgroundColor3 = Color3.fromRGB(100, 150, 200)
 egglerEButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 egglerEButton.Font = Enum.Font.GothamBold
 egglerEButton.TextSize = 14
@@ -107,7 +107,7 @@ local goldenEButton = Instance.new("TextButton")
 goldenEButton.Size = UDim2.new(1, 0, 0, 40)
 goldenEButton.Position = UDim2.new(0, 0, 0, 80) -- Position ajustée dans le panel central
 goldenEButton.Text = "Golden E"
-goldenEButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+goldenEButton.BackgroundColor3 = Color3.fromRGB(100, 150, 200)
 goldenEButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 goldenEButton.Font = Enum.Font.GothamBold
 goldenEButton.TextSize = 14
@@ -127,7 +127,7 @@ local egglerRButton = Instance.new("TextButton")
 egglerRButton.Size = UDim2.new(1, 0, 0, 40)
 egglerRButton.Position = UDim2.new(0, 0, 0, 40) -- Position ajustée dans le panel droit
 egglerRButton.Text = "Eggler R"
-egglerRButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+egglerRButton.BackgroundColor3 = Color3.fromRGB(100,150, 200)
 egglerRButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 egglerRButton.Font = Enum.Font.GothamBold
 egglerRButton.TextSize = 14
@@ -160,8 +160,8 @@ equipGloveLabel.Parent = equipGloveFrame
 local equipButton = Instance.new("TextButton")
 equipButton.Size = UDim2.new(1, 0, 0, 40)
 equipButton.Position = UDim2.new(0, 0, 0, 40)
-equipButton.Text = "Equip"
-equipButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+equipButton.Text = "Equip Eggler"
+equipButton.BackgroundColor3 = Color3.fromRGB(100,150, 200)
 equipButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 equipButton.Font = Enum.Font.GothamBold
 equipButton.TextSize = 14
@@ -171,12 +171,12 @@ equipButton.MouseButton1Click:Connect(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Slap-battle/Eggler%20equip"))()
 end)
 
--- Ajouter le second bouton "Equip" pour Golden dans le panel gauche
+-- Ajouter le second bouton "Equip Eggler" pour Golden dans le panel gauche
 local equipButtonGolden = Instance.new("TextButton")
 equipButtonGolden.Size = UDim2.new(1, 0, 0, 40)
 equipButtonGolden.Position = UDim2.new(0, 0, 0, 80)
 equipButtonGolden.Text = "Equip Golden"
-equipButtonGolden.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+equipButtonGolden.BackgroundColor3 = Color3.fromRGB(100, 150, 200)
 equipButtonGolden.TextColor3 = Color3.fromRGB(255, 255, 255)
 equipButtonGolden.Font = Enum.Font.GothamBold
 equipButtonGolden.TextSize = 14
