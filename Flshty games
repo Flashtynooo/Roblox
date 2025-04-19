@@ -116,6 +116,22 @@ chickenJockeyBtn.ZIndex = 3
 chickenJockeyBtn.MouseButton1Click:Connect(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flashtynooo-hub/Line%20to%20CHICKEN%20JOCKEY!"))()
 end)
+-- Nouveau bouton SLAP BATTLE
+local slpBtn = Instance.new("TextButton", buttonsFrame)
+slpBtn.Name = "slp"
+slpBtn.Size = UDim2.new(0.8, 0, 0, 40)
+slpBtn.Position = UDim2.new(0.1, 0, 0, 90)  -- Positionné juste en dessous du bouton Brookhaven
+slpBtn.Text = "Slap Battle"
+slpBtn.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+slpBtn.TextColor3 = Color3.new(0, 0, 0)
+sloBtn.Font = Enum.Font.Code
+slpBtn.TextSize = 20
+slpBtn.ZIndex = 3
+
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Slap-battle/Hub%20slap%20battle"))()
+end)
+
+
 
 -- Bouton Close
 close.MouseButton1Click:Connect(function()
