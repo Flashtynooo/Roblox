@@ -1,0 +1,190 @@
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Créer le ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "SlapBattleHub"
+screenGui.Parent = playerGui
+
+-- Créer la Frame centrale (hub principal)
+local centerFrame = Instance.new("Frame")
+centerFrame.Size = UDim2.new(0, 200, 0, 150)  -- Taille réduite
+centerFrame.Position = UDim2.new(0.5, -100, 0.5, -75)  -- Centré
+centerFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+centerFrame.BorderSizePixel = 0
+centerFrame.Parent = screenGui
+centerFrame.Active = true
+centerFrame.Draggable = true
+
+-- Titre principal
+local titleLabel = Instance.new("TextLabel")
+titleLabel.Size = UDim2.new(1, 0, 0, 40)
+titleLabel.Position = UDim2.new(0, 0, 0, 0)
+titleLabel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+titleLabel.Text = "Slap Battle"
+titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+titleLabel.Font = Enum.Font.GothamBold
+titleLabel.TextSize = 14
+titleLabel.Parent = centerFrame
+
+-- Cadre pour les flèches
+local arrowFrame = Instance.new("Frame")
+arrowFrame.Size = UDim2.new(1, 0, 0, 40)
+arrowFrame.Position = UDim2.new(0, 0, 0, 40)
+arrowFrame.BackgroundTransparency = 1
+arrowFrame.Parent = centerFrame
+
+-- Flèche gauche
+local leftArrow = Instance.new("TextButton")
+leftArrow.Size = UDim2.new(0, 20, 2.7, 0)
+leftArrow.Position = UDim2.new(0, 0, 0, 0)
+leftArrow.Text = "<"
+leftArrow.BackgroundColor3 = Color3.fromRGB(100, 70, 180)
+leftArrow.TextColor3 = Color3.fromRGB(255, 255, 255)
+leftArrow.Font = Enum.Font.GothamBold
+leftArrow.TextSize = 14
+leftArrow.Parent = arrowFrame
+leftArrow.ZIndex = 2
+
+-- Flèche droite
+local rightArrow = Instance.new("TextButton")
+rightArrow.Size = UDim2.new(0, 20, 2.7, 0)
+rightArrow.Position = UDim2.new(1, -20, 0, 0)
+rightArrow.Text = ">"
+rightArrow.BackgroundColor3 = Color3.fromRGB(100, 70, 180)
+rightArrow.TextColor3 = Color3.fromRGB(255, 255, 255)
+rightArrow.Font = Enum.Font.GothamBold
+rightArrow.TextSize = 14
+rightArrow.Parent = arrowFrame
+rightArrow.ZIndex = 2
+
+-- Panel gauche
+local leftPanel = Instance.new("Frame")
+leftPanel.Size = UDim2.new(0, 100, 1, 0)
+leftPanel.Position = UDim2.new(0, -100, 0, 0)
+leftPanel.BackgroundColor3 = Color3.fromRGB(255, 170, 70)
+leftPanel.Visible = false
+leftPanel.Parent = centerFrame
+
+-- Panel droit
+local rightPanel = Instance.new("Frame")
+rightPanel.Size = UDim2.new(0, 100, 1, 0)
+rightPanel.Position = UDim2.new(1, 0, 0, 0)
+rightPanel.BackgroundColor3 = Color3.fromRGB(255, 170,70)
+rightPanel.Visible = false
+rightPanel.Parent = centerFrame
+
+-- Fonction flèche gauche
+leftArrow.MouseButton1Click:Connect(function()
+    leftPanel.Visible = not leftPanel.Visible
+    leftArrow.Text = leftPanel.Visible and ">" or "<"
+end)
+
+-- Fonction flèche droite
+rightArrow.MouseButton1Click:Connect(function()
+    rightPanel.Visible = not rightPanel.Visible
+    rightArrow.Text = rightPanel.Visible and "<" or ">"
+end)
+
+-- Ajouter Eggler E dans le panel central
+local egglerEButton = Instance.new("TextButton")
+egglerEButton.Size = UDim2.new(1, 0, 0, 40)
+egglerEButton.Position = UDim2.new(0, 0, 0, 40) -- Position ajustée dans le panel central
+egglerEButton.Text = "Eggler E"
+egglerEButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+egglerEButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+egglerEButton.Font = Enum.Font.GothamBold
+egglerEButton.TextSize = 14
+egglerEButton.Parent = centerFrame  -- Panel central
+
+egglerEButton.MouseButton1Click:Connect(function()
+    -- Action pour Eggler E
+    game:GetService("ReplicatedStorage"):WaitForChild("GeneralAbility"):FireServer()
+end)
+
+-- Ajouter Eggler E dans le panel central
+local goldenEButton = Instance.new("TextButton")
+goldenEButton.Size = UDim2.new(1, 0, 0, 40)
+goldenEButton.Position = UDim2.new(0, 0, 0, 80) -- Position ajustée dans le panel central
+goldenEButton.Text = "Golden E"
+goldenEButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+goldenEButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+goldenEButton.Font = Enum.Font.GothamBold
+goldenEButton.TextSize = 14
+goldenEButton.Parent = centerFrame  -- Panel central
+
+goldenEButton.MouseButton1Click:Connect(function()
+    -- Action pour Eggler E
+   local args = {
+    [1] = true,
+    [2] = BrickColor.new(194)
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Goldify"):FireServer(unpack(args))
+
+-- Ajouter Eggler R dans le panel droit
+local egglerRButton = Instance.new("TextButton")
+egglerRButton.Size = UDim2.new(1, 0, 0, 40)
+egglerRButton.Position = UDim2.new(0, 0, 0, 40) -- Position ajustée dans le panel droit
+egglerRButton.Text = "Eggler R"
+egglerRButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+egglerRButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+egglerRButton.Font = Enum.Font.GothamBold
+egglerRButton.TextSize = 14
+egglerRButton.Parent = rightPanel  -- Panel droit
+
+egglerRButton.MouseButton1Click:Connect(function()
+    -- Action pour Eggler R
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("EgglerRAbility"):FireServer()
+end)
+
+-- Cadre "Equip glove" dans le panel gauche
+local equipGloveFrame = Instance.new("Frame")
+equipGloveFrame.Size = UDim2.new(1, 0, 0, 40)
+equipGloveFrame.Position = UDim2.new(0, 0, 0, 0)
+equipGloveFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+equipGloveFrame.BorderSizePixel = 0
+equipGloveFrame.Parent = leftPanel
+
+local equipGloveLabel = Instance.new("TextLabel")
+equipGloveLabel.Size = UDim2.new(1, 0, 1, 0)
+equipGloveLabel.Position = UDim2.new(0, 0, 0, 0)
+equipGloveLabel.BackgroundTransparency = 1
+equipGloveLabel.Text = "Equip glove"
+equipGloveLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+equipGloveLabel.Font = Enum.Font.GothamBold
+equipGloveLabel.TextSize = 14
+equipGloveLabel.Parent = equipGloveFrame
+
+-- Ajouter le bouton "Equip" qui charge un script depuis l'URL
+local equipButton = Instance.new("TextButton")
+equipButton.Size = UDim2.new(1, 0, 0, 40)
+equipButton.Position = UDim2.new(0, 0, 0, 40)
+equipButton.Text = "Equip"
+equipButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+equipButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+equipButton.Font = Enum.Font.GothamBold
+equipButton.TextSize = 14
+equipButton.Parent = leftPanel
+
+equipButton.MouseButton1Click:Connect(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Slap-battle/Eggler%20equip"))()
+end)
+
+-- Cadre "General ability" dans le panel droit
+local abilityFrame = Instance.new("Frame")
+abilityFrame.Size = UDim2.new(1, 0, 0, 40)
+abilityFrame.Position = UDim2.new(0, 0, 0, 0)
+abilityFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+abilityFrame.BorderSizePixel = 0
+abilityFrame.Parent = rightPanel
+
+local abilityLabel = Instance.new("TextLabel")
+abilityLabel.Size = UDim2.new(1, 0, 1, 0)
+abilityLabel.Position = UDim2.new(0, 0, 0, 0)
+abilityLabel.BackgroundTransparency = 1
+abilityLabel.Text = "2nd ability"
+abilityLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+abilityLabel.Font = Enum.Font.GothamBold
+abilityLabel.TextSize = 14
+abilityLabel.Parent = abilityFrame
