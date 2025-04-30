@@ -1,0 +1,102 @@
+local EXPECTED_PLACE_ID = 81319028163805
+
+if game.PlaceId ~= EXPECTED_PLACE_ID then
+    local msg = Instance.new("TextLabel")
+    msg.Size = UDim2.new(1, 0, 0, 30)
+    msg.Position = UDim2.new(0, 0, 1, -30)
+    msg.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    msg.BackgroundTransparency = 0.2
+    msg.TextColor3 = Color3.new(1, 1, 1)
+    msg.Font = Enum.Font.SourceSansBold
+    msg.TextSize = 18
+    msg.Text = "Ce n'est pas le bon jeu."
+    msg.Parent = game:GetService("CoreGui")
+    return
+end
+
+local gameName = "Auto Sell"
+pcall(function()
+    gameName = game:GetService("MarketplaceService"):GetProductInfo(EXPECTED_PLACE_ID).Name
+end)
+
+local CoreGui = game:GetService("CoreGui")
+local UIS = game:GetService("UserInputService")
+
+local gui = Instance.new("ScreenGui", CoreGui)
+gui.Name = "AutoSellHub"
+gui.ResetOnSpawn = false
+
+local frame = Instance.new("Frame", gui)
+frame.Size = UDim2.new(0, 170, 0, 110)
+frame.Position = UDim2.new(0, 10, 0, 10)
+frame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+frame.BorderSizePixel = 0
+frame.Active = true
+frame.Draggable = true -- Compatible avec mobile (touch) depuis updates
+
+-- Titre
+local title = Instance.new("TextLabel", frame)
+title.Size = UDim2.new(1, 0, 0, 25)
+title.BackgroundTransparency = 1
+title.Text = gameName
+title.TextColor3 = Color3.new(1, 1, 1)
+title.Font = Enum.Font.SourceSansBold
+title.TextSize = 16
+
+-- Minimize button
+local minimize = Instance.new("TextButton", frame)
+minimize.Size = UDim2.new(0, 20, 0, 20)
+minimize.Position = UDim2.new(1, -25, 0, 2)
+minimize.Text = "-"
+minimize.TextColor3 = Color3.new(1,1,1)
+minimize.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+minimize.BorderSizePixel = 0
+minimize.Font = Enum.Font.SourceSans
+minimize.TextSize = 16
+
+-- Auto-sell toggle
+local toggle = Instance.new("TextButton", frame)
+toggle.Size = UDim2.new(0, 150, 0, 30)
+toggle.Position = UDim2.new(0, 10, 0, 40)
+toggle.Text = "Auto-Sell: OFF"
+toggle.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+toggle.TextColor3 = Color3.new(1, 1, 1)
+toggle.Font = Enum.Font.SourceSansBold
+toggle.TextSize = 16
+toggle.BorderSizePixel = 0
+
+local isSelling = false
+local sellLoop
+
+toggle.MouseButton1Click:Connect(function()
+    isSelling = not isSelling
+    toggle.Text = isSelling and "Auto-Sell: ON" or "Auto-Sell: OFF"
+    toggle.BackgroundColor3 = isSelling and Color3.fromRGB(0, 200, 0) or Color3.fromRGB(50, 50, 50)
+
+    if isSelling then
+        sellLoop = coroutine.create(function()
+            while isSelling do
+                local args = {
+                    [1] = 6,
+                    [2] = 1
+                }
+                pcall(function()
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SellItem"):FireServer(unpack(args))
+                end)
+                wait(1)
+            end
+        end)
+        coroutine.resume(sellLoop)
+    end
+end)
+
+local minimized = false
+minimize.MouseButton1Click:Connect(function()
+    minimized = not minimized
+    for _, child in ipairs(frame:GetChildren()) do
+        if child ~= title and child ~= minimize then
+            child.Visible = not minimized
+        end
+    end
+    frame.Size = minimized and UDim2.new(0, 170, 0, 25) or UDim2.new(0, 170, 0, 110)
+end)
