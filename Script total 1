@@ -148,3 +148,4 @@ _G.AddHubButton("Mining Script", "https://raw.githubusercontent.com/Flashtynooo/
 toggleImage.MouseButton1Click:Connect(function()
 	hubFrame.Visible = not hubFrame.Visible
 end)
+_G.AddHubButton("Line to CHICKEN JOCKEY!", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flashtynooo-hub/Line%20to%20CHICKEN%20JOCKEY!")
