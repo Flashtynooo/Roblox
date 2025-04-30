@@ -1,0 +1,150 @@
+-- SERVICES
+local CoreGui = game:GetService("CoreGui")
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+-- GUI PRINCIPAL
+local hubGui = Instance.new("ScreenGui")
+hubGui.Name = "GameHub"
+hubGui.ResetOnSpawn = false
+hubGui.Parent = CoreGui
+
+-- IMAGE CLIQUABLE (bouton pour afficher/cacher le hub)
+local toggleImage = Instance.new("ImageButton")
+toggleImage.Size = UDim2.new(0, 60, 0, 60)
+toggleImage.Position = UDim2.new(0, 20, 0.5, -30)
+toggleImage.BackgroundTransparency = 1
+toggleImage.Image = "rbxthumb://type=Asset&id=76126150119912&w=420&h=420"
+toggleImage.Parent = hubGui
+toggleImage.Draggable = true
+toggleImage.Active = true
+
+-- FRAME PRINCIPAL (hub)
+local hubFrame = Instance.new("Frame")
+hubFrame.Size = UDim2.new(0, 350, 0, 250)
+hubFrame.Position = UDim2.new(0.5, -175, 0.5, -125)
+hubFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+hubFrame.BackgroundTransparency = 0.4
+hubFrame.BorderSizePixel = 0
+hubFrame.Active = true
+hubFrame.Draggable = true
+hubFrame.Visible = false -- Masqué au début
+hubFrame.Parent = hubGui
+
+-- TITRE
+local titleLabel = Instance.new("TextLabel")
+titleLabel.Size = UDim2.new(1, -80, 0, 40)
+titleLabel.Position = UDim2.new(0, 0, 0, 0)
+titleLabel.BackgroundTransparency = 1
+titleLabel.Text = "                     game-hub :)☠️"
+titleLabel.TextColor3 = Color3.new(1, 1, 1)
+titleLabel.Font = Enum.Font.SourceSansBold
+titleLabel.TextSize = 24
+titleLabel.TextXAlignment = Enum.TextXAlignment.Left
+titleLabel.Parent = hubFrame
+
+-- FRAME BOUTONS EN HAUT A DROITE
+local buttonsFrame = Instance.new("Frame")
+buttonsFrame.Size = UDim2.new(0, 80, 0, 40)
+buttonsFrame.Position = UDim2.new(1, -80, 0, 0)
+buttonsFrame.BackgroundTransparency = 1
+buttonsFrame.Parent = hubFrame
+
+-- BOUTON MINIMIZE / RESIZE
+local minimizeResizeButton = Instance.new("TextButton")
+minimizeResizeButton.Size = UDim2.new(0, 40, 0, 40)
+minimizeResizeButton.Position = UDim2.new(0, 0, 0, 0)
+minimizeResizeButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+minimizeResizeButton.Text = "_"
+minimizeResizeButton.TextColor3 = Color3.new(1, 1, 1)
+minimizeResizeButton.Font = Enum.Font.SourceSans
+minimizeResizeButton.TextSize = 24
+minimizeResizeButton.BorderSizePixel = 0
+minimizeResizeButton.Parent = buttonsFrame
+
+-- BOUTON DESTROY
+local destroyButton = Instance.new("TextButton")
+destroyButton.Size = UDim2.new(0, 40, 0, 40)
+destroyButton.Position = UDim2.new(0, 40, 0, 0)
+destroyButton.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+destroyButton.Text = "X"
+destroyButton.TextColor3 = Color3.new(1, 1, 1)
+destroyButton.Font = Enum.Font.SourceSans
+destroyButton.TextSize = 24
+destroyButton.BorderSizePixel = 0
+destroyButton.Parent = buttonsFrame
+
+-- MINIMIZE
+local isMinimized = false
+local originalSize = hubFrame.Size
+
+minimizeResizeButton.MouseButton1Click:Connect(function()
+	isMinimized = not isMinimized
+	if isMinimized then
+		hubFrame.Size = UDim2.new(0, 350, 0, 40)
+		for _, child in ipairs(hubFrame:GetChildren()) do
+			if child ~= titleLabel and child ~= buttonsFrame then
+				child.Visible = false
+			end
+		end
+		minimizeResizeButton.Text = "+"
+	else
+		hubFrame.Size = originalSize
+		for _, child in ipairs(hubFrame:GetChildren()) do
+			if child ~= titleLabel and child ~= buttonsFrame then
+				child.Visible = true
+			end
+		end
+		minimizeResizeButton.Text = "_"
+	end
+end)
+
+-- DESTROY
+destroyButton.MouseButton1Click:Connect(function()
+	hubGui:Destroy()
+end)
+
+-- SCROLLINGFRAME POUR BOUTONS
+local scrollFrame = Instance.new("ScrollingFrame")
+scrollFrame.Size = UDim2.new(1, 0, 0, 210)
+scrollFrame.Position = UDim2.new(0, 0, 0, 40)
+scrollFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+scrollFrame.BackgroundTransparency = 0.5
+scrollFrame.ScrollBarThickness = 8
+scrollFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
+scrollFrame.ScrollingEnabled = true
+scrollFrame.Parent = hubFrame
+
+-- LAYOUT POUR ORGANISATION
+local layout = Instance.new("UIListLayout", scrollFrame)
+layout.Padding = UDim.new(0, 4)
+layout.SortOrder = Enum.SortOrder.LayoutOrder
+
+-- AJOUT DYNAMIQUE DE BOUTON
+_G.AddHubButton = function(buttonId, githubLink)
+	local button = Instance.new("TextButton")
+	button.Size = UDim2.new(1, -10, 0, 30)
+	button.BackgroundColor3 = Color3.fromRGB(70, 130, 180)
+	button.Text = tostring(buttonId)
+	button.Font = Enum.Font.SourceSans
+	button.TextColor3 = Color3.new(1, 1, 1)
+	button.TextSize = 18
+	button.BorderSizePixel = 0
+	button.Parent = scrollFrame
+
+	button.MouseButton1Click:Connect(function()
+		pcall(function()
+			loadstring(game:HttpGet(githubLink))()
+		end)
+	end)
+
+	scrollFrame.CanvasSize = UDim2.new(0, 0, 0, layout.AbsoluteContentSize.Y + 10)
+end
+
+-- Exemple :
+_G.AddHubButton("Mining Script", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Mining%20world")
+
+-- AFFICHER/MASQUER HUB AU CLIC SUR L'IMAGE
+toggleImage.MouseButton1Click:Connect(function()
+	hubFrame.Visible = not hubFrame.Visible
+end)
