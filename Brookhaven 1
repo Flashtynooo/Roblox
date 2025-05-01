@@ -1,0 +1,191 @@
+-- UI créé par flashtynooo, version GAME HUB :) BROOKHAVEN
+
+local gui = Instance.new("ScreenGui", game.CoreGui)
+gui.Name = "GameHubBrookhaven"
+gui.ResetOnSpawn = false
+
+local main = Instance.new("Frame", gui)
+main.Size = UDim2.new(0, 500, 0, 300)
+main.Position = UDim2.new(0.5, -250, 0.5, -150)
+main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+main.BackgroundTransparency = 0.2
+main.BorderSizePixel = 0
+main.Active = true
+main.Draggable = true
+
+-- Titre + barre top
+local topBar = Instance.new("Frame", main)
+topBar.Size = UDim2.new(1, 0, 0, 35)
+topBar.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+topBar.BorderSizePixel = 0
+
+local title = Instance.new("TextLabel", topBar)
+title.Size = UDim2.new(0.6, 0, 1, 0)
+title.Position = UDim2.new(0, 10, 0, 0)
+title.BackgroundTransparency = 1
+title.Text = "GAME HUB :) BROOKHAVEN"
+title.Font = Enum.Font.GothamBold
+title.TextSize = 18
+title.TextColor3 = Color3.new(1, 1, 1)
+title.TextXAlignment = Enum.TextXAlignment.Left
+
+-- Boutons menu haut
+local function createTopButton(name, text, order)
+	local btn = Instance.new("TextButton", topBar)
+	btn.Name = name
+	btn.Size = UDim2.new(0, 100, 0, 30)
+	btn.Position = UDim2.new(1, -110 * order, 0, 2)
+	btn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+	btn.Text = text
+	btn.Font = Enum.Font.Gotham
+	btn.TextSize = 14
+	btn.TextColor3 = Color3.new(1, 1, 1)
+	return btn
+end
+
+local infoBtn = createTopButton("InfoBtn", "ℹ️ Info", 2)
+local musicBtn = createTopButton("MusicBtn", "🎵 Music", 1)
+
+-- Bouton Resize/Minimize
+local resizeBtn = Instance.new("TextButton", topBar)
+resizeBtn.Name = "ResizeBtn"
+resizeBtn.Size = UDim2.new(0, 40, 0, 30)
+resizeBtn.Position = UDim2.new(1, -40, 0, 2)
+resizeBtn.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+resizeBtn.Text = "−"
+resizeBtn.Font = Enum.Font.Gotham
+resizeBtn.TextSize = 18
+resizeBtn.TextColor3 = Color3.new(1, 1, 1)
+
+-- Contenu (scrolling)
+local content = Instance.new("ScrollingFrame", main)
+content.Size = UDim2.new(1, -20, 1, -40)
+content.Position = UDim2.new(0, 10, 0, 40)
+content.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+content.BorderSizePixel = 0
+content.ScrollBarThickness = 8
+content.CanvasSize = UDim2.new(0, 0, 0, 400)
+content.AutomaticCanvasSize = Enum.AutomaticSize.Y
+
+-- PANNEAUX
+local infoPanel = Instance.new("TextLabel", content)
+infoPanel.Size = UDim2.new(1, -20, 0, 150)
+infoPanel.Position = UDim2.new(0, 10, 0, 10)
+infoPanel.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+infoPanel.TextColor3 = Color3.new(1, 1, 1)
+infoPanel.Font = Enum.Font.Gotham
+infoPanel.TextSize = 14
+infoPanel.TextWrapped = true
+infoPanel.Text = "Welcome to the Game Hub.I just make the music for brookhaven                                                                                        But you need gamepass sorry :3                                                                                    Good test :)☠️                                                                                                                           DØNT FORG£T FLÁSHT¥NŌØÕ N€✓@R D|€ :)☠️"
+infoPanel.Visible = false
+
+local musicPanel = Instance.new("Frame", content)
+musicPanel.Size = UDim2.new(1, -20, 0, 240)
+musicPanel.Position = UDim2.new(0, 10, 0, 10)
+musicPanel.BackgroundColor3 = Color3.fromRGB(50, 50, 80)
+musicPanel.Visible = false
+
+local musicLabel = Instance.new("TextLabel", musicPanel)
+musicLabel.Size = UDim2.new(1, 0, 0, 30)
+musicLabel.Text = "🎧 Music Player"
+musicLabel.TextColor3 = Color3.new(1, 1, 1)
+musicLabel.Font = Enum.Font.GothamBold
+musicLabel.TextSize = 16
+musicLabel.BackgroundTransparency = 1
+
+-- TextBox pour ID manuel
+local musicIdBox = Instance.new("TextBox", musicPanel)
+musicIdBox.Size = UDim2.new(1, -20, 0, 30)
+musicIdBox.Position = UDim2.new(0, 10, 0, 40)
+musicIdBox.PlaceholderText = "Enter music ID"
+musicIdBox.Font = Enum.Font.Gotham
+musicIdBox.TextSize = 14
+musicIdBox.BackgroundColor3 = Color3.fromRGB(80, 80, 120)
+musicIdBox.TextColor3 = Color3.new(1, 1, 1)
+
+-- Bouton play
+local playMusic = Instance.new("TextButton", musicPanel)
+playMusic.Size = UDim2.new(1, -20, 0, 30)
+playMusic.Position = UDim2.new(0, 10, 0, 80)
+playMusic.Text = "▶️ Play Custom Music"
+playMusic.BackgroundColor3 = Color3.fromRGB(70, 120, 70)
+playMusic.Font = Enum.Font.Gotham
+playMusic.TextSize = 14
+playMusic.TextColor3 = Color3.new(1, 1, 1)
+
+playMusic.MouseButton1Click:Connect(function()
+	local id = musicIdBox.Text
+	if id ~= "" then
+		local args1 = { "PickingScooterMusicText", id }
+		local args2 = { "PickingCarMusicText", id }
+		local rs = game:GetService("ReplicatedStorage"):WaitForChild("RE")
+		rs:WaitForChild("1NoMoto1rVehicle1s"):FireServer(unpack(args1))
+		rs:WaitForChild("1Player1sCa1r"):FireServer(unpack(args2))
+	end
+end)
+
+local predefined = {
+    { name = "Doors Ending Theme", id = "103086632976213" },
+    { name = "~Obama Boss Fight~", id = "131902818695416" },
+    { name = "Ritual Phonk Madness", id = "115175275895587" },
+    { name = "Metamorphosis", id = "15689451063" },
+    { name = "H.R --EEYUH!", id = "16190782181" },
+    { name = "~Deja Vu~", id = "16831106636" },
+}
+
+
+for i, mus in ipairs(predefined) do
+	local btn = Instance.new("TextButton", musicPanel)
+	btn.Size = UDim2.new(1, -20, 0, 30)
+	btn.Position = UDim2.new(0, 10, 0, 120 + (i-1)*35)
+	btn.Text = "▶️ " .. mus.name
+	btn.BackgroundColor3 = Color3.fromRGB(90, 90, 150)
+	btn.Font = Enum.Font.Gotham
+	btn.TextSize = 14
+	btn.TextColor3 = Color3.new(1, 1, 1)
+	
+	btn.MouseButton1Click:Connect(function()
+		local id = mus.id
+		local args1 = { "PickingScooterMusicText", id }
+		local args2 = { "PickingCarMusicText", id }
+		local rs = game:GetService("ReplicatedStorage"):WaitForChild("RE")
+		rs:WaitForChild("1NoMoto1rVehicle1s"):FireServer(unpack(args1))
+		rs:WaitForChild("1Player1sCa1r"):FireServer(unpack(args2))
+	end)
+end
+
+-- Navigation : 1 panneau à la fois
+local function showPanel(name)
+	infoPanel.Visible = false
+	musicPanel.Visible = false
+	if name == "Info" then
+		infoPanel.Visible = true
+	elseif name == "Music" then
+		musicPanel.Visible = true
+	end
+end
+
+infoBtn.MouseButton1Click:Connect(function()
+	showPanel("Info")
+end)
+
+musicBtn.MouseButton1Click:Connect(function()
+	showPanel("Music")
+end)
+
+-- Fonction Resize / Minimize
+local isMinimized = false
+
+resizeBtn.MouseButton1Click:Connect(function()
+	if isMinimized then
+		main.Size = UDim2.new(0, 500, 0, 300)
+		content.Size = UDim2.new(1, -20, 1, -40)
+		resizeBtn.Text = "−"
+		isMinimized = false
+	else
+		main.Size = UDim2.new(0, 500, 0, 40)
+		content.Size = UDim2.new(1, -20, 0, 0)
+		resizeBtn.Text = "+"
+		isMinimized = true
+	end
+end)
