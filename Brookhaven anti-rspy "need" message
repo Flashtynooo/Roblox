@@ -1,0 +1,37 @@
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
+
+local args = {
+    "Flashtynooo never die :)☠️"
+}
+
+-- Création d’un BindableEvent pour recevoir le signal
+local stopSignal = Instance.new("BindableEvent")
+stopSignal.Name = "StopLoopSignal"
+stopSignal.Parent = ReplicatedStorage
+
+-- Variable de contrôle
+local running = true
+
+-- Quand la textbox enverra "Need", le loop s’arrête
+stopSignal.Event:Connect(function(message)
+    if message == "Need" then
+        running = false
+    end
+end)
+
+-- Boucle rapide (0 cooldown)
+while running do
+    -- Exécution des appels
+    ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("ChangeCharacterBody"):InvokeServer(unpack(args))
+    ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("Wear"):InvokeServer(unpack(args))
+    ReplicatedStorage:WaitForChild("RE"):WaitForChild("1NoMoto1rVehicle1s"):FireServer(unpack(args))
+    ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("TelemetryClientInteraction"):FireServer(unpack(args))
+    ReplicatedStorage:WaitForChild("RE"):WaitForChild("1RPNam1eTex1t"):FireServer(unpack(args))
+    ReplicatedStorage:WaitForChild("RE"):WaitForChild("1RPNam1eColo1r"):FireServer(unpack(args))
+    ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("IncrementBodySize"):FireServer(unpack(args))
+    ReplicatedStorage:WaitForChild("RE"):WaitForChild("1Player1sCa1r"):FireServer(unpack(args))
+
+    -- Boucle sans pause, mais attends la frame suivante (ultra rapide, mais sûr)
+    RunService.Heartbeat:Wait()
+end
