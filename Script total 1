@@ -149,4 +149,4 @@ toggleImage.MouseButton1Click:Connect(function()
 	hubFrame.Visible = not hubFrame.Visible
 end)
 _G.AddHubButton("Line to CHICKEN JOCKEY!", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flashtynooo-hub/Line%20to%20CHICKEN%20JOCKEY!")
-_G.AddHubButton("SOON... BROOKHAVEN", "")
+_G.AddHubButton("BROOKHAVEN", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Brookhaven%20total")
