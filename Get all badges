@@ -1,0 +1,95 @@
+-- Services
+local Players = game:GetService("Players")
+local BadgeService = game:GetService("BadgeService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local LocalizationService = game:GetService("LocalizationService")
+
+-- Joueur
+local player = Players.LocalPlayer
+
+-- ID du badge à vérifier
+local badgeId = 575670218583490
+
+-- Traductions (selon code de langue ISO 639-1)
+local translations = {
+    ["fr"] = "tu as déjà tous les badges -_-",
+    ["es"] = "ya tienes todas las insignias -_-",
+    ["de"] = "du hast bereits alle Abzeichen -_-",
+    ["pt"] = "você já tem todos os emblemas -_-",
+    ["it"] = "hai già tutti i badge -_-",
+    ["ru"] = "у тебя уже есть все значки -_-",
+    ["ja"] = "すでにすべてのバッジを持っています -_-",
+    ["ko"] = "이미 모든 배지를 가지고 있습니다 -_-",
+    ["zh"] = "你已经拥有所有徽章了 -_-",
+    ["en"] = "you have already all badge -_-",
+}
+
+-- Fonction pour détecter la langue
+local function getPlayerLanguage()
+    local localeId = LocalizationService.RobloxLocaleId
+    return string.sub(localeId, 1, 2) -- Ex: "fr-FR" → "fr"
+end
+
+-- Fonction pour afficher le message stylé
+local function showMessage(text)
+    local gui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
+    gui.Name = "BadgeMessage"
+
+    local label = Instance.new("TextLabel", gui)
+    label.Size = UDim2.new(0.6, 0, 0.2, 0)
+    label.Position = UDim2.new(0.5, 0, 0.4, 0)
+    label.AnchorPoint = Vector2.new(0.5, 0.5)
+    label.BackgroundTransparency = 1
+    label.Text = text
+    label.TextColor3 = Color3.fromRGB(255, 0, 0)
+    label.TextScaled = true
+    label.Font = Enum.Font.GothamBold
+
+    -- Fade out progressif
+    for i = 1, 30 do
+        label.TextTransparency = i / 30
+        task.wait(0.1)
+    end
+    gui:Destroy()
+end
+
+-- Script principal
+coroutine.wrap(function()
+    local success, hasBadge = pcall(function()
+        return BadgeService:UserHasBadgeAsync(player.UserId, badgeId)
+    end)
+
+    if success and hasBadge then
+        -- Langue détectée
+        local lang = getPlayerLanguage()
+        local text = translations[lang] or translations["en"]
+
+        -- Jouer le son en local
+        local sound = Instance.new("Sound")
+        sound.SoundId = "rbxassetid://6768022063"
+        sound.Volume = 10
+        sound.Looped = false
+        sound.Parent = workspace
+        sound:Play()
+
+        -- Afficher le message traduit
+        showMessage(text)
+    else
+        -- Partie 1 : Sauvegarde du monde actuel et TP vers monde 10
+        local currentWorld = player:WaitForChild("CurrentWorld").Value
+        getgenv().SavedWorld = currentWorld
+
+        local args = { 10 }
+        ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("WorldTeleportEvent"):FireServer(unpack(args))
+
+        -- Partie 2 : Retour vers le monde initial après délai
+        task.delay(0.5, function()
+            if getgenv().SavedWorld then
+                local returnArgs = { getgenv().SavedWorld }
+                ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("WorldTeleportEvent"):FireServer(unpack(returnArgs))
+            else
+                warn("Aucun monde sauvegardé.")
+            end
+        end)
+    end
+end)()
