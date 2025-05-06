@@ -1,3 +1,9 @@
+game.StarterGui:SetCore("SendNotification", {
+    Title = "Hub Loaded",
+    Text = "Created by @flashtynooo",
+    Duration = 4
+})
+
 -- SERVICES
 local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
@@ -151,3 +157,4 @@ end)
 _G.AddHubButton("Line to CHICKEN JOCKEY!", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flashtynooo-hub/Line%20to%20CHICKEN%20JOCKEY!")
 _G.AddHubButton("BROOKHAVEN", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Brookhaven%20total")
 _G.AddHubButton("oMega Obby 🌟 725 Stages! ", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/oMega%20Obby%20%F0%9F%8C%9F%20725%20Stages!")
+_G.AddHubButton("⛏️ Dig to Earth's CORE!", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/%E2%9B%8F%EF%B8%8F%20Dig%20to%20Earth's%20CORE!")
