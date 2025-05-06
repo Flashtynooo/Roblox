@@ -1,0 +1,105 @@
+
+local args = {
+	"Iron"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("BuyPickaxeEvent"):FireServer(unpack(args))
+local args = {
+	"Stone"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("BuyPickaxeEvent"):FireServer(unpack(args))
+local args = {
+	"Gold"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("BuyPickaxeEvent"):FireServer(unpack(args))
+local args = {
+	"Diamond"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("BuyPickaxeEvent"):FireServer(unpack(args))
+local args = {
+	"Rainbow"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("BuyPickaxeEvent"):FireServer(unpack(args))
+local args = {
+	"Crystal"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("BuyPickaxeEvent"):FireServer(unpack(args))
+local args = {
+	"Future"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("BuyPickaxeEvent"):FireServer(unpack(args))
+local args = {
+	"Ice"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("BuyPickaxeEvent"):FireServer(unpack(args))
+local args = {
+	"Lava"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("BuyPickaxeEvent"):FireServer(unpack(args))
+local args = {
+	"Nuke"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("BuyPickaxeEvent"):FireServer(unpack(args))
+local args = {
+	"Thunder"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("BuyPickaxeEvent"):FireServer(unpack(args))
+local args = {
+	"Toy"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("BuyPickaxeEvent"):FireServer(unpack(args))
+local args = {
+	"Unicorn"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("BuyPickaxeEvent"):FireServer(unpack(args))
+local args = {
+	"Void"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("BuyPickaxeEvent"):FireServer(unpack(args))
+local args = {
+	"Anime"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("BuyPickaxeEvent"):FireServer(unpack(args))
+local args = {
+	"Glitch"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("BuyPickaxeEvent"):FireServer(unpack(args))
+local args = {
+	"Neon"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("BuyPickaxeEvent"):FireServer(unpack(args))
+local args = {
+	"Pinata"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("BuyPickaxeEvent"):FireServer(unpack(args))
+local args = {
+	"Angel"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("BuyPickaxeEvent"):FireServer(unpack(args))
+local args = {
+	"Cake"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("BuyPickaxeEvent"):FireServer(unpack(args))
+local args = {
+	"Admin"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("BuyPickaxeEvent"):FireServer(unpack(args))
+local args = {
+	"Plushie"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("BuyPickaxeEvent"):FireServer(unpack(args))
+local args = {
+	"Emoji"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("BuyPickaxeEvent"):FireServer(unpack(args))
+local args = {
+	"Firework"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("BuyPickaxeEvent"):FireServer(unpack(args))
+local args = {
+	"Lunar"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("BuyPickaxeEvent"):FireServer(unpack(args))
+local args = {
+	"Cosmic"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("BuyPickaxeEvent"):FireServer(unpack(args))
