@@ -1,0 +1,54 @@
+
+
+
+local args = {
+	"UFO"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("PetCageEvent"):FireServer(unpack(args))
+wait(1)
+
+
+
+local args = {
+	"UFO"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("PetCageEvent"):FireServer(unpack(args))
+
+wait(1)
+
+
+
+local args = {
+	"UFO"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("PetCageEvent"):FireServer(unpack(args))
+wait(1)
+
+
+
+local args = {
+	"UFO"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("PetCageEvent"):FireServer(unpack(args))
+wait(1)
+
+
+
+local args = {
+	"UFO"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("PetCageEvent"):FireServer(unpack(args))
+wait(1)
+
+
+
+local args = {
+	"UFO"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("PetCageEvent"):FireServer(unpack(args))
+ wait(1)
+local args = {
+	"UFO",
+	100
+}
+game:GetService("ReplicatedStorage"):WaitForChild("PetRemotes"):WaitForChild("GoldPetCraftEvent"):FireServer(unpack(args))
