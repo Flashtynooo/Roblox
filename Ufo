@@ -1,0 +1,7 @@
+
+
+
+local args = {
+	"UFO"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("PetCageEvent"):FireServer(unpack(args))
