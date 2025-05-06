@@ -1,0 +1,23 @@
+-- Étape 1 : FireServer avec l'argument 10
+local args = { 10 }
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("WorldTeleportEvent"):FireServer(unpack(args))
+
+-- Récupérer le joueur et s'assurer que le personnage est chargé
+local player = game.Players.LocalPlayer
+local function waitForCharacter()
+	while not player.Character or not player.Character:FindFirstChild("HumanoidRootPart") do
+		player.CharacterAdded:Wait()
+	end
+end
+waitForCharacter()
+
+-- Étapes 2-4 : Téléportations instantanées
+local positions = {
+	Vector3.new(108, 1004, -9004),
+	Vector3.new(8, 1004, -9000),
+	Vector3.new(-65, -390, -8967)
+}
+
+for _, pos in ipairs(positions) do
+	player.Character:MoveTo(pos)
+end
