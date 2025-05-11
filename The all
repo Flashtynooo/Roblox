@@ -1,83 +1,105 @@
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%2B30-Luck%F0%9F%8D%80%5D%F0%9F%8E%B2Jumpscare-RNG/Auto%20if%20execute"))()
+-- Hub Roblox esthétique et fonctionnel (Mobile-Friendly, GUI stylé, boutons colorés)
 
 local player = game.Players.LocalPlayer
 local gui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
 gui.ResetOnSpawn = false
 gui.Name = "JumpscareHub"
 
--- Le hub complet qu'on veut déplacer
 local hub = Instance.new("Frame", gui)
-hub.Size = UDim2.new(0, 280, 0, 360)
-hub.Position = UDim2.new(0.5, -140, 0.3, 0)
-hub.BackgroundTransparency = 1
+hub.Size = UDim2.new(0, 300, 0, 380)
+hub.Position = UDim2.new(0.5, -150, 0.3, 0)
+hub.BackgroundColor3 = Color3.fromRGB(25, 25, 30)
+hub.BorderSizePixel = 0
 hub.Name = "HubContainer"
 
--- Partie haute (bordure) pour déplacer
+-- Coin arrondis
+local hubUICorner = Instance.new("UICorner", hub)
+hubUICorner.CornerRadius = UDim.new(0, 12)
+
 local header = Instance.new("Frame", hub)
-header.Size = UDim2.new(1, 0, 0, 30)
+header.Size = UDim2.new(1, 0, 0, 35)
 header.Position = UDim2.new(0, 0, 0, 0)
-header.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+header.BackgroundColor3 = Color3.fromRGB(50, 50, 60)
 header.Name = "Header"
 
+local headerCorner = Instance.new("UICorner", header)
+headerCorner.CornerRadius = UDim.new(0, 12)
+
 local title = Instance.new("TextLabel", header)
-title.Size = UDim2.new(1, 0, 1, 0)
+title.Size = UDim2.new(1, -10, 1, 0)
+title.Position = UDim2.new(0, 5, 0, 0)
 title.BackgroundTransparency = 1
-title.Text = "Jumpscare RNG"
-title.TextColor3 = Color3.new(1, 1, 1)
+title.Text = "Jumpscare RNG Hub"
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
 title.Font = Enum.Font.GothamBold
 title.TextScaled = true
+title.TextXAlignment = Enum.TextXAlignment.Left
 
--- Corps avec tous les boutons dans une ScrollingFrame
 local mainScroll = Instance.new("ScrollingFrame", hub)
-mainScroll.Size = UDim2.new(1, 0, 1, -30)
-mainScroll.Position = UDim2.new(0, 0, 0, 30)
-mainScroll.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+mainScroll.Size = UDim2.new(1, -10, 1, -45)
+mainScroll.Position = UDim2.new(0, 5, 0, 40)
+mainScroll.BackgroundColor3 = Color3.fromRGB(35, 35, 40)
 mainScroll.ScrollBarThickness = 6
 mainScroll.CanvasSize = UDim2.new(0, 0, 0, 0)
 
+local mainCorner = Instance.new("UICorner", mainScroll)
+mainCorner.CornerRadius = UDim.new(0, 8)
+
 local layout = Instance.new("UIListLayout", mainScroll)
 layout.SortOrder = Enum.SortOrder.LayoutOrder
-layout.Padding = UDim.new(0, 5)
+layout.Padding = UDim.new(0, 6)
 
--- Crée un bouton
+-- Bouton stylé
 local function addButton(text, callback, parent)
 	local btn = Instance.new("TextButton")
-	btn.Size = UDim2.new(1, -10, 0, 30)
+	btn.Size = UDim2.new(1, -10, 0, 34)
 	btn.Text = text
-	btn.Font = Enum.Font.Gotham
+	btn.Font = Enum.Font.GothamMedium
 	btn.TextScaled = true
-	btn.TextColor3 = Color3.new(1,1,1)
-	btn.BackgroundColor3 = Color3.fromRGB(90, 90, 90)
+	btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+	btn.BackgroundColor3 = Color3.fromRGB(255, 50, 255)
+	btn.BorderSizePixel = 0
 	btn.Parent = parent
+
+	local btnCorner = Instance.new("UICorner", btn)
+	btnCorner.CornerRadius = UDim.new(0, 8)
+
 	btn.MouseButton1Click:Connect(callback)
 end
 
 -- Bouton pour afficher les auras
 local chooseAura = Instance.new("TextButton", mainScroll)
-chooseAura.Size = UDim2.new(1, -10, 0, 30)
+chooseAura.Size = UDim2.new(1, -10, 0, 34)
 chooseAura.Text = "Choose Aura"
-chooseAura.TextColor3 = Color3.new(1, 1, 1)
+chooseAura.TextColor3 = Color3.fromRGB(255, 255, 255)
 chooseAura.TextScaled = true
-chooseAura.Font = Enum.Font.Gotham
-chooseAura.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+chooseAura.Font = Enum.Font.GothamBold
+chooseAura.BackgroundColor3 = Color3.fromRGB(255, 50, 255)
 
--- ScrollingFrame pour les auras
+local chooseAuraCorner = Instance.new("UICorner", chooseAura)
+chooseAuraCorner.CornerRadius = UDim.new(0, 8)
+
 local auraScroll = Instance.new("ScrollingFrame", mainScroll)
-auraScroll.Size = UDim2.new(1, -10, 0, 120)
-auraScroll.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+auraScroll.Size = UDim2.new(1, -10, 0, 34)
+auraScroll.BackgroundColor3 = Color3.fromRGB(40, 100, 255)
 auraScroll.Visible = false
 auraScroll.ScrollBarThickness = 6
 auraScroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+
+local auraCorner = Instance.new("UICorner", auraScroll)
+auraCorner.CornerRadius = UDim.new(0, 8)
 
 local auraLayout = Instance.new("UIListLayout", auraScroll)
 auraLayout.SortOrder = Enum.SortOrder.LayoutOrder
 auraLayout.Padding = UDim.new(0, 4)
 
+auraScroll.Parent = mainScroll
+
 local auraList = {
-    "Purple", "Hanma", "Heaven", "Psychic", "Evil",
-    "Electrical Charge", "Flame Barrage", "Pure Vessel",
-    "Rage", "Solar Flare", "Super Sonic", "Roar",
-    "Sun Necromancer", "Rainbow", "North Star"
+	"Purple", "Hanma", "Heaven", "Psychic", "Evil",
+	"Electrical Charge", "Flame Barrage", "Pure Vessel",
+	"Rage", "Solar Flare", "Super Sonic", "Roar",
+	"Sun Necromancer", "Rainbow", "North Star"
 }
 
 for _, name in ipairs(auraList) do
@@ -91,28 +113,16 @@ chooseAura.MouseButton1Click:Connect(function()
 	auraScroll.CanvasSize = UDim2.new(0, 0, 0, auraLayout.AbsoluteContentSize.Y + 5)
 end)
 
-auraScroll.Parent = mainScroll
-
--- Exemple de bouton normal
-addButton("Get Coin for Luck", function()
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%2B30-Luck%F0%9F%8D%80%5D%F0%9F%8E%B2Jumpscare-RNG/Get%20coin%201-10"))()
-end, mainScroll)
-addButton("Get best rarity", function()
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%2B30-Luck%F0%9F%8D%80%5D%F0%9F%8E%B2Jumpscare-RNG/Get%20best%20rarity"))()
-end, mainScroll)
+-- Boutons d'action
 
 
 
 
+-- Mise à jour du canvas
+mainScroll.CanvasSize = UDim2.new(0, 0, 0, layout.AbsoluteContentSize.Y + 10)
 
--- MAJ canvas
-task.defer(function()
-	mainScroll.CanvasSize = UDim2.new(0, 0, 0, layout.AbsoluteContentSize.Y + 10)
-end)
-
--- Déplacement mobile du hub avec le doigt
+-- Déplacement tactile du hub
 local dragging, dragStart, startPos
-
 header.InputBegan:Connect(function(input)
 	if input.UserInputType == Enum.UserInputType.Touch then
 		dragging = true
@@ -133,3 +143,9 @@ header.InputEnded:Connect(function(input)
 		dragging = false
 	end
 end)
+addButton("Get Coin for Luck", function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%2B30-Luck%F0%9F%8D%80%5D%F0%9F%8E%B2Jumpscare-RNG/Get%20coin%201-10"))()
+end, mainScroll)
+addButton("Get best rarity", function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%2B30-Luck%F0%9F%8D%80%5D%F0%9F%8E%B2Jumpscare-RNG/Get%20best%20rarity"))()
+end, mainScroll)
