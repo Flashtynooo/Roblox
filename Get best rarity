@@ -1,0 +1,9 @@
+
+
+
+
+local args = {
+	"Hacker",
+	"Rainbow"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("remotes"):WaitForChild("updateServerInventory"):FireServer(unpack(args))
