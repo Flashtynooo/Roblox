@@ -202,5 +202,8 @@ rollSpeedButton.MouseButton1Click:Connect(function()
 		startRollSpeedLoop()
 	end
 end)
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%2B30-Luck%F0%9F%8D%80%5D%F0%9F%8E%B2Jumpscare-RNG/Auto%20if%20execute"))()
+
+
+wait(1)
+
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%2B30-Luck%F0%9F%8D%80%5D%F0%9F%8E%B2Jumpscare-RNG/Auto%20if%20execute"))()
