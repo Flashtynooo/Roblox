@@ -1,0 +1,32 @@
+local Remote = game:GetService("ReplicatedStorage"):WaitForChild("remotes"):WaitForChild("game"):WaitForChild("UpdateHighestRoll")
+
+local base = "FLSHTY"
+
+-- Différents styles possibles pour chaque lettre
+local styleMap = {
+    F = {"F", "f"},
+    L = {"L", "|_"},
+    S = {"S", "$"},
+    H = {"H", "#"},
+    T = {"T", "t"},
+    Y = {"Y", "¥"}
+}
+
+-- Fonction pour générer une version stylisée de "FLSHTY"
+local function getRandomStyledString()
+    local styledStr = ""
+    for i = 1, #base do
+        local letter = base:sub(i, i)
+        local styles = styleMap[letter] or {letter}
+        local randomStyle = styles[math.random(1, #styles)]
+        styledStr = styledStr .. randomStyle
+    end
+    return styledStr
+end
+
+-- Boucle qui envoie continuellement des chaînes modifiées
+while true do
+    local newStr = getRandomStyledString()
+    Remote:FireServer(newStr)
+    wait(0.1) -- modifie cette valeur pour ajuster la vitesse
+end
