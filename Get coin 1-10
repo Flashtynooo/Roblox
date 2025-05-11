@@ -1,0 +1,69 @@
+local Players = game:GetService("Players")
+local StarterGui = game:GetService("StarterGui")
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local rootPart = character:WaitForChild("HumanoidRootPart")
+local humanoid = character:FindFirstChildOfClass("Humanoid")
+
+-- Sauvegarde position
+local originalPosition = rootPart.Position
+
+-- Anti-ragdoll
+if humanoid then
+    humanoid.PlatformStand = true
+end
+
+-- Coins
+local coinsFolder = workspace:FindFirstChild("Coins")
+if not coinsFolder then
+    warn("Le dossier 'Coins' est introuvable dans workspace.")
+    return
+end
+
+-- Traduction simple
+local function translate(text)
+    if player and player.LocaleId == "frfr" then
+        if text == "If you didn't get all coins, it often happens due to a bug I can't fix." then
+            return "Si vous n'avez pas tous les coins, cela arrive souvent à cause d'un bug que je ne peux pas corriger."
+        elseif text == "Please try again later." then
+            return "Veuillez réessayer plus tard."
+        end
+    end
+    return text
+end
+
+local msg1 = translate("If you didn't get all coins, it often happens due to a bug I can't fix.")
+local msg2 = translate("Please try again later.")
+
+-- Téléportation sans orientation
+for i = 1, 10 do
+    local coin = coinsFolder:FindFirstChild("Coin " .. i)
+    if coin and coin:IsA("BasePart") then
+        rootPart.CFrame = CFrame.new(coin.Position + Vector3.new(0, 5, 0)) -- Position seulement
+        task.wait(0.5)
+    end
+end
+
+-- Retour à l'origine
+task.wait(0.2)
+rootPart.CFrame = CFrame.new(originalPosition)
+
+-- Fin ragdoll
+if humanoid then
+    humanoid.PlatformStand = false
+end
+
+-- Notifications
+StarterGui:SetCore("SendNotification", {
+    Title = "Coin Info",
+    Text = msg1,
+    Duration = 4
+})
+
+task.delay(4, function()
+    StarterGui:SetCore("SendNotification", {
+        Title = "Coin Info",
+        Text = msg2,
+        Duration = 4
+    })
+end)
