@@ -98,7 +98,7 @@ addButton("Get Coin for Luck", function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%2B30-Luck%F0%9F%8D%80%5D%F0%9F%8E%B2Jumpscare-RNG/Get%20coin%201-10"))()
 end, mainScroll)
 addButton("Get best rarity", function()
-	loadstring(game:HttpGet(""))()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%2B30-Luck%F0%9F%8D%80%5D%F0%9F%8E%B2Jumpscare-RNG/Get%20best%20rarity"))()
 end, mainScroll)
 
 
