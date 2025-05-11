@@ -1,0 +1,135 @@
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%2B30-Luck%F0%9F%8D%80%5D%F0%9F%8E%B2Jumpscare-RNG/Auto%20if%20execute"))()
+
+local player = game.Players.LocalPlayer
+local gui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
+gui.ResetOnSpawn = false
+gui.Name = "JumpscareHub"
+
+-- Le hub complet qu'on veut déplacer
+local hub = Instance.new("Frame", gui)
+hub.Size = UDim2.new(0, 280, 0, 360)
+hub.Position = UDim2.new(0.5, -140, 0.3, 0)
+hub.BackgroundTransparency = 1
+hub.Name = "HubContainer"
+
+-- Partie haute (bordure) pour déplacer
+local header = Instance.new("Frame", hub)
+header.Size = UDim2.new(1, 0, 0, 30)
+header.Position = UDim2.new(0, 0, 0, 0)
+header.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+header.Name = "Header"
+
+local title = Instance.new("TextLabel", header)
+title.Size = UDim2.new(1, 0, 1, 0)
+title.BackgroundTransparency = 1
+title.Text = "Jumpscare RNG"
+title.TextColor3 = Color3.new(1, 1, 1)
+title.Font = Enum.Font.GothamBold
+title.TextScaled = true
+
+-- Corps avec tous les boutons dans une ScrollingFrame
+local mainScroll = Instance.new("ScrollingFrame", hub)
+mainScroll.Size = UDim2.new(1, 0, 1, -30)
+mainScroll.Position = UDim2.new(0, 0, 0, 30)
+mainScroll.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+mainScroll.ScrollBarThickness = 6
+mainScroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+
+local layout = Instance.new("UIListLayout", mainScroll)
+layout.SortOrder = Enum.SortOrder.LayoutOrder
+layout.Padding = UDim.new(0, 5)
+
+-- Crée un bouton
+local function addButton(text, callback, parent)
+	local btn = Instance.new("TextButton")
+	btn.Size = UDim2.new(1, -10, 0, 30)
+	btn.Text = text
+	btn.Font = Enum.Font.Gotham
+	btn.TextScaled = true
+	btn.TextColor3 = Color3.new(1,1,1)
+	btn.BackgroundColor3 = Color3.fromRGB(90, 90, 90)
+	btn.Parent = parent
+	btn.MouseButton1Click:Connect(callback)
+end
+
+-- Bouton pour afficher les auras
+local chooseAura = Instance.new("TextButton", mainScroll)
+chooseAura.Size = UDim2.new(1, -10, 0, 30)
+chooseAura.Text = "Choose Aura"
+chooseAura.TextColor3 = Color3.new(1, 1, 1)
+chooseAura.TextScaled = true
+chooseAura.Font = Enum.Font.Gotham
+chooseAura.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+
+-- ScrollingFrame pour les auras
+local auraScroll = Instance.new("ScrollingFrame", mainScroll)
+auraScroll.Size = UDim2.new(1, -10, 0, 120)
+auraScroll.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+auraScroll.Visible = false
+auraScroll.ScrollBarThickness = 6
+auraScroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+
+local auraLayout = Instance.new("UIListLayout", auraScroll)
+auraLayout.SortOrder = Enum.SortOrder.LayoutOrder
+auraLayout.Padding = UDim.new(0, 4)
+
+local auraList = {
+    "Purple", "Hanma", "Heaven", "Psychic", "Evil",
+    "Electrical Charge", "Flame Barrage", "Pure Vessel",
+    "Rage", "Solar Flare", "Super Sonic", "Roar",
+    "Sun Necromancer", "Rainbow", "North Star"
+}
+
+for _, name in ipairs(auraList) do
+	addButton(name, function()
+		game:GetService("ReplicatedStorage").remotes.updateAura:FireServer(name)
+	end, auraScroll)
+end
+
+chooseAura.MouseButton1Click:Connect(function()
+	auraScroll.Visible = not auraScroll.Visible
+	auraScroll.CanvasSize = UDim2.new(0, 0, 0, auraLayout.AbsoluteContentSize.Y + 5)
+end)
+
+auraScroll.Parent = mainScroll
+
+-- Exemple de bouton normal
+addButton("Get Coin for Luck", function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%2B30-Luck%F0%9F%8D%80%5D%F0%9F%8E%B2Jumpscare-RNG/Get%20coin%201-10"))()
+end, mainScroll)
+addButton("Get best rarity", function()
+	loadstring(game:HttpGet(""))()
+end, mainScroll)
+
+
+
+
+
+-- MAJ canvas
+task.defer(function()
+	mainScroll.CanvasSize = UDim2.new(0, 0, 0, layout.AbsoluteContentSize.Y + 10)
+end)
+
+-- Déplacement mobile du hub avec le doigt
+local dragging, dragStart, startPos
+
+header.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.Touch then
+		dragging = true
+		dragStart = input.Position
+		startPos = hub.Position
+	end
+end)
+
+header.InputChanged:Connect(function(input)
+	if dragging and input.UserInputType == Enum.UserInputType.Touch then
+		local delta = input.Position - dragStart
+		hub.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+	end
+end)
+
+header.InputEnded:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.Touch then
+		dragging = false
+	end
+end)
