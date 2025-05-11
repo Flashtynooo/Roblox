@@ -1,4 +1,4 @@
--- Hub Roblox esthétique et fonctionnel (Mobile-Friendly, GUI stylé, boutons colorés)
+-- mmmm j'aime les bites .... t'avais qu'à pas regarder mon script lol
 
 local player = game.Players.LocalPlayer
 local gui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
@@ -54,7 +54,7 @@ local function addButton(text, callback, parent)
 	local btn = Instance.new("TextButton")
 	btn.Size = UDim2.new(1, -10, 0, 34)
 	btn.Text = text
-	btn.Font = Enum.Font.GothamMedium
+	btn.Font = Enum.Font.GothamBold
 	btn.TextScaled = true
 	btn.TextColor3 = Color3.fromRGB(255, 255, 255)
 	btn.BackgroundColor3 = Color3.fromRGB(255, 50, 255)
@@ -149,3 +149,56 @@ end, mainScroll)
 addButton("Get best rarity", function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%2B30-Luck%F0%9F%8D%80%5D%F0%9F%8E%B2Jumpscare-RNG/Get%20best%20rarity"))()
 end, mainScroll)
+
+
+local rollSpeedLooping = false -- état pour savoir si le script est en loop
+local rollSpeedButton = Instance.new("TextButton")
+rollSpeedButton.Size = UDim2.new(1, -10, 0, 30)
+rollSpeedButton.Text = "Roll Speed Inf OFF"
+rollSpeedButton.Font = Enum.Font.Gotham
+rollSpeedButton.TextScaled = true
+rollSpeedButton.TextColor3 = Color3.new(1, 1, 100)
+rollSpeedButton.BackgroundColor3 = Color3.fromRGB(255, 45, 255)
+rollSpeedButton.Parent = mainScroll
+local rollSpeedButtonCorner = Instance.new("UICorner", rollSpeedButton)rollSpeedButtonCorner.CornerRadius = UDim.new(0, 8)
+rollSpeedButton.Font = Enum.Font.GothamBold
+
+--mdr dire que j'ai galéré a touver le problème 
+
+local function startRollSpeedLoop()
+	rollSpeedLooping = true
+	rollSpeedButton.Text = "Roll Speed Inf ON"
+	
+	task.spawn(function()
+		while rollSpeedLooping do
+			local player = game.Players.LocalPlayer
+			local rollSpeed = player:FindFirstChild("RollSpeed")
+			
+			if rollSpeed and rollSpeed:IsA("IntValue") then
+				rollSpeed.Value = 2147483647
+			else
+				warn("RollSpeed n'existe pas ou n'est pas un IntValue.")
+			end
+			task.wait(0.1)
+		end
+	end)
+end
+
+local function stopRollSpeedLoop()
+	rollSpeedLooping = false
+	rollSpeedButton.Text = "Roll Speed Inf OFF"
+
+	local player = game.Players.LocalPlayer
+	local rollSpeed = player:FindFirstChild("RollSpeed")
+	if rollSpeed and rollSpeed:IsA("IntValue") then
+		rollSpeed.Value = 200
+	end
+end
+
+rollSpeedButton.MouseButton1Click:Connect(function()
+	if rollSpeedLooping then
+		stopRollSpeedLoop()
+	else
+		startRollSpeedLoop()
+	end
+end)
