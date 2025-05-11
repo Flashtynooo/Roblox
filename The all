@@ -168,7 +168,12 @@ rollSpeedButton.Font = Enum.Font.GothamBold
 local function startRollSpeedLoop()
 	rollSpeedLooping = true
 	rollSpeedButton.Text = "Roll Speed Inf ON"
-	
+	game.StarterGui:SetCore("SendNotification", {
+    Title = "Warning",
+    Text = "If you enable Roll Speed Inf, you must also enable Auto-Roll!",
+    Duration = 5
+})
+
 	task.spawn(function()
 		while rollSpeedLooping do
 			local player = game.Players.LocalPlayer
