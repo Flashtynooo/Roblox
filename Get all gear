@@ -1,0 +1,39 @@
+local args = {
+	game:GetService("Players"):WaitForChild(game.Players.LocalPlayer.Name)
+}
+game:GetService("ReplicatedStorage"):WaitForChild("SpinEvents"):WaitForChild("QuintoPremio"):FireServer(unpack(args))local args = {
+	game:GetService("Players"):WaitForChild(game.Players.LocalPlayer.Name)
+}
+game:GetService("ReplicatedStorage"):WaitForChild("SpinEvents"):WaitForChild("QuintoPremio"):FireServer(unpack(args))
+local args = {
+	game:GetService("Players"):WaitForChild(game.Players.LocalPlayer.Name)
+}
+game:GetService("ReplicatedStorage"):WaitForChild("SpinEvents"):WaitForChild("QuintoPremio"):FireServer(unpack(args))
+local args = {
+	game:GetService("Players"):WaitForChild(game.Players.LocalPlayer.Name)
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Money_Coil_Remotes"):WaitForChild("Void"):FireServer(unpack(args))
+
+local args = {
+	game:GetService("Players"):WaitForChild(game.Players.LocalPlayer.Name)
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Money_Coil_Remotes"):WaitForChild("Fire"):FireServer(unpack(args))
+local args = {
+	game:GetService("Players"):WaitForChild(game.Players.LocalPlayer.Name)
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Money_Coil_Remotes"):WaitForChild("Diamond"):FireServer(unpack(args))
+local args = {
+	game:GetService("Players"):WaitForChild(game.Players.LocalPlayer.Name)
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Money_Coil_Remotes"):WaitForChild("CoilGold"):FireServer(unpack(args))
+
+local args = {
+	game:GetService("Players"):WaitForChild(game.Players.LocalPlayer.Name)
+}
+game:GetService("ReplicatedStorage"):WaitForChild("GiveTrophyFinal"):FireServer(unpack(args))
+
+local args = {
+	game:GetService("Players"):WaitForChild(game.Players.LocalPlayer.Name)
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("SpinEvents"):WaitForChild("SextoPremio"):FireServer(unpack(args))
