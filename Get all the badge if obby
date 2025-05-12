@@ -10,70 +10,83 @@ local savedPosition = humanoidRootPart.Position
 
 -- Liste des badges à vérifier
 local badgeIds = {
-    2213356649287595,
-    3918716595857240,
-    1083859506944159,
-    4129406566091769,
-    2588264899322970,
-    756934543737848,
-    703223815270005,
+	2213356649287595,
+	3918716595857240,
+	1083859506944159,
+	4129406566091769,
+	2588264899322970,
+	756934543737848,
+	703223815270005,
 }
 
 -- Positions de téléportation
 local teleportPositions = {
-    Vector3.new(10453, 37, -1616),
-    Vector3.new(10475, 38, -1617),
-    Vector3.new(10495, 39, -1616),
-    Vector3.new(10522, 39, -1654),
-    Vector3.new(10522, 38, -1679),
-    Vector3.new(10474, 37, -1717),
-    Vector3.new(10496, 39, -1717),
-    Vector3.new(10453, 37, -1718),
+	Vector3.new(10453, 37, -1616),
+	Vector3.new(10475, 38, -1617),
+	Vector3.new(10495, 39, -1616),
+	Vector3.new(10522, 39, -1654),
+	Vector3.new(10522, 38, -1679),
+	Vector3.new(10474, 37, -1717),
+	Vector3.new(10496, 39, -1717),
+	Vector3.new(10453, 37, -1718),
 }
 
--- Affichage d'un message simple à l'écran
-local function showMessage(text)
-    local gui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
-    gui.ResetOnSpawn = false
-    local label = Instance.new("TextLabel", gui)
-    label.Size = UDim2.new(0.8, 0, 0.1, 0)
-    label.Position = UDim2.new(0.1, 0, 0.8, 0)
-    label.BackgroundTransparency = 0.3
-    label.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-    label.TextColor3 = Color3.new(1, 1, 1)
-    label.Font = Enum.Font.GothamBold
-    label.TextScaled = true
-    label.Text = text
-    wait(3)
-    gui:Destroy()
+-- Affichage d'un message simple + son
+local function showMessageWithSound(text)
+	local gui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
+	gui.ResetOnSpawn = false
+
+	local label = Instance.new("TextLabel", gui)
+	label.Size = UDim2.new(0.8, 0, 0.1, 0)
+	label.Position = UDim2.new(0.1, 0, 0.8, 0)
+	label.BackgroundTransparency = 0.3
+	label.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+	label.TextColor3 = Color3.new(1, 1, 1)
+	label.Font = Enum.Font.GothamBold
+	label.TextScaled = true
+	label.Text = text
+
+	-- Création et lecture du son
+	local sound = Instance.new("Sound", gui)
+	sound.SoundId = "rbxassetid://136437905646635"
+	sound.Volume = 10
+	sound:Play()
+
+	wait(3)
+	gui:Destroy()
 end
 
 -- Vérifie tous les badges
 local function hasAllBadges()
-    for _, badgeId in ipairs(badgeIds) do
-        local success, owns = pcall(function()
-            return BadgeService:UserHasBadgeAsync(player.UserId, badgeId)
-        end)
-        if not success or not owns then
-            return false
-        end
-    end
-    return true
+	for _, badgeId in ipairs(badgeIds) do
+		local success, owns = pcall(function()
+			return BadgeService:UserHasBadgeAsync(player.UserId, badgeId)
+		end)
+		if not success or not owns then
+			return false
+		end
+	end
+	return true
 end
 
 -- Téléporte à chaque position donnée
 local function teleportThroughPoints()
-    for _, pos in ipairs(teleportPositions) do
-        humanoidRootPart.CFrame = CFrame.new(pos)
-        wait(0.5)
-    end
+	for _, pos in ipairs(teleportPositions) do
+		humanoidRootPart.CFrame = CFrame.new(pos)
+		wait(0.5)
+	end
 end
 
 -- Script principal
 if hasAllBadges() then
-    showMessage("You already have all badges!")
+	showMessageWithSound("You already have all badges!")
 else
-    teleportThroughPoints()
-    wait(1)
-    humanoidRootPart.CFrame = CFrame.new(savedPosition)
+	teleportThroughPoints()
+game.StarterGui:SetCore("SendNotification", {
+    Title = "Sorry",
+    Text = "You dont get all the badge retry to get all",
+    Duration = 5
+}) 
+	wait(1)
+	humanoidRootPart.CFrame = CFrame.new(savedPosition)
 end
