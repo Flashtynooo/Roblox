@@ -1,0 +1,4 @@
+local args = {
+	game:GetService("Players"):WaitForChild("ue6ph6oyet7h")
+}
+game:GetService("ReplicatedStorage"):WaitForChild("SpinEvents"):WaitForChild("SextoPremio"):FireServer(unpack(args))
