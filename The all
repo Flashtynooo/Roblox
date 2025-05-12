@@ -1,1 +1,133 @@
+-- Création du GUI
+local gui = Instance.new("ScreenGui", game.Players.LocalPlayer:WaitForChild("PlayerGui"))
+gui.Name = "FlshtyHub"
+gui.ResetOnSpawn = false
+
+-- Frame principale (avec effet glitch)
+local main = Instance.new("Frame", gui)
+main.Name = "MainHub"
+main.Size = UDim2.new(0, 300, 0, 230)
+main.Position = UDim2.new(0.5, -150, 0.5, -115)
+main.BackgroundColor3 = Color3.fromRGB(130, 0, 255)
+main.BorderSizePixel = 0
+main.BackgroundTransparency = 0.1
+main.Active = true
+main.Draggable = true
+main.ClipsDescendants = true
+
+-- Style arrondi
+local UICorner = Instance.new("UICorner", main)
+UICorner.CornerRadius = UDim.new(0, 16)
+
+-- Effet glitch (visuel, pas réel)
+local UIStroke = Instance.new("UIStroke", main)
+UIStroke.Thickness = 2
+UIStroke.Color = Color3.fromRGB(255, 20, 147) -- rose néon
+UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+
+-- Titre
+local title = Instance.new("TextLabel", main)
+title.Size = UDim2.new(1, 0, 0, 30)
+title.Position = UDim2.new(0, 0, 0, 0)
+title.Text = "The $1,000,000 Glass Bridge"
+title.TextColor3 = Color3.fromRGB(57, 255, 20) -- vert néon
+title.TextScaled = true
+title.BackgroundTransparency = 1
+title.Font = Enum.Font.Code
+
+-- Fonction pour appliquer un effet glitch visuel sur les éléments
+local function applyGlitchEffect(obj)
+	obj.BackgroundTransparency = 0.2
+	obj.BackgroundColor3 = Color3.fromRGB(255, 0, 255)  -- Rose glitch
+end
+
+-- Fonction pour jouer un son local
+local function playLocalSound(soundId, startTime)
+	local sound = Instance.new("Sound", game.Players.LocalPlayer:WaitForChild("PlayerGui"))
+	sound.SoundId = "rbxassetid://" .. soundId
+	sound.Volume = 1
+	sound.TimePosition = startTime or 0
+	sound:Play()
+	game.Debris:AddItem(sound, 5)
+end
+
+-- Bouton Inf Money
+local toggle = false
+local loopConnection
+
+local btnMoney = Instance.new("TextButton", main)
+btnMoney.Size = UDim2.new(1, -20, 0, 35)
+btnMoney.Position = UDim2.new(0, 10, 0, 40)
+btnMoney.Text = "Get Inf Money: OFF"
+btnMoney.TextColor3 = Color3.fromRGB(0, 255, 0)
+btnMoney.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+btnMoney.Font = Enum.Font.Code
+btnMoney.TextScaled = true
+applyGlitchEffect(btnMoney)
+
+btnMoney.MouseButton1Click:Connect(function()
+	toggle = not toggle
+	btnMoney.Text = "Get Inf Money: " .. (toggle and "ON" or "OFF")
+	if toggle then
+		loopConnection = game:GetService("RunService").RenderStepped:Connect(function()
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/The-%241%2C000%2C000-Glass-Bridge/Get%20an%20big%20number%20of%20money"))()
+		end)
+	else
+		if loopConnection then
+			loopConnection:Disconnect()
+		end
+	end
+end)
+
+-- Bouton Get All Gear
+local usedGear = false
+
+local btnGear = Instance.new("TextButton", main)
+btnGear.Size = UDim2.new(1, -20, 0, 35)
+btnGear.Position = UDim2.new(0, 10, 0, 85)
+btnGear.Text = "Get All Gear"
+btnGear.TextColor3 = Color3.fromRGB(0, 255, 0)
+btnGear.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+btnGear.Font = Enum.Font.Code
+btnGear.TextScaled = true
+applyGlitchEffect(btnGear)
+
+btnGear.MouseButton1Click:Connect(function()
+	if not usedGear then
+		usedGear = true
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/The-%241%2C000%2C000-Glass-Bridge/Get%20all%20gear"))()
+	else
+		playLocalSound("6701126635", 0)
+	end
+end)
+
+-- Bouton Obby Badge
+local lastUse = 0
+
+local btnBadge = Instance.new("TextButton", main)
+btnBadge.Size = UDim2.new(1, -20, 0, 35)
+btnBadge.Position = UDim2.new(0, 10, 0, 130)
+btnBadge.Text = "Obby Badge"
+btnBadge.TextColor3 = Color3.fromRGB(0, 255, 0)
+btnBadge.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+btnBadge.Font = Enum.Font.Code
+btnBadge.TextScaled = true
+applyGlitchEffect(btnBadge)
+
+btnBadge.MouseButton1Click:Connect(function()
+	local now = tick()
+	if now - lastUse >= 7 then
+		lastUse = now
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/The-%241%2C000%2C000-Glass-Bridge/Get%20all%20the%20badge%20if%20obby"))()
+	else
+		playLocalSound("124236392571779", 1.5)
+	end
+end)
+
+-- Glitch visuel aléatoire
+spawn(function()
+	while wait(0.1) do
+		UIStroke.Color = Color3.fromRGB(math.random(100,255), 0, math.random(100,255))
+	end
+end)
 
