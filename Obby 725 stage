@@ -1,0 +1,130 @@
+-- Création du ScreenGui
+local gui = Instance.new("ScreenGui", game.CoreGui)
+gui.Name = "OmegaObbyHub"
+
+-- Cadre principal style flshty
+local main = Instance.new("Frame", gui)
+main.Size = UDim2.new(0, 300, 0, 250)
+main.Position = UDim2.new(0.5, -150, 0.5, -125)
+main.BackgroundColor3 = Color3.fromRGB(130, 0, 255) -- violet glitch
+main.BackgroundTransparency = 0.1
+main.BorderSizePixel = 0
+main.Active = true
+main.Draggable = true
+
+-- Bordure arrondie
+local corner = Instance.new("UICorner", main)
+corner.CornerRadius = UDim.new(0, 16)
+
+-- Effet glitch stroke
+local stroke = Instance.new("UIStroke", main)
+stroke.Thickness = 2
+stroke.Color = Color3.fromRGB(255, 20, 147) -- rose néon
+stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+
+-- Titre flshty
+local title = Instance.new("TextLabel", main)
+title.Size = UDim2.new(1, 0, 0, 30)
+title.Position = UDim2.new(0, 0, 0, 0)
+title.BackgroundTransparency = 1
+title.Text = "oMega Obby 🌟 725 Stages!"
+title.Font = Enum.Font.Code
+title.TextScaled = true
+title.TextColor3 = Color3.fromRGB(57, 255, 20) -- vert néon
+
+-- Fonction pour effet glitch
+local function applyGlitchEffect(button)
+	button.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+	button.TextColor3 = Color3.fromRGB(0, 255, 0)
+	button.Font = Enum.Font.Code
+	button.TextScaled = true
+	local corner = Instance.new("UICorner", button)
+	corner.CornerRadius = UDim.new(0, 8)
+end
+
+-- Bouton Finish Obby
+local finishButton = Instance.new("TextButton", main)
+finishButton.Size = UDim2.new(0, 260, 0, 40)
+finishButton.Position = UDim2.new(0.5, -130, 0.3, -20)
+finishButton.Text = "Finish Obby OFF"
+applyGlitchEffect(finishButton)
+
+-- Bouton Prestige
+local prestigeButton = Instance.new("TextButton", main)
+prestigeButton.Size = UDim2.new(0, 260, 0, 40)
+prestigeButton.Position = UDim2.new(0.5, -130, 0.7, -20)
+prestigeButton.Text = "Get inf Prestige OFF"
+applyGlitchEffect(prestigeButton)
+
+-- Logique
+local isFinishLooping, isPrestigeLooping = false, false
+
+local function finishObbyLoop()
+	local player = game.Players.LocalPlayer
+	local character = player.Character or player.CharacterAdded:Wait()
+	local root = character:WaitForChild("HumanoidRootPart")
+	local stageValue = player:WaitForChild("leaderstats"):WaitForChild("Stage")
+	local stagesFolder = workspace:WaitForChild("Stages")
+
+	local function teleportToStage(stageNumber)
+		local stage = stagesFolder:FindFirstChild(tostring(stageNumber))
+		if stage and stage:FindFirstChild("Spawn") then
+			root.CFrame = stage.Spawn.CFrame + Vector3.new(0, 3, 0)
+			return true
+		end
+		return false
+	end
+
+	while isFinishLooping do
+		local nextStage = stageValue.Value + 1
+		if not teleportToStage(nextStage) then break end
+		local start = tick()
+		while stageValue.Value < nextStage and tick() - start < 3 do task.wait(0.1) end
+		task.wait(0.1)
+	end
+end
+
+game.Players.LocalPlayer.CharacterAdded:Connect(function()
+	if isFinishLooping then task.spawn(finishObbyLoop) end
+end)
+
+local function prestigeLoop()
+	local player = game.Players.LocalPlayer
+	local targetPosition = Vector3.new(-1129.19397, 533.700989, 510.705505)
+
+	while isPrestigeLooping do
+		local character = player.Character or player.CharacterAdded:Wait()
+		local root = character:FindFirstChild("HumanoidRootPart")
+		if root then
+			if (root.Position - targetPosition).Magnitude < 1 then
+				player.Character:BreakJoints()
+			else
+				local part = workspace:FindFirstChild("Restart Obby") and workspace["Restart Obby"]:FindFirstChild("Part")
+				if part then root.CFrame = part.CFrame + Vector3.new(0, 3, 0) end
+			end
+		end
+		task.wait(2)
+	end
+end
+
+-- Clics
+finishButton.MouseButton1Click:Connect(function()
+	isFinishLooping = not isFinishLooping
+	finishButton.Text = "Finish Obby " .. (isFinishLooping and "ON" or "OFF")
+	finishButton.BackgroundColor3 = isFinishLooping and Color3.fromRGB(40, 120, 40) or Color3.fromRGB(120, 40, 40)
+	if isFinishLooping then task.spawn(finishObbyLoop) end
+end)
+
+prestigeButton.MouseButton1Click:Connect(function()
+	isPrestigeLooping = not isPrestigeLooping
+	prestigeButton.Text = "Get inf Prestige " .. (isPrestigeLooping and "ON" or "OFF")
+	prestigeButton.BackgroundColor3 = isPrestigeLooping and Color3.fromRGB(40, 120, 40) or Color3.fromRGB(120, 40, 40)
+	if isPrestigeLooping then task.spawn(prestigeLoop) end
+end)
+
+-- Glitch visuel dynamique
+task.spawn(function()
+	while task.wait(0.1) do
+		stroke.Color = Color3.fromRGB(math.random(100,255), 0, math.random(100,255))
+	end
+end)
