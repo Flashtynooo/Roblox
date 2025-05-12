@@ -1,1 +1,16 @@
+local gameId = game.PlaceId -- Récupère l'ID du jeu actuel
+
+if gameId == 87854376962069 then
+    -- Si l'ID du jeu est celui spécifié, exécuter le lien
+    local url = "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/The-%241%2C000%2C000-Glass-Bridge/The%20all"
+    loadstring(game:HttpGet(url))() -- Exécute le script à partir du lien
+
+else
+    -- Sinon, envoyer une notification
+    game.StarterGui:SetCore("SendNotification", {
+        Title = "Hey",
+        Text = "Is not the good game -_-",
+        Duration = 4
+    })
+end
 
