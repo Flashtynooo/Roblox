@@ -53,3 +53,7 @@ local args = {
 	game:GetService("Players"):WaitForChild(game.Players.LocalPlayer.Name)
 }
 game:GetService("ReplicatedStorage"):WaitForChild("CarpetsEvents"):WaitForChild("GoldenPrompt"):FireServer(unpack(args))
+local args = {
+	game:GetService("Players"):WaitForChild(game.Players.LocalPlayer.Name)
+}
+game:GetService("ReplicatedStorage"):WaitForChild("CarpetsEvents"):WaitForChild("DiamondPrompt"):FireServer(unpack(args))
