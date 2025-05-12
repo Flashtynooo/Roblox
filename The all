@@ -6,39 +6,48 @@ gui.ResetOnSpawn = false
 gui.Name = "JumpscareHub"
 
 local hub = Instance.new("Frame", gui)
-hub.Size = UDim2.new(0, 300, 0, 380)
-hub.Position = UDim2.new(0.5, -150, 0.3, 0)
-hub.BackgroundColor3 = Color3.fromRGB(25, 25, 30)
+hub.Size = UDim2.new(0, 300, 0, 250)
+hub.Position = UDim2.new(0.5, -150, 0, 0)
+hub.BackgroundColor3 = Color3.fromRGB(130, 0, 255)
 hub.BorderSizePixel = 0
 hub.Name = "HubContainer"
+hub.Active = true
+hub.Draggable = true
 
--- Coin arrondis
 local hubUICorner = Instance.new("UICorner", hub)
-hubUICorner.CornerRadius = UDim.new(0, 12)
+hubUICorner.CornerRadius = UDim.new(0, 16)
+
+local hubStroke = Instance.new("UIStroke", hub)
+hubStroke.Thickness = 2
+hubStroke.Color = Color3.fromRGB(255, 20, 147)
+hubStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+
+-- Effet glitch visuel
+spawn(function()
+	while wait(0.1) do
+		hubStroke.Color = Color3.fromRGB(math.random(100, 255), 0, math.random(100, 255))
+	end
+end)
 
 local header = Instance.new("Frame", hub)
 header.Size = UDim2.new(1, 0, 0, 35)
 header.Position = UDim2.new(0, 0, 0, 0)
-header.BackgroundColor3 = Color3.fromRGB(50, 50, 60)
+header.BackgroundTransparency = 1
 header.Name = "Header"
 
-local headerCorner = Instance.new("UICorner", header)
-headerCorner.CornerRadius = UDim.new(0, 12)
-
 local title = Instance.new("TextLabel", header)
-title.Size = UDim2.new(1, -10, 1, 0)
-title.Position = UDim2.new(0, 5, 0, 0)
+title.Size = UDim2.new(1, 0, 1, 0)
+title.Position = UDim2.new(0, 0, 0, 0)
 title.BackgroundTransparency = 1
-title.Text = "Jumpscare RNG Hub"
-title.TextColor3 = Color3.fromRGB(255, 255, 255)
-title.Font = Enum.Font.GothamBold
+title.Text = "GAME HUB:JUMPSCARE HUB "
+title.TextColor3 = Color3.fromRGB(57, 255, 20)
+title.Font = Enum.Font.Code
 title.TextScaled = true
-title.TextXAlignment = Enum.TextXAlignment.Left
 
 local mainScroll = Instance.new("ScrollingFrame", hub)
 mainScroll.Size = UDim2.new(1, -10, 1, -45)
 mainScroll.Position = UDim2.new(0, 5, 0, 40)
-mainScroll.BackgroundColor3 = Color3.fromRGB(35, 35, 40)
+mainScroll.BackgroundColor3 = Color3.fromRGB(35, 0, 35)
 mainScroll.ScrollBarThickness = 6
 mainScroll.CanvasSize = UDim2.new(0, 0, 0, 0)
 
@@ -49,39 +58,38 @@ local layout = Instance.new("UIListLayout", mainScroll)
 layout.SortOrder = Enum.SortOrder.LayoutOrder
 layout.Padding = UDim.new(0, 6)
 
--- Bouton stylé
 local function addButton(text, callback, parent)
 	local btn = Instance.new("TextButton")
 	btn.Size = UDim2.new(1, -10, 0, 34)
 	btn.Text = text
-	btn.Font = Enum.Font.GothamBold
+	btn.Font = Enum.Font.Arcade
 	btn.TextScaled = true
-	btn.TextColor3 = Color3.fromRGB(255, 255, 255)
-	btn.BackgroundColor3 = Color3.fromRGB(255, 50, 255)
+	btn.TextColor3 = Color3.fromRGB(0, 255, 255)
+	btn.BackgroundColor3 = Color3.fromRGB(200, 0, 200)
 	btn.BorderSizePixel = 0
 	btn.Parent = parent
 
 	local btnCorner = Instance.new("UICorner", btn)
-	btnCorner.CornerRadius = UDim.new(0, 8)
+	btnCorner.CornerRadius = UDim.new(0, 12)
 
 	btn.MouseButton1Click:Connect(callback)
 end
 
--- Bouton pour afficher les auras
+-- Aura Button
 local chooseAura = Instance.new("TextButton", mainScroll)
 chooseAura.Size = UDim2.new(1, -10, 0, 34)
 chooseAura.Text = "Choose Aura"
-chooseAura.TextColor3 = Color3.fromRGB(255, 255, 255)
+chooseAura.TextColor3 = Color3.fromRGB(0, 255, 255)
 chooseAura.TextScaled = true
-chooseAura.Font = Enum.Font.GothamBold
-chooseAura.BackgroundColor3 = Color3.fromRGB(255, 50, 255)
+chooseAura.Font = Enum.Font.Arcade
+chooseAura.BackgroundColor3 = Color3.fromRGB(200, 0, 200)
 
 local chooseAuraCorner = Instance.new("UICorner", chooseAura)
-chooseAuraCorner.CornerRadius = UDim.new(0, 8)
+chooseAuraCorner.CornerRadius = UDim.new(0, 12)
 
 local auraScroll = Instance.new("ScrollingFrame", mainScroll)
 auraScroll.Size = UDim2.new(1, -10, 0, 34)
-auraScroll.BackgroundColor3 = Color3.fromRGB(40, 100, 255)
+auraScroll.BackgroundColor3 = Color3.fromRGB(50, 0, 100)
 auraScroll.Visible = false
 auraScroll.ScrollBarThickness = 6
 auraScroll.CanvasSize = UDim2.new(0, 0, 0, 0)
@@ -113,15 +121,69 @@ chooseAura.MouseButton1Click:Connect(function()
 	auraScroll.CanvasSize = UDim2.new(0, 0, 0, auraLayout.AbsoluteContentSize.Y + 5)
 end)
 
--- Boutons d'action
+-- Actions
+addButton("Get Coin for Luck", function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%2B30-Luck%F0%9F%8D%80%5D%F0%9F%8E%B2Jumpscare-RNG/Get%20coin%201-10"))()
+end, mainScroll)
 
+addButton("Get best rarity", function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%2B30-Luck%F0%9F%8D%80%5D%F0%9F%8E%B2Jumpscare-RNG/Get%20best%20rarity"))()
+end, mainScroll)
 
+-- Roll Speed Button
+local rollSpeedLooping = false
+local rollSpeedButton = Instance.new("TextButton")
+rollSpeedButton.Size = UDim2.new(1, -10, 0, 30)
+rollSpeedButton.Text = "Roll Speed Inf OFF"
+rollSpeedButton.Font = Enum.Font.Arcade
+rollSpeedButton.TextScaled = true
+rollSpeedButton.TextColor3 = Color3.new(0, 255, 255)
+rollSpeedButton.BackgroundColor3 = Color3.fromRGB(200, 0, 200)
+rollSpeedButton.Parent = mainScroll
+local rollSpeedButtonCorner = Instance.new("UICorner", rollSpeedButton)
+rollSpeedButtonCorner.CornerRadius = UDim.new(0, 12)
 
+local function startRollSpeedLoop()
+	rollSpeedLooping = true
+	rollSpeedButton.Text = "Roll Speed Inf ON"
+	game.StarterGui:SetCore("SendNotification", {
+		Title = "Warning",
+		Text = "If you enable Roll Speed Inf, you must also enable Auto-Roll!",
+		Duration = 5
+	})
+
+	task.spawn(function()
+		while rollSpeedLooping do
+			local rollSpeed = player:FindFirstChild("RollSpeed")
+			if rollSpeed and rollSpeed:IsA("IntValue") then
+				rollSpeed.Value = 2147483647
+			end
+			task.wait(0.1)
+		end
+	end)
+end
+
+local function stopRollSpeedLoop()
+	rollSpeedLooping = false
+	rollSpeedButton.Text = "Roll Speed Inf OFF"
+	local rollSpeed = player:FindFirstChild("RollSpeed")
+	if rollSpeed and rollSpeed:IsA("IntValue") then
+		rollSpeed.Value = 200
+	end
+end
+
+rollSpeedButton.MouseButton1Click:Connect(function()
+	if rollSpeedLooping then
+		stopRollSpeedLoop()
+	else
+		startRollSpeedLoop()
+	end
+end)
 
 -- Mise à jour du canvas
 mainScroll.CanvasSize = UDim2.new(0, 0, 0, layout.AbsoluteContentSize.Y + 10)
 
--- Déplacement tactile du hub
+-- Déplacement mobile
 local dragging, dragStart, startPos
 header.InputBegan:Connect(function(input)
 	if input.UserInputType == Enum.UserInputType.Touch then
@@ -143,72 +205,6 @@ header.InputEnded:Connect(function(input)
 		dragging = false
 	end
 end)
-addButton("Get Coin for Luck", function()
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%2B30-Luck%F0%9F%8D%80%5D%F0%9F%8E%B2Jumpscare-RNG/Get%20coin%201-10"))()
-end, mainScroll)
-addButton("Get best rarity", function()
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%2B30-Luck%F0%9F%8D%80%5D%F0%9F%8E%B2Jumpscare-RNG/Get%20best%20rarity"))()
-end, mainScroll)
-
-
-local rollSpeedLooping = false -- état pour savoir si le script est en loop
-local rollSpeedButton = Instance.new("TextButton")
-rollSpeedButton.Size = UDim2.new(1, -10, 0, 30)
-rollSpeedButton.Text = "Roll Speed Inf OFF"
-rollSpeedButton.Font = Enum.Font.Gotham
-rollSpeedButton.TextScaled = true
-rollSpeedButton.TextColor3 = Color3.new(1, 1, 100)
-rollSpeedButton.BackgroundColor3 = Color3.fromRGB(255, 45, 255)
-rollSpeedButton.Parent = mainScroll
-local rollSpeedButtonCorner = Instance.new("UICorner", rollSpeedButton)rollSpeedButtonCorner.CornerRadius = UDim.new(0, 8)
-rollSpeedButton.Font = Enum.Font.GothamBold
-
---mdr dire que j'ai galéré a touver le problème 
-
-local function startRollSpeedLoop()
-	rollSpeedLooping = true
-	rollSpeedButton.Text = "Roll Speed Inf ON"
-	game.StarterGui:SetCore("SendNotification", {
-    Title = "Warning",
-    Text = "If you enable Roll Speed Inf, you must also enable Auto-Roll!",
-    Duration = 5
-})
-
-	task.spawn(function()
-		while rollSpeedLooping do
-			local player = game.Players.LocalPlayer
-			local rollSpeed = player:FindFirstChild("RollSpeed")
-			
-			if rollSpeed and rollSpeed:IsA("IntValue") then
-				rollSpeed.Value = 2147483647
-			else
-				warn("RollSpeed n'existe pas ou n'est pas un IntValue.")
-			end
-			task.wait(0.1)
-		end
-	end)
-end
-
-local function stopRollSpeedLoop()
-	rollSpeedLooping = false
-	rollSpeedButton.Text = "Roll Speed Inf OFF"
-
-	local player = game.Players.LocalPlayer
-	local rollSpeed = player:FindFirstChild("RollSpeed")
-	if rollSpeed and rollSpeed:IsA("IntValue") then
-		rollSpeed.Value = 200
-	end
-end
-
-rollSpeedButton.MouseButton1Click:Connect(function()
-	if rollSpeedLooping then
-		stopRollSpeedLoop()
-	else
-		startRollSpeedLoop()
-	end
-end)
-
 
 wait(1)
-
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%2B30-Luck%F0%9F%8D%80%5D%F0%9F%8E%B2Jumpscare-RNG/Auto%20if%20execute"))()
