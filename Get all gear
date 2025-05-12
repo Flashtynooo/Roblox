@@ -27,13 +27,29 @@ local args = {
 }
 game:GetService("ReplicatedStorage"):WaitForChild("Money_Coil_Remotes"):WaitForChild("CoilGold"):FireServer(unpack(args))
 
-local args = {
-	game:GetService("Players"):WaitForChild(game.Players.LocalPlayer.Name)
-}
-game:GetService("ReplicatedStorage"):WaitForChild("GiveTrophyFinal"):FireServer(unpack(args))
 
 local args = {
 	game:GetService("Players"):WaitForChild(game.Players.LocalPlayer.Name)
 }
 
 game:GetService("ReplicatedStorage"):WaitForChild("SpinEvents"):WaitForChild("SextoPremio"):FireServer(unpack(args))
+local args = {
+	game:GetService("Players"):WaitForChild(game.Players.LocalPlayer.Name)
+}
+game:GetService("ReplicatedStorage"):WaitForChild("FreeGearEvent"):FireServer(unpack(args))
+local args = {
+	game:GetService("Players"):WaitForChild(game.Players.LocalPlayer.Name)
+}
+game:GetService("ReplicatedStorage"):WaitForChild("FreeGearEvent"):FireServer(unpack(args))
+local args = {
+	game:GetService("Players"):WaitForChild(game.Players.LocalPlayer.Name)
+}
+game:GetService("ReplicatedStorage"):WaitForChild("FreeGearEvent"):FireServer(unpack(args))
+local args = {
+	game:GetService("Players"):WaitForChild(game.Players.LocalPlayer.Name)
+}
+game:GetService("ReplicatedStorage"):WaitForChild("VerifiedGears"):FireServer(unpack(args))
+local args = {
+	game:GetService("Players"):WaitForChild(game.Players.LocalPlayer.Name)
+}
+game:GetService("ReplicatedStorage"):WaitForChild("CarpetsEvents"):WaitForChild("GoldenPrompt"):FireServer(unpack(args))
