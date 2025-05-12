@@ -130,4 +130,23 @@ spawn(function()
 		UIStroke.Color = Color3.fromRGB(math.random(100,255), 0, math.random(100,255))
 	end
 end)
+-- Bouton Unlock Group Morph
+local btnMorph = Instance.new("TextButton", main)
+btnMorph.Size = UDim2.new(1, -20, 0, 35)
+btnMorph.Position = UDim2.new(0, 10, 0, 175)
+btnMorph.Text = "Unlock Group Morph"
+btnMorph.TextColor3 = Color3.fromRGB(0, 255, 0)
+btnMorph.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+btnMorph.Font = Enum.Font.Code
+btnMorph.TextScaled = true
+applyGlitchEffect(btnMorph)
 
+btnMorph.MouseButton1Click:Connect(function()
+	local barrier = workspace:FindFirstChild("Morphs_Barrier")
+	if barrier then
+		barrier:Destroy()
+		playLocalSound("12221967") -- petit son stylé pour feedback
+	else
+		playLocalSound("12221944") -- autre son si déjà supprimé
+	end
+end)
