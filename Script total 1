@@ -9,8 +9,8 @@ gui.ResetOnSpawn = false
 gui.Name = "HandHub"
 
 local main = Instance.new("Frame", gui)
-main.Size = UDim2.new(0, 280, 0, 320)
-main.Position = UDim2.new(0.5, -140, 0.5, -160)
+main.Size = UDim2.new(0, 280, 0, 250)
+main.Position = UDim2.new(0.5, -140, 0.6, -160)
 main.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 main.BorderColor3 = Color3.fromRGB(255, 0, 150)
 main.BorderSizePixel = 2
@@ -126,7 +126,7 @@ local function createCategory(cat, list)
 
     local section = Instance.new("ScrollingFrame", main)
     section.Position = UDim2.new(0, 10, 0, 100)
-    section.Size = UDim2.new(0, 260, 0, 210)
+    section.Size = UDim2.new(0, 260, 0, 140)
     section.Visible = false
     section.CanvasSize = UDim2.new(0, 0, 0, #list * 45)
     section.ScrollBarThickness = 4
