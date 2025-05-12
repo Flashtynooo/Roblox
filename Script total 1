@@ -1,19 +1,157 @@
 game.StarterGui:SetCore("SendNotification", {
     Title = "Hub Loaded",
-    Text = "Created by @flashtynooo",
+    Text = "Created by @flashtynooo UPDATE 1.01",
     Duration = 4
-})
+}) 
+local gui = Instance.new("ScreenGui", game.Players.LocalPlayer:WaitForChild("PlayerGui"))
+gui.ResetOnSpawn = false
+gui.Name = "HandHub"
 
--- SERVICES
-local CoreGui = game:GetService("CoreGui")
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
+local main = Instance.new("Frame", gui)
+main.Size = UDim2.new(0, 280, 0, 320)
+main.Position = UDim2.new(0.5, -140, 0.5, -160)
+main.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+main.BorderColor3 = Color3.fromRGB(255, 0, 150)
+main.BorderSizePixel = 2
+main.Active = true
+main.Draggable = true
+main.Name = "MainFrame"
 
--- GUI PRINCIPAL
-local hubGui = Instance.new("ScreenGui")
-hubGui.Name = "GameHub"
-hubGui.ResetOnSpawn = false
-hubGui.Parent = CoreGui
+local header = Instance.new("Frame", main)
+header.Size = UDim2.new(1, 0, 0, 30)
+header.BackgroundColor3 = Color3.fromRGB(40, 0, 60)
+header.BorderSizePixel = 0
+header.Name = "TopBar"
+
+local title = Instance.new("TextLabel", header)
+title.Text = "GAME HUB :)☠️"
+title.Size = UDim2.new(1, -90, 1, 0)
+title.Position = UDim2.new(0, 10, 0, 0)
+title.TextColor3 = Color3.fromRGB(255, 0, 200)
+title.BackgroundTransparency = 1
+title.TextXAlignment = Enum.TextXAlignment.Left
+title.Font = Enum.Font.Arcade
+title.TextSize = 14
+
+local minimized = false
+local lastVisibleSection = nil
+
+local function createButton(txt, offsetX, callback)
+    local b = Instance.new("TextButton", header)
+    b.Size = UDim2.new(0, 25, 0, 25)
+    b.Position = UDim2.new(1, offsetX, 0, 2)
+    b.Text = txt
+    b.TextColor3 = Color3.new(1, 1, 1)
+    b.BackgroundColor3 = Color3.fromRGB(90, 0, 100)
+    b.BorderSizePixel = 0
+    b.Font = Enum.Font.Gotham
+    b.TextSize = 14
+    b.MouseButton1Click:Connect(callback)
+end
+
+-- Fonction pour minimiser et restaurer
+
+createButton("X", -30, function()
+    gui:Destroy()
+end)
+
+local categoryScroll = Instance.new("ScrollingFrame", main)
+categoryScroll.Position = UDim2.new(0, 10, 0, 40)
+categoryScroll.Size = UDim2.new(0, 260, 0, 50)
+categoryScroll.BackgroundTransparency = 1
+categoryScroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+categoryScroll.ScrollBarThickness = 4
+categoryScroll.ScrollingDirection = Enum.ScrollingDirection.X
+
+local categories = {
+    ["All script"] = {
+        { "⛏️ Dig to Earth's CORE!", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/%E2%9B%8F%EF%B8%8F%20Dig%20to%20Earth's%20CORE!" },
+        { "Brookhaven", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Brookhaven%20total" },
+        { "Line to CHICKEN JOCKEY!", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flashtynooo-hub/Line%20to%20CHICKEN%20JOCKEY!" },
+        { "oMega Obby 🌟 725 Stages!", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/oMega%20Obby%20%F0%9F%8C%9F%20725%20Stages!" },
+{ "Mining world", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Mining%20world" },
+        { "Jumpscare RNG", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%2B30-Luck%F0%9F%8D%80%5D%F0%9F%8E%B2Jumpscare-RNG/The%20all%202" }
+    },
+    ["RNG Game"] = {
+        { "Jumpscare RNG", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%2B30-Luck%F0%9F%8D%80%5D%F0%9F%8E%B2Jumpscare-RNG/The%20all%202" }
+    },
+    ["Obby Game"] = {
+        { "oMega Obby 🌟 725 Stages!", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/oMega%20Obby%20%F0%9F%8C%9F%20725%20Stages!" }
+    },
+    ["Inf Game"] = {
+        { "⛏️ Dig to Earth's CORE!", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/%E2%9B%8F%EF%B8%8F%20Dig%20to%20Earth's%20CORE!" }
+    },
+    ["Others"] = {
+        { "Brookhaven", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Brookhaven%20total" },
+{ "Mining world", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Mining%20world" },
+        { "Line to CHICKEN JOCKEY!", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flashtynooo-hub/Line%20to%20CHICKEN%20JOCKEY!" }
+    },
+}
+
+local activeFrame
+local function showSection(sectionFrame)
+    if activeFrame then activeFrame.Visible = false end
+    activeFrame = sectionFrame
+    activeFrame.Visible = true
+end
+
+local categoryButtons = {}
+local sections = {}
+
+local function createCategory(cat, list)
+    local index = #categoryButtons
+    local btn = Instance.new("TextButton", categoryScroll)
+    btn.Size = UDim2.new(0, 70, 1, 0)
+    btn.Position = UDim2.new(0, index * 75, 0, 0)
+    btn.Text = cat
+    btn.TextColor3 = Color3.new(1, 1, 1)
+    btn.BackgroundColor3 = Color3.fromRGB(90, 0, 110)
+    btn.Font = Enum.Font.GothamBold
+    btn.TextSize = 11
+    table.insert(categoryButtons, btn)
+
+    categoryScroll.CanvasSize = UDim2.new(0, #categoryButtons * 75, 0, 0)
+
+    local section = Instance.new("ScrollingFrame", main)
+    section.Position = UDim2.new(0, 10, 0, 100)
+    section.Size = UDim2.new(0, 260, 0, 210)
+    section.Visible = false
+    section.CanvasSize = UDim2.new(0, 0, 0, #list * 45)
+    section.ScrollBarThickness = 4
+    section.BackgroundColor3 = Color3.fromRGB(25, 0, 40)
+    sections[cat] = section
+
+    for i, entry in ipairs(list) do
+        local name, link = unpack(entry)
+        local hubBtn = Instance.new("TextButton", section)
+        hubBtn.Size = UDim2.new(1, -10, 0, 40)
+        hubBtn.Position = UDim2.new(0, 5, 0, (i - 1) * 45)
+        hubBtn.Text = "▶ " .. name
+        hubBtn.BackgroundColor3 = Color3.fromRGB(110, 0, 130)
+        hubBtn.TextColor3 = Color3.new(1, 1, 1)
+        hubBtn.Font = Enum.Font.Gotham
+        hubBtn.TextSize = 13
+        hubBtn.MouseButton1Click:Connect(function()
+            loadstring(game:HttpGet(link))()
+        end)
+    end
+
+    btn.MouseButton1Click:Connect(function()
+        showSection(section)
+    end)
+end
+
+-- Création ordonnée : All script en premier
+createCategory("All script", categories["All script"])
+for cat, list in pairs(categories) do
+    if cat ~= "All script" then
+        createCategory(cat, list)
+    end
+end
+
+-- Affichage auto "All script"
+task.wait()
+showSection(sections["All script"])
 
 -- IMAGE CLIQUABLE (bouton pour afficher/cacher le hub)
 local toggleImage = Instance.new("ImageButton")
@@ -21,141 +159,15 @@ toggleImage.Size = UDim2.new(0, 60, 0, 60)
 toggleImage.Position = UDim2.new(0, 20, 0.5, -30)
 toggleImage.BackgroundTransparency = 1
 toggleImage.Image = "rbxthumb://type=Asset&id=76126150119912&w=420&h=420"
-toggleImage.Parent = hubGui
+toggleImage.Parent = gui
 toggleImage.Draggable = true
 toggleImage.Active = true
 
--- FRAME PRINCIPAL (hub)
-local hubFrame = Instance.new("Frame")
-hubFrame.Size = UDim2.new(0, 350, 0, 250)
-hubFrame.Position = UDim2.new(0.5, -175, 0.5, -125)
-hubFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-hubFrame.BackgroundTransparency = 0.4
-hubFrame.BorderSizePixel = 0
-hubFrame.Active = true
-hubFrame.Draggable = true
-hubFrame.Visible = false -- Masqué au début
-hubFrame.Parent = hubGui
-
--- TITRE
-local titleLabel = Instance.new("TextLabel")
-titleLabel.Size = UDim2.new(1, -80, 0, 40)
-titleLabel.Position = UDim2.new(0, 0, 0, 0)
-titleLabel.BackgroundTransparency = 1
-titleLabel.Text = "                     game-hub :)☠️"
-titleLabel.TextColor3 = Color3.new(1, 1, 1)
-titleLabel.Font = Enum.Font.SourceSansBold
-titleLabel.TextSize = 24
-titleLabel.TextXAlignment = Enum.TextXAlignment.Left
-titleLabel.Parent = hubFrame
-
--- FRAME BOUTONS EN HAUT A DROITE
-local buttonsFrame = Instance.new("Frame")
-buttonsFrame.Size = UDim2.new(0, 80, 0, 40)
-buttonsFrame.Position = UDim2.new(1, -80, 0, 0)
-buttonsFrame.BackgroundTransparency = 1
-buttonsFrame.Parent = hubFrame
-
--- BOUTON MINIMIZE / RESIZE
-local minimizeResizeButton = Instance.new("TextButton")
-minimizeResizeButton.Size = UDim2.new(0, 40, 0, 40)
-minimizeResizeButton.Position = UDim2.new(0, 0, 0, 0)
-minimizeResizeButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
-minimizeResizeButton.Text = "_"
-minimizeResizeButton.TextColor3 = Color3.new(1, 1, 1)
-minimizeResizeButton.Font = Enum.Font.SourceSans
-minimizeResizeButton.TextSize = 24
-minimizeResizeButton.BorderSizePixel = 0
-minimizeResizeButton.Parent = buttonsFrame
-
--- BOUTON DESTROY
-local destroyButton = Instance.new("TextButton")
-destroyButton.Size = UDim2.new(0, 40, 0, 40)
-destroyButton.Position = UDim2.new(0, 40, 0, 0)
-destroyButton.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
-destroyButton.Text = "X"
-destroyButton.TextColor3 = Color3.new(1, 1, 1)
-destroyButton.Font = Enum.Font.SourceSans
-destroyButton.TextSize = 24
-destroyButton.BorderSizePixel = 0
-destroyButton.Parent = buttonsFrame
-
--- MINIMIZE
-local isMinimized = false
-local originalSize = hubFrame.Size
-
-minimizeResizeButton.MouseButton1Click:Connect(function()
-	isMinimized = not isMinimized
-	if isMinimized then
-		hubFrame.Size = UDim2.new(0, 350, 0, 40)
-		for _, child in ipairs(hubFrame:GetChildren()) do
-			if child ~= titleLabel and child ~= buttonsFrame then
-				child.Visible = false
-			end
-		end
-		minimizeResizeButton.Text = "+"
-	else
-		hubFrame.Size = originalSize
-		for _, child in ipairs(hubFrame:GetChildren()) do
-			if child ~= titleLabel and child ~= buttonsFrame then
-				child.Visible = true
-			end
-		end
-		minimizeResizeButton.Text = "_"
-	end
-end)
-
--- DESTROY
-destroyButton.MouseButton1Click:Connect(function()
-	hubGui:Destroy()
-end)
-
--- SCROLLINGFRAME POUR BOUTONS
-local scrollFrame = Instance.new("ScrollingFrame")
-scrollFrame.Size = UDim2.new(1, 0, 0, 210)
-scrollFrame.Position = UDim2.new(0, 0, 0, 40)
-scrollFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-scrollFrame.BackgroundTransparency = 0.5
-scrollFrame.ScrollBarThickness = 8
-scrollFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
-scrollFrame.ScrollingEnabled = true
-scrollFrame.Parent = hubFrame
-
--- LAYOUT POUR ORGANISATION
-local layout = Instance.new("UIListLayout", scrollFrame)
-layout.Padding = UDim.new(0, 4)
-layout.SortOrder = Enum.SortOrder.LayoutOrder
-
--- AJOUT DYNAMIQUE DE BOUTON
-_G.AddHubButton = function(buttonId, githubLink)
-	local button = Instance.new("TextButton")
-	button.Size = UDim2.new(1, -10, 0, 30)
-	button.BackgroundColor3 = Color3.fromRGB(70, 130, 180)
-	button.Text = tostring(buttonId)
-	button.Font = Enum.Font.SourceSans
-	button.TextColor3 = Color3.new(1, 1, 1)
-	button.TextSize = 18
-	button.BorderSizePixel = 0
-	button.Parent = scrollFrame
-
-	button.MouseButton1Click:Connect(function()
-		pcall(function()
-			loadstring(game:HttpGet(githubLink))()
-		end)
-	end)
-
-	scrollFrame.CanvasSize = UDim2.new(0, 0, 0, layout.AbsoluteContentSize.Y + 10)
-end
-
--- Exemple :
-_G.AddHubButton("Mining Script", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Mining%20world")
-
--- AFFICHER/MASQUER HUB AU CLIC SUR L'IMAGE
+-- Fonction pour basculer l'affichage du hub
 toggleImage.MouseButton1Click:Connect(function()
-	hubFrame.Visible = not hubFrame.Visible
+    if main.Visible then
+        main.Visible = false
+    else
+        main.Visible = true
+    end
 end)
-_G.AddHubButton("Line to CHICKEN JOCKEY!", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flashtynooo-hub/Line%20to%20CHICKEN%20JOCKEY!")
-_G.AddHubButton("BROOKHAVEN", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Brookhaven%20total")
-_G.AddHubButton("oMega Obby 🌟 725 Stages! ", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/oMega%20Obby%20%F0%9F%8C%9F%20725%20Stages!")
-_G.AddHubButton("⛏️ Dig to Earth's CORE!", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/%E2%9B%8F%EF%B8%8F%20Dig%20to%20Earth's%20CORE!")
-_G.AddHubButton("Jumpscare RNG", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%2B30-Luck%F0%9F%8D%80%5D%F0%9F%8E%B2Jumpscare-RNG/The%20all%202")
