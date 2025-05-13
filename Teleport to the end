@@ -1,0 +1,7 @@
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local hrp = character:WaitForChild("HumanoidRootPart")
+
+-- Téléportation directe à la position
+hrp.CFrame = CFrame.new(-1851, 61, 351)
