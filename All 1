@@ -1,0 +1,120 @@
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+
+-- Rechargement si le joueur respawn
+local canGetGear = true
+player.CharacterAdded:Connect(function()
+	canGetGear = true
+end)
+
+-- Création GUI
+local gui = Instance.new("ScreenGui", game.CoreGui)
+gui.Name = "FlshtyHub"
+gui.ResetOnSpawn = false
+
+local frame = Instance.new("Frame", gui)
+frame.Name = "MainHub"
+frame.Size = UDim2.new(0, 300, 0, 240)
+frame.Position = UDim2.new(0.5, -150, 0.5, -120)
+frame.BackgroundColor3 = Color3.fromRGB(130, 0, 255)
+frame.BorderSizePixel = 0
+frame.BackgroundTransparency = 0.1
+frame.Active = true
+frame.Draggable = true
+frame.ClipsDescendants = true
+
+Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 16)
+
+local stroke = Instance.new("UIStroke", frame)
+stroke.Thickness = 2
+stroke.Color = Color3.fromRGB(255, 20, 147)
+stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+
+local title = Instance.new("TextLabel", frame)
+title.Size = UDim2.new(1, 0, 0, 30)
+title.Text = "Maze to VIP Obby"
+title.TextColor3 = Color3.fromRGB(57, 255, 20)
+title.TextScaled = true
+title.BackgroundTransparency = 1
+title.Font = Enum.Font.Code
+
+-- Glitch visuel simulé
+task.spawn(function()
+	while true do
+		stroke.Color = Color3.fromRGB(math.random(100,255), 0, math.random(100,255))
+		task.wait(0.1)
+	end
+end)
+
+-- Layout
+local layout = Instance.new("UIListLayout", frame)
+layout.SortOrder = Enum.SortOrder.LayoutOrder
+layout.Padding = UDim.new(0, 8)
+layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+layout.VerticalAlignment = Enum.VerticalAlignment.Top
+
+-- Son anti-spam
+local sound = Instance.new("Sound", frame)
+sound.SoundId = "rbxassetid://6701126635"
+sound.Volume = 2
+
+-- Fonction bouton style flshty
+local function makeButton(name, callback)
+	local btn = Instance.new("TextButton", frame)
+	btn.Size = UDim2.new(0.8, 0, 0, 40)
+	btn.Position = UDim2.new(0.1, 0, 0, 0)
+	btn.Text = name
+	btn.BackgroundColor3 = Color3.fromRGB(200, 0, 200)
+	btn.TextColor3 = Color3.fromRGB(0, 255, 255)
+	btn.TextScaled = true
+	btn.Font = Enum.Font.Arcade
+	Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 12)
+	btn.MouseButton1Click:Connect(callback)
+	return btn
+end
+
+-- Cooldowns
+local lastObby = 0
+local lastTeleport = 0
+local removedVip = false
+
+-- 1. Obby badges
+makeButton("obby badges", function()
+	if tick() - lastObby >= 4 then
+		lastObby = tick()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Maze-to-vip-obby/Obby%20badge"))()
+	else
+		sound:Play()
+	end
+end)
+
+-- 2. Teleport to the end
+makeButton("teleport to the end", function()
+	if tick() - lastTeleport >= 5 then
+		lastTeleport = tick()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Maze-to-vip-obby/Teleport%20to%20the%20end"))()
+	else
+		sound:Play()
+	end
+end)
+
+-- 3. Get some gear (1 fois par vie)
+makeButton("get some gear", function()
+	if canGetGear then
+		canGetGear = false
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Maze-to-vip-obby/Get%20some%20gear"))()
+	else
+		sound:Play()
+	end
+end)
+
+-- 4. Remove VIP & Group barrier (1 seule fois)
+makeButton("remove Vip & Group barrer", function()
+	if not removedVip then
+		removedVip = true
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Maze-to-vip-obby/Barrer%20vip%20and%20badge"))()
+	else
+		sound:Play()
+	end
+end)
