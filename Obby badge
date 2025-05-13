@@ -1,0 +1,60 @@
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+local hrp = character:WaitForChild("HumanoidRootPart")
+
+-- Sauvegarde position et vitesse
+local savedCFrame = hrp.CFrame
+local savedSpeed = humanoid.WalkSpeed
+
+-- Réduit la vitesse
+humanoid.WalkSpeed = 0
+
+-- Liste des noms de parts dans workspace
+local partNames = {
+    "Vulcan",
+    "parachute",
+    "medium",
+    "maze",
+    "impossible",
+    "guess the line",
+    "grassy lines",
+    "grassy lines", -- doublon intentionnel
+    "easy",
+     "glass"
+
+    
+}
+
+-- TP sur chaque Part si elle existe
+for _, name in ipairs(partNames) do
+    local part = workspace:FindFirstChild(name)
+    if part and part:IsA("BasePart") then
+        hrp.CFrame = part.CFrame + Vector3.new(0, 5, 0) -- petit décalage en hauteur
+        task.wait(0.5)
+    end
+end
+
+-- TP à première position custom
+hrp.CFrame = CFrame.new(
+    838.500122, 17.0000134, -902.499939,
+    0, 0, 1,
+    0, 1, 0,
+    -1, 0, 0
+)
+task.wait(0.5)
+
+-- TP à deuxième position custom
+hrp.CFrame = CFrame.new(
+    1063.87744, 261.069061, 871.299683,
+    -0.0819920301, 0, 0.996632993,
+    0, 1, 0,
+    -0.996632993, 0, -0.0819920301
+)
+task.wait(0.5)
+
+-- Retour à la position d'origine
+hrp.CFrame = savedCFrame
+humanoid.WalkSpeed = savedSpeed
+
