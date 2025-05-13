@@ -5,6 +5,63 @@ if gameId == 125832188069642 then
     local url = "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Maze-to-vip-obby/All%201"
     loadstring(game:HttpGet(url))() -- Exécute le script à partir du lien
 
+local function createTextFace(part, face)
+	local surfaceGui = Instance.new("SurfaceGui")
+	surfaceGui.Adornee = part
+	surfaceGui.Face = face
+	surfaceGui.AlwaysOnTop = true
+	surfaceGui.LightInfluence = 1
+	surfaceGui.Parent = part
+
+	local label = Instance.new("TextLabel", surfaceGui)
+	label.Size = UDim2.new(1, 0, 1, 0)
+	label.BackgroundTransparency = 1
+	label.Text = "lol u execute flashtynooo script"
+	label.TextColor3 = Color3.fromRGB(57, 255, 20) -- vert flshty
+	label.Font = Enum.Font.Arcade
+	label.TextScaled = true
+end
+
+-- Créer le panneau
+local part = Instance.new("Part")
+part.Size = Vector3.new(6, 3, 0.5)
+part.Position = Vector3.new(20, -5, 45)
+part.Anchored = true
+part.Material = Enum.Material.Neon
+part.Color = Color3.fromRGB(130, 0, 255) -- violet flshty
+part.Name = "FlshtySign"
+part.Parent = workspace
+
+-- Fonction pour obtenir une couleur aléatoire parmi vert, violet, rose et noir
+local function getRandomBorderColor()
+	local colors = {
+		Color3.fromRGB(57, 255, 20), -- vert
+		Color3.fromRGB(130, 0, 255), -- violet
+		Color3.fromRGB(255, 20, 147), -- rose
+		Color3.fromRGB(0, 0, 0) -- noir
+	}
+	return colors[math.random(0.3, #colors)]
+end
+
+-- Appliquer les bordures glitch aléatoires
+local stroke = Instance.new("SelectionBox")
+stroke.Adornee = part
+stroke.LineThickness = 0.08
+stroke.Color3 = getRandomBorderColor() -- Bordure aléatoire
+stroke.SurfaceTransparency = 0.5
+stroke.Parent = part
+
+-- Appliquer le texte sur les deux faces avant/arrière
+createTextFace(part, Enum.NormalId.Front)
+createTextFace(part, Enum.NormalId.Back)
+
+-- Changer la couleur des bordures toutes les 0.5 secondes
+spawn(function()
+	while wait(0.5) do
+		stroke.Color3 = getRandomBorderColor() -- Mettre une couleur de bordure aléatoire
+	end
+end)
+
 else
     -- Sinon, envoyer une notification
     game.StarterGui:SetCore("SendNotification", {
