@@ -1,27 +1,30 @@
 local player = game:GetService("Players").LocalPlayer
 local backpack = player:WaitForChild("Backpack")
 local character = player.Character or player.CharacterAdded:Wait()
-local toolNames = {
+
+-- Liste des outils à blacklister
+local blacklist = {
     ["GamepassTool1"] = true,
     ["GamepassTool2"] = true,
     ["GamepassTool3"] = true
 }
 
--- Fonction de suppression
-local function removeTool(tool)
-    if tool:IsA("Tool") and toolNames[tool.Name] then
+-- Supprime si l'outil est dans la blacklist
+local function checkTool(tool)
+    if tool:IsA("Tool") and blacklist[tool.Name] then
         tool:Destroy()
+        print("[Blacklist] Suppressed:", tool.Name)
     end
 end
 
--- Vérifie en boucle dans le backpack
-backpack.ChildAdded:Connect(removeTool)
-character.ChildAdded:Connect(removeTool)
+-- Connexions pour suppression automatique
+backpack.ChildAdded:Connect(checkTool)
+character.ChildAdded:Connect(checkTool)
 
--- Supprime ceux déjà présents au cas où
+-- Suppression des outils déjà présents au démarrage
 for _, tool in ipairs(backpack:GetChildren()) do
-    removeTool(tool)
+    checkTool(tool)
 end
 for _, tool in ipairs(character:GetChildren()) do
-    removeTool(tool)
+    checkTool(tool)
 end
