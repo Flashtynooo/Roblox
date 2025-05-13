@@ -3,5 +3,20 @@ local player = Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local hrp = character:WaitForChild("HumanoidRootPart")
 
--- Téléportation directe à la position
-hrp.CFrame = CFrame.new(-1851, 61, 351)
+-- Liste des positions
+local positions = {
+    Vector3.new(-40, -5, 0),
+    Vector3.new(-306, -4, -15),
+    Vector3.new(-307, -4, -15),
+    Vector3.new(-545, -4, -56),
+    Vector3.new(-779, -4, 94),
+    Vector3.new(-1105, -4, 95),
+    Vector3.new(-1412, -4, 215),
+    Vector3.new(-1849, 61, 349)
+}
+
+-- Téléportation à chaque position avec un délai
+for _, pos in ipairs(positions) do
+    hrp.CFrame = CFrame.new(pos)
+    task.wait(0.5) -- délai entre chaque TP
+end
