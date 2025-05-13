@@ -1,0 +1,36 @@
+-- Coordonnées et orientation précises
+local targetCFrame = CFrame.new(
+    36.9999962, 1.99999237, -52.5,
+    -1, 0, 0,
+     0, 1, 0,
+     0, 0, -1
+)
+
+-- Parcours tous les objets du workspace
+for _, obj in ipairs(workspace:GetDescendants()) do
+    if obj:IsA("BasePart") and obj.CFrame == targetCFrame then
+        obj:Destroy()
+        print("Part supprimée avec succès.")
+        break
+    end
+end
+
+-- Coordonnées et orientation précises
+local targetCFrame = CFrame.new(
+    -1794.9292, 69.1989517, 161.401123, -0.0155650377, 0, 0.999878883, 0, 1, 0, -0.999878883, 0, -0.0155650377
+)
+
+-- Parcours tous les objets du workspace
+for _, obj in ipairs(workspace:GetDescendants()) do
+    if obj:IsA("BasePart") and obj.CFrame == targetCFrame then
+        obj:Destroy()
+        print("Part supprimée avec succès.")
+        break
+    end
+end
+-- Supprime tous les objets contenant "Vip" (insensible à la casse)
+for _, obj in ipairs(workspace:GetDescendants()) do
+    if obj:IsA("Instance") and string.lower(obj.Name):find("vip") then
+        obj:Destroy()
+    end
+end
