@@ -28,3 +28,19 @@ end
 for _, tool in ipairs(character:GetChildren()) do
     checkTool(tool)
 end
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local giveGear = ReplicatedStorage:WaitForChild("giveGear")
+
+local tools = {
+    "BodySwapPotion",
+    "DanceTool",
+    "Heart",
+    "InvisibilityCloak",
+    "Jetpack",
+    "Regen"
+}
+
+for _, toolName in ipairs(tools) do
+    giveGear:FireServer(toolName)
+end
