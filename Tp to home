@@ -1,0 +1,9 @@
+
+
+
+
+
+local args = {
+
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("TycoonEvents"):WaitForChild("HomeTP"):FireServer(unpack(args))
