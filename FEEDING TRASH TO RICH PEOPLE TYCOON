@@ -1,1 +1,18 @@
-https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/FEEDING-TRASH-TO-RICH-PEOPLE/FEEDING%20TRASH%20TO%20RICH%20PEOPLE%20TYCOON
+
+--:3 pks more pls moreeeee....
+local gameId = game.PlaceId -- Récupère l'ID du jeu actuel
+
+if gameId == 13171071365 then
+    -- Si l'ID du jeu est celui spécifié, exécuter le lien
+    local url = loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/FEEDING-TRASH-TO-RICH-PEOPLE/FEEDING%20TRASH%20TO%20RICH%20PEOPLE%20TYCOON"))()
+else
+    -- Sinon, envoyer une notification
+    game.StarterGui:SetCore("SendNotification", {
+        Title = "Hey",
+        Text = "Is not the good game -_-",
+        Duration = 4
+    })
+end
+
+
+
