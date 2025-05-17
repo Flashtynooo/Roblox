@@ -1,130 +1,14 @@
--- Créé par Flashtynooo - Hub flshty style
-local player = game:GetService("Players").LocalPlayer
+--:3 pks more pls moreeeee....
+local gameId = game.PlaceId -- Récupère l'ID du jeu actuel
 
--- Anti-double
-if player:FindFirstChild("flshty_baldhub") then player.flshty_baldhub:Destroy() end
-
--- ScreenGui
-local gui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
-gui.Name = "flshty_baldhub"
-gui.ResetOnSpawn = false
-
--- Main Frame
-local main = Instance.new("Frame", gui)
-main.Size = UDim2.new(0, 250, 0, 240)
-main.Position = UDim2.new(0.5, -125, 0.5, -120)
-main.BackgroundColor3 = Color3.fromRGB(148, 0, 211)
-main.BorderSizePixel = 0
-main.Active = true
-main.Draggable = true
-
--- UICorner + Stroke flshty
-Instance.new("UICorner", main).CornerRadius = UDim.new(0, 12)
-local stroke = Instance.new("UIStroke", main)
-stroke.Thickness = 2
-stroke.Color = Color3.fromRGB(255, 0, 255)
-
--- Glitch visuel
-task.spawn(function()
-	while main.Parent do
-		stroke.Color = Color3.fromRGB(math.random(200,255), 0, math.random(200,255))
-		task.wait(0.1)
-	end
-end)
-
--- Titre
-local title = Instance.new("TextLabel", main)
-title.Size = UDim2.new(1, 0, 0, 30)
-title.Text = "MAKE EVERYONE BALD AND SELL WIGS TYCOON"
-title.BackgroundTransparency = 1
-title.TextColor3 = Color3.fromRGB(0, 255, 0)
-title.TextWrapped = true
-title.Font = Enum.Font.FredokaOne
-title.TextSize = 14
-
--- Buttons container
-local buttonsFrame = Instance.new("Frame", main)
-buttonsFrame.Size = UDim2.new(1, -20, 1, -40)
-buttonsFrame.Position = UDim2.new(0, 10, 0, 35)
-buttonsFrame.BackgroundTransparency = 1
-
--- UIList
-local list = Instance.new("UIListLayout", buttonsFrame)
-list.Padding = UDim.new(0, 6)
-list.FillDirection = Enum.FillDirection.Vertical
-list.SortOrder = Enum.SortOrder.LayoutOrder
-
--- Template bouton avec ON/OFF et loop
-local function createToggleButton(name, scriptURL)
-	local on = false
-	local connection
-	local btn = Instance.new("TextButton", buttonsFrame)
-	btn.Size = UDim2.new(1, 0, 0, 40)
-	btn.Text = name .. ": OFF"
-	btn.Font = Enum.Font.Arcade
-	btn.TextSize = 16
-	btn.TextColor3 = Color3.fromRGB(0, 255, 255)
-	btn.BackgroundColor3 = Color3.fromRGB(125, 0, 255)
-	Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 8)
-
-	btn.MouseButton1Click:Connect(function()
-		on = not on
-		btn.Text = name .. (on and ": ON" or ": OFF")
-
-		if on then
-			connection = task.spawn(function()
-				while on do
-					pcall(function()
-						loadstring(game:HttpGet(scriptURL))()
-					end)
-					task.wait(1)
-				end
-			end)
-		else
-			if connection then
-				task.cancel(connection)
-			end
-		end
-	end)
+if gameId == 120797319068429 then
+    -- Si l'ID du jeu est celui spécifié, exécuter le lien
+    local url = loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/MAKE-EVERYONE-BALD-AND-SELL-WIGS-TYCOON/Total%201"))()
+else
+    -- Sinon, envoyer une notification
+    game.StarterGui:SetCore("SendNotification", {
+        Title = "Hey",
+        Text = "Is not the good game -_-",
+        Duration = 4
+    })
 end
-
--- Bouton simple (exécute une seule fois)
-local function createSingleButton(name, scriptURL)
-	local btn = Instance.new("TextButton", buttonsFrame)
-	btn.Size = UDim2.new(1, 0, 0, 40)
-	btn.Text = name
-	btn.Font = Enum.Font.Arcade
-	btn.TextSize = 16
-	btn.TextColor3 = Color3.fromRGB(0, 255, 255)
-	btn.BackgroundColor3 = Color3.fromRGB(125, 0, 255)
-	Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 8)
-
-	btn.MouseButton1Click:Connect(function()
-		pcall(function()
-			loadstring(game:HttpGet(scriptURL))()
-		end)
-	end)
-end
-
--- -- Bouton Auto-collect
-createToggleButton("Auto-collect", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/MAKE-EVERYONE-BALD-AND-SELL-WIGS-TYCOON/Auto%20collect")
-
--- Message simulé par un faux bouton (non cliquable)
-local fakeButton = Instance.new("TextButton")
-fakeButton.Parent = buttonsFrame
-fakeButton.Size = UDim2.new(1, 0, 0, 40)
-fakeButton.BackgroundColor3 = Color3.fromRGB(40, 0, 40)
-fakeButton.TextColor3 = Color3.fromRGB(200, 100, 255)
-fakeButton.Font = Enum.Font.FredokaOne
-fakeButton.TextSize = 14
-fakeButton.TextWrapped = true
-fakeButton.AutoButtonColor = false
-fakeButton.TextTransparency = 0.2
-fakeButton.TextStrokeTransparency = 0.7
-fakeButton.BorderSizePixel = 0
-fakeButton.Text = "Sorry, I couldn't add an automatic sale, you have to click manually."
-fakeButton.Active = false
-
-
-createToggleButton("Get money and gem", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/MAKE-EVERYONE-BALD-AND-SELL-WIGS-TYCOON/Get%20reward")
-createSingleButton("Tp Home", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/MAKE-EVERYONE-BALD-AND-SELL-WIGS-TYCOON/Tp%20to%20home")
