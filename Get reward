@@ -1,4 +1,16 @@
 local args = {
+	"Currency"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Rewards"):WaitForChild("Claim"):FireServer(unpack(args))
+local args = {
+	"PremiumCurrency"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Rewards"):WaitForChild("Claim"):FireServer(unpack(args))
+local args = {
+	"Currency"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Rewards"):WaitForChild("Claim"):FireServer(unpack(args))
+local args = {
 	1
 }
 game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Rewards"):WaitForChild("ClaimTimedReward"):FireServer(unpack(args))
