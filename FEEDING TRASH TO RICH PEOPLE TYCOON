@@ -1,0 +1,122 @@
+--// FEEDING TRASH TO RICH PEOPLE TYCOON - HUB FLSHTY STYLE
+
+local player = game:GetService("Players").LocalPlayer
+local ui = Instance.new("ScreenGui", game.CoreGui)
+ui.Name = "FEEDING HUB"
+
+-- Main Frame
+local main = Instance.new("Frame", ui)
+main.Size = UDim2.new(0, 290, 0, 300)
+main.Position = UDim2.new(0.5, -145, 0.5, -170)
+main.BackgroundColor3 = Color3.fromRGB(130, 0, 190)
+main.BorderSizePixel = 0
+main.Active = true
+main.Draggable = true
+
+Instance.new("UICorner", main).CornerRadius = UDim.new(0, 10)
+
+local stroke = Instance.new("UIStroke", main)
+stroke.Color = Color3.fromRGB(255, 0, 255)
+stroke.Thickness = 2
+
+-- Glitch effect
+task.spawn(function()
+	while true do
+		stroke.Color = Color3.fromRGB(255, math.random(0, 50), 255)
+		task.wait(0.2)
+	end
+end)
+
+-- Title
+local title = Instance.new("TextLabel", main)
+title.Size = UDim2.new(1, 0, 0, 30)
+title.BackgroundTransparency = 1
+title.Text = "FEEDING TRASH TO RICH PEOPLE TYCOON"
+title.TextColor3 = Color3.fromRGB(0, 255, 0)
+title.TextScaled = true
+title.Font = Enum.Font.Arcade
+
+-- Container for buttons
+local btnFrame = Instance.new("Frame", main)
+btnFrame.Position = UDim2.new(0, 10, 0, 40)
+btnFrame.Size = UDim2.new(1, -20, 1, -50)
+btnFrame.BackgroundTransparency = 1
+
+-- Fonction bouton style flshty
+function createBtn(name, yPos)
+	local b = Instance.new("TextButton", btnFrame)
+	b.Size = UDim2.new(1, 0, 0, 35)
+	b.Position = UDim2.new(0, 0, 0, yPos)
+	b.BackgroundColor3 = Color3.fromRGB(160, 0, 210)
+	b.Text = name
+	b.TextColor3 = Color3.fromRGB(0, 255, 255)
+	b.Font = Enum.Font.Arcade
+	b.TextScaled = true
+	Instance.new("UICorner", b).CornerRadius = UDim.new(0, 8)
+	return b
+end
+
+-- // inf money? //
+local infLoop = false
+local cooldown = 0.2
+local infBtn = createBtn("inf money? (OFF)", 0)
+
+local cdBox = Instance.new("TextBox", btnFrame)
+cdBox.Size = UDim2.new(1, 0, 0, 30)
+cdBox.Position = UDim2.new(0, 0, 0, 40)
+cdBox.Text = "0.2"
+cdBox.BackgroundColor3 = Color3.fromRGB(50, 0, 50)
+cdBox.TextColor3 = Color3.fromRGB(0, 255, 255)
+cdBox.Font = Enum.Font.Arcade
+cdBox.TextScaled = true
+Instance.new("UICorner", cdBox)
+
+local infoBtn = Instance.new("TextButton", btnFrame)
+infoBtn.Size = UDim2.new(1, 0, 0, 25)
+infoBtn.Position = UDim2.new(0, 0, 0, 75)
+infoBtn.Text = "change the cooldown for money gain"
+infoBtn.BackgroundColor3 = Color3.fromRGB(40, 0, 40)
+infoBtn.TextColor3 = Color3.fromRGB(100, 100, 100)
+infoBtn.Font = Enum.Font.Arcade
+infoBtn.TextScaled = true
+infoBtn.AutoButtonColor = false
+infoBtn.Active = false
+Instance.new("UICorner", infoBtn)
+
+infBtn.MouseButton1Click:Connect(function()
+	infLoop = not infLoop
+	infBtn.Text = infLoop and "inf money? (ON)" or "inf money? (OFF)"
+	if infLoop then
+		task.spawn(function()
+			while infLoop do
+				local num = tonumber(cdBox.Text)
+				if num then cooldown = num end
+				game:GetService("MarketplaceService"):SignalPromptProductPurchaseFinished(player.UserId, 1912898079, true)
+				task.wait(cooldown)
+			end
+		end)
+	end
+end)
+
+-- // Tp Home //
+local tpBtn = createBtn("Tp home", 110)
+tpBtn.MouseButton1Click:Connect(function()
+	game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("TpHome"):FireServer()
+end)
+
+-- // Reward every 2 min //
+local rewardLoop = false
+local rewardBtn = createBtn("reward every 5 min (OFF)", 155)
+
+rewardBtn.MouseButton1Click:Connect(function()
+	rewardLoop = not rewardLoop
+	rewardBtn.Text = rewardLoop and "reward every 5 min (ON)" or "reward every 5 min (OFF)"
+	if rewardLoop then
+		task.spawn(function()
+			while rewardLoop do
+				game:GetService("ReplicatedStorage"):WaitForChild("TemplateEvents"):WaitForChild("Rewards"):WaitForChild("ClaimTimedReward"):FireServer(1)
+				task.wait(0.1)
+			end
+		end)
+	end
+end)
