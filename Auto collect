@@ -1,0 +1,50 @@
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+-- Récupère le numéro de terrain (PlotNumber)
+local plot = player:WaitForChild("PlotNumber")
+local plotNumber = tostring(plot.Value)
+
+-- Chemin vers les Parts dans ItemDebris
+local debrisFolder = workspace:WaitForChild("TycoonSystem"):WaitForChild("Tycoons"):WaitForChild(plotNumber):WaitForChild("ItemDebris")
+
+-- Référence au texte de capacité
+local capacityDisplay = player:WaitForChild("PlayerGui"):WaitForChild("HUD"):WaitForChild("Inventory"):WaitForChild("CapacityDisplay")
+
+-- Fonction pour chercher un objet nommé "box" dans tout le workspace
+local function findBox(parent)
+	for _, child in ipairs(parent:GetChildren()) do
+		if child.Name == "box" and child:IsA("BasePart") then
+			return child
+		end
+		local found = findBox(child)
+		if found then
+			return found
+		end
+	end
+	return nil
+end
+
+-- Boucle de téléportation des items
+for _, part in ipairs(debrisFolder:GetChildren()) do
+	if part:IsA("BasePart") then
+		-- Vérifie si le sac est plein
+		if capacityDisplay.Text == "BACKPACK FULL!" then
+			warn("[STOP] Backpack is full, teleporting to box.")
+			
+			-- Cherche la box et téléporte le joueur
+			local box = findBox(workspace)
+			if box then
+				humanoidRootPart.CFrame = box.CFrame
+			else
+				warn("Aucun objet nommé 'box' trouvé dans workspace.")
+			end
+			break -- arrête la boucle principale
+		end
+
+		humanoidRootPart.CFrame = part.CFrame + Vector3.new(0, 5, 0)
+		wait(0)
+	end
+end
