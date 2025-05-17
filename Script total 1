@@ -75,6 +75,7 @@ local categories = {
         { "Jumpscare RNG", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%2B30-Luck%F0%9F%8D%80%5D%F0%9F%8E%B2Jumpscare-RNG/The%20all%202" },
         { "Maze to VIP Obby", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Maze-to-vip-obby/The%20all%202" },
         { "MAKE EVERYONE BALD AND SELL WIGS TYCOON", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/MAKE%20EVERYONE%20BALD%20AND%20SELL%20WIGS%20TYCOON" },
+        { "FEEDING TRASH TO RICH PEOPLE TYCOON", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/FEEDING%20TRASH%20TO%20RICH%20PEOPLE%20TYCOON" }
 
 },
 
@@ -92,12 +93,14 @@ local categories = {
 
 
     ["Inf Game"] = {
-        { "⛏️ Dig to Earth's CORE!", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/%E2%9B%8F%EF%B8%8F%20Dig%20to%20Earth's%20CORE!" },
-{ "The $1,000,000 Glass Bridge", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/The-%241%2C000%2C000-Glass-Bridge/The%20all%202" }
+{ "⛏️ Dig to Earth's CORE!", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/%E2%9B%8F%EF%B8%8F%20Dig%20to%20Earth's%20CORE!" },
+{ "The $1,000,000 Glass Bridge", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/The-%241%2C000%2C000-Glass-Bridge/The%20all%202" },
+{ "FEEDING TRASH TO RICH PEOPLE TYCOON", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/FEEDING%20TRASH%20TO%20RICH%20PEOPLE%20TYCOON" }
     },
 
 ["Tycoon"] = {
         { "MAKE EVERYONE BALD AND SELL WIGS TYCOON", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/MAKE%20EVERYONE%20BALD%20AND%20SELL%20WIGS%20TYCOON" },
+        { "FEEDING TRASH TO RICH PEOPLE TYCOON", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/FEEDING%20TRASH%20TO%20RICH%20PEOPLE%20TYCOON" }
 },
 
     ["Others"] = {
