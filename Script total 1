@@ -70,10 +70,11 @@ local categories = {
         { "Brookhaven", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Brookhaven%20total" },
         { "Line to CHICKEN JOCKEY!", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flashtynooo-hub/Line%20to%20CHICKEN%20JOCKEY!" },
         { "oMega Obby 🌟 725 Stages!", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/725%20Stages%20total" },
-{ "Mining world", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Mining%20world" },
-{ "The $1,000,000 Glass Bridge", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/The-%241%2C000%2C000-Glass-Bridge/The%20all%202" },
+        { "Mining world", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Mining%20world" },
+        { "The $1,000,000 Glass Bridge", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/The-%241%2C000%2C000-Glass-Bridge/The%20all%202" },
         { "Jumpscare RNG", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%2B30-Luck%F0%9F%8D%80%5D%F0%9F%8E%B2Jumpscare-RNG/The%20all%202" },
-{ "Maze to VIP Obby", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Maze-to-vip-obby/The%20all%202" }
+        { "Maze to VIP Obby", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Maze-to-vip-obby/The%20all%202" },
+        { "MAKE EVERYONE BALD AND SELL WIGS TYCOON", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/MAKE%20EVERYONE%20BALD%20AND%20SELL%20WIGS%20TYCOON" },
 
 },
 
@@ -95,6 +96,9 @@ local categories = {
 { "The $1,000,000 Glass Bridge", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/The-%241%2C000%2C000-Glass-Bridge/The%20all%202" }
     },
 
+["Tycoon"] = {
+        { "MAKE EVERYONE BALD AND SELL WIGS TYCOON", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/MAKE%20EVERYONE%20BALD%20AND%20SELL%20WIGS%20TYCOON" },
+},
 
     ["Others"] = {
         { "Brookhaven", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Brookhaven%20total" },
