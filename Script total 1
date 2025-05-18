@@ -166,13 +166,17 @@ local function createCategory(cat, list)
     end)
 end
 
+
+
+
 -- Création ordonnée : All script en premier
 createCategory("All script", categories["All script"])
 for cat, list in pairs(categories) do
-    if cat ~= "All script" then
+    if cat ~= "All script" and cat ~= "Soon . . ." then
         createCategory(cat, list)
     end
 end
+createCategory("Soon . . .", categories["Soon . . ."]) -- À ajouter en dernier
 
 -- Affichage auto "All script"
 task.wait()
