@@ -150,9 +150,9 @@ createActionButton("Buy Pickaxe", "https://raw.githubusercontent.com/Flashtynooo
 createActionButton("Get Spin", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%E2%9B%8F%EF%B8%8F-Dig-to-Earth's-CORE!-Every-code/Get%20an%20big%20number%20spin", 2, false)
 createActionButton("GET PETS OP", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%E2%9B%8F%EF%B8%8F-Dig-to-Earth's-CORE!-Every-code/Ufo", 1, false)
 createActionButton("GET PETS OP GOLDEN", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%E2%9B%8F%EF%B8%8F-Dig-to-Earth's-CORE!-Every-code/Golden%20ufo", 7, false)
-createActionButton("Get gem", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%E2%9B%8F%EF%B8%8F-Dig-to-Earth's-CORE!-Every-code/Inf%20gem", 2, false)
-createActionButton("Get Cash", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%E2%9B%8F%EF%B8%8F-Dig-to-Earth's-CORE!-Every-code/Inf%20money", 2, false)
-
+createActionButton("Get gem", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%E2%9B%8F%EF%B8%8F-Dig-to-Earth's-CORE!-Every-code/Inf%20gem", 0, false)
+createActionButton("Get Cash", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%E2%9B%8F%EF%B8%8F-Dig-to-Earth's-CORE!-Every-code/Inf%20money", 0, false)
+createActionButton("x10 your Cash", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%E2%9B%8F%EF%B8%8F-Dig-to-Earth's-CORE!-Every-code/Get%20x10", 0, false)
 -- Ajuster la hauteur
 task.wait(0.1)
 content.CanvasSize = UDim2.new(0, 0, 0, layout.AbsoluteContentSize.Y + 10)
