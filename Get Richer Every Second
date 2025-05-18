@@ -3,7 +3,7 @@ local gameId = game.PlaceId -- Récupère l'ID du jeu actuel
 
 if gameId == 11902668271 then
     -- Si l'ID du jeu est celui spécifié, exécuter le lien
-    local url = loadstring(game:HttpGet(""))()
+    local url = loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Get-Richer-Every-Second/Get%20Richer%20Every%20Second"))()
 else
     -- Sinon, envoyer une notification
     game.StarterGui:SetCore("SendNotification", {
