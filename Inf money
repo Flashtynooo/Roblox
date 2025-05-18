@@ -1,5 +1,4 @@
 local args = {
-	"Cash",
-	99999999999999999999999999999999999999999999999999
+	2
 }
-game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("AddRewardEvent"):FireServer(unpack(args))
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SpinPrizeEvent"):FireServer(unpack(args))
