@@ -1,0 +1,158 @@
+local Players = game:GetService("Players")
+local HttpService = game:GetService("HttpService")
+local LocalizationService = game:GetService("LocalizationService")
+local player = Players.LocalPlayer
+
+-- Langue
+local langCode = LocalizationService.RobloxLocaleId
+
+local translations = {
+	["⛏️ Dig to Earth's CORE!"] = {
+		fr = "⛏️ Creuse jusqu'au CENTRE de la Terre!",
+	},
+	["Farm win"] = { fr = "Farm victoires" },
+	["Farm win ON"] = { fr = "Farm victoires ON" },
+	["Farm win OFF"] = { fr = "Farm victoires OFF" },
+	["Get all badges"] = { fr = "Obtenir tous les badges" },
+	["Buy Pickaxe"] = { fr = "Acheter des pioches" },
+	["Get Spin"] = { fr = "Obtient Spin" },
+	["GET PETS OP"] = { fr = "OBTENIR DES PETS PUISSANTS" },
+	["GET PETS OP GOLDEN"] = { fr = "PETS PUISSANTS DORÉS" },
+	["Inf gem"] = { fr = "Gemmes infinies" },
+	["inf Cash"] = { fr = "Argent infini" },
+}
+
+local function translate(text)
+	local t = translations[text]
+	return t and t[langCode:sub(1,2)] or text
+end
+
+-- GUI style flshty
+local gui = Instance.new("ScreenGui", game.CoreGui)
+gui.Name = "FlshtyCoreHub"
+gui.ResetOnSpawn = false
+gui.ZIndexBehavior = Enum.ZIndexBehavior.Global
+
+local mainFrame = Instance.new("Frame", gui)
+mainFrame.Size = UDim2.new(0, 200, 0, 200)
+mainFrame.Position = UDim2.new(0.53, -100, 0.75, -200)
+mainFrame.BackgroundColor3 = Color3.fromRGB(130, 0, 255)
+mainFrame.BorderSizePixel = 0
+mainFrame.Active = true
+mainFrame.Draggable = true
+mainFrame.ClipsDescendants = true
+
+local UICorner = Instance.new("UICorner", mainFrame)
+UICorner.CornerRadius = UDim.new(0, 16)
+
+local UIStroke = Instance.new("UIStroke", mainFrame)
+UIStroke.Thickness = 2
+UIStroke.Color = Color3.fromRGB(255, 20, 147)
+UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+
+spawn(function()
+	while wait(0.1) do
+		UIStroke.Color = Color3.fromRGB(math.random(100,255), 0, math.random(100,255))
+	end
+end)
+
+local title = Instance.new("TextLabel", mainFrame)
+title.Size = UDim2.new(1, 0, 0, 40)
+title.Position = UDim2.new(0, 0, 0, 0)
+title.Text = translate("⛏️ Dig to Earth's CORE!")
+title.TextColor3 = Color3.fromRGB(57, 255, 20)
+title.TextScaled = true
+title.BackgroundTransparency = 1
+title.Font = Enum.Font.Code
+
+-- Close / Toggle
+local function createBtn(txt, pos, callback)
+	local b = Instance.new("TextButton", mainFrame)
+	b.Size = UDim2.new(0, 35, 0, 35)
+	b.Position = pos
+	b.Text = txt
+	b.Font = Enum.Font.Code
+	b.TextScaled = true
+	b.TextColor3 = Color3.fromRGB(0,255,255)
+	b.BackgroundColor3 = Color3.fromRGB(200,0,200)
+	b.BorderSizePixel = 0
+
+	local corner = Instance.new("UICorner", b)
+	corner.CornerRadius = UDim.new(0, 12)
+
+	b.MouseButton1Click:Connect(callback)
+	return b
+end
+
+local content = Instance.new("ScrollingFrame", mainFrame)
+content.Size = UDim2.new(1, -20, 1, -50)
+content.Position = UDim2.new(0, 10, 0, 45)
+content.BackgroundColor3 = Color3.fromRGB(10,10,10)
+content.BorderSizePixel = 0
+content.CanvasSize = UDim2.new(0, 0, 0, 0)
+content.ScrollBarThickness = 5
+
+local layout = Instance.new("UIListLayout", content)
+layout.Padding = UDim.new(0, 6)
+
+-- Boutons flshty
+local function createActionButton(name, url, cooldown, isLoop)
+	local btn = Instance.new("TextButton", content)
+	btn.Size = UDim2.new(1, 0, 0, 40)
+	btn.Text = translate(name)
+	btn.Font = Enum.Font.Arcade
+	btn.TextColor3 = Color3.fromRGB(0,255,255)
+	btn.BackgroundColor3 = Color3.fromRGB(200, 0, 200)
+	btn.BorderSizePixel = 0
+
+	local corner = Instance.new("UICorner", btn)
+	corner.CornerRadius = UDim.new(0, 12)
+
+	local looping = false
+	local loopThread
+
+	btn.MouseButton1Click:Connect(function()
+		if isLoop then
+			looping = not looping
+			btn.Text = translate(name.." "..(looping and "ON" or "OFF"))
+			if looping then
+				loopThread = task.spawn(function()
+					while looping do
+						pcall(function()
+							loadstring(game:HttpGet(url))()
+						end)
+						task.wait(1)
+					end
+				end)
+			else
+				if loopThread then task.cancel(loopThread) end
+			end
+		else
+			if btn:GetAttribute("cooling") then return end
+			pcall(function()
+				loadstring(game:HttpGet(url))()
+			end)
+			if cooldown > 0 then
+				btn:SetAttribute("cooling", true)
+				btn.TextTransparency = 0.5
+				task.wait(cooldown)
+				btn:SetAttribute("cooling", false)
+				btn.TextTransparency = 0
+			end
+		end
+	end)
+end
+
+-- Ajout des boutons
+createActionButton("Farm win", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%E2%9B%8F%EF%B8%8F-Dig-to-Earth's-CORE!-Every-code/Farm%20win", 0, true)
+createActionButton("Get all badges", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%E2%9B%8F%EF%B8%8F-Dig-to-Earth's-CORE!-Every-code/Get%20all%20badges", 0, false)
+createActionButton("Buy Pickaxe", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%E2%9B%8F%EF%B8%8F-Dig-to-Earth's-CORE!-Every-code/Get%20all%20weapon", 0, false)
+createActionButton("Get Spin", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%E2%9B%8F%EF%B8%8F-Dig-to-Earth's-CORE!-Every-code/Get%20an%20big%20number%20spin", 2, false)
+createActionButton("GET PETS OP", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%E2%9B%8F%EF%B8%8F-Dig-to-Earth's-CORE!-Every-code/Ufo", 1, false)
+createActionButton("GET PETS OP GOLDEN", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%E2%9B%8F%EF%B8%8F-Dig-to-Earth's-CORE!-Every-code/Golden%20ufo", 7, false)
+createActionButton("Get gem", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%E2%9B%8F%EF%B8%8F-Dig-to-Earth's-CORE!-Every-code/Inf%20gem", 2, false)
+createActionButton("Get Cash", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%E2%9B%8F%EF%B8%8F-Dig-to-Earth's-CORE!-Every-code/Inf%20money", 2, false)
+
+-- Ajuster la hauteur
+task.wait(0.1)
+content.CanvasSize = UDim2.new(0, 0, 0, layout.AbsoluteContentSize.Y + 10)
