@@ -75,7 +75,8 @@ local categories = {
         { "Jumpscare RNG", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%2B30-Luck%F0%9F%8D%80%5D%F0%9F%8E%B2Jumpscare-RNG/The%20all%202" },
         { "Maze to VIP Obby", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Maze-to-vip-obby/The%20all%202" },
         { "MAKE EVERYONE BALD AND SELL WIGS TYCOON", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/MAKE%20EVERYONE%20BALD%20AND%20SELL%20WIGS%20TYCOON" },
-        { "FEEDING TRASH TO RICH PEOPLE TYCOON", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/FEEDING%20TRASH%20TO%20RICH%20PEOPLE%20TYCOON" }
+        { "FEEDING TRASH TO RICH PEOPLE TYCOON", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/FEEDING%20TRASH%20TO%20RICH%20PEOPLE%20TYCOON" },
+        { "Get Richer Every Second", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Get%20Richer%20Every%20Second" }
 
 },
 
@@ -108,6 +109,9 @@ local categories = {
 { "Mining world", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Mining%20world" },
         { "Line to CHICKEN JOCKEY!", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flashtynooo-hub/Line%20to%20CHICKEN%20JOCKEY!" }
     },
+["Soon..."] = {
+        { "SOON", "" }
+},
 }
 
 local activeFrame
