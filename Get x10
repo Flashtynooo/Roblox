@@ -1,0 +1,4 @@
+local args = {
+	8
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SpinPrizeEvent"):FireServer(unpack(args))
