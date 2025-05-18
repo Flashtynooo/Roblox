@@ -70,7 +70,6 @@ local categories = {
         { "Brookhaven", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Brookhaven%20total" },
         { "Line to CHICKEN JOCKEY!", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flashtynooo-hub/Line%20to%20CHICKEN%20JOCKEY!" },
         { "oMega Obby 🌟 725 Stages!", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/725%20Stages%20total" },
-        { "Mining world", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Mining%20world" },
         { "The $1,000,000 Glass Bridge", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/The-%241%2C000%2C000-Glass-Bridge/The%20all%202" },
         { "Jumpscare RNG", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%2B30-Luck%F0%9F%8D%80%5D%F0%9F%8E%B2Jumpscare-RNG/The%20all%202" },
         { "Maze to VIP Obby", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Maze-to-vip-obby/The%20all%202" },
@@ -83,33 +82,33 @@ local categories = {
 
     ["RNG Game"] = {
         { "Jumpscare RNG", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%2B30-Luck%F0%9F%8D%80%5D%F0%9F%8E%B2Jumpscare-RNG/The%20all%202" }
-    },
+},
 
 
     ["Obby Game"] = {
         { "oMega Obby 🌟 725 Stages!", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/725%20Stages%20total" },
-{ "The $1,000,000 Glass Bridge", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/The-%241%2C000%2C000-Glass-Bridge/The%20all%202" },
-{ "Maze to VIP Obby", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Maze-to-vip-obby/The%20all%202" }
-    },
+        { "The $1,000,000 Glass Bridge", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/The-%241%2C000%2C000-Glass-Bridge/The%20all%202" },
+        { "Maze to VIP Obby", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Maze-to-vip-obby/The%20all%202" }
+},
 
 
     ["Inf Game"] = {
-{ "⛏️ Dig to Earth's CORE!", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/%E2%9B%8F%EF%B8%8F%20Dig%20to%20Earth's%20CORE!" },
-{ "The $1,000,000 Glass Bridge", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/The-%241%2C000%2C000-Glass-Bridge/The%20all%202" },
-{ "FEEDING TRASH TO RICH PEOPLE TYCOON", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/FEEDING%20TRASH%20TO%20RICH%20PEOPLE%20TYCOON" }
-    },
+        { "⛏️ Dig to Earth's CORE!", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/%E2%9B%8F%EF%B8%8F%20Dig%20to%20Earth's%20CORE!" },
+        { "The $1,000,000 Glass Bridge", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/The-%241%2C000%2C000-Glass-Bridge/The%20all%202" },
+        { "FEEDING TRASH TO RICH PEOPLE TYCOON", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/FEEDING%20TRASH%20TO%20RICH%20PEOPLE%20TYCOON" }
+},
 
-["Tycoon"] = {
+    ["Tycoon"] = {
         { "MAKE EVERYONE BALD AND SELL WIGS TYCOON", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/MAKE%20EVERYONE%20BALD%20AND%20SELL%20WIGS%20TYCOON" },
         { "FEEDING TRASH TO RICH PEOPLE TYCOON", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/FEEDING%20TRASH%20TO%20RICH%20PEOPLE%20TYCOON" }
 },
 
     ["Others"] = {
         { "Brookhaven", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Brookhaven%20total" },
-{ "Mining world", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Mining%20world" },
+        { "Mining world", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Mining%20world" },
         { "Line to CHICKEN JOCKEY!", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flashtynooo-hub/Line%20to%20CHICKEN%20JOCKEY!" }
-    },
-["Soon . . ."] = {
+},
+    ["Soon . . ."] = {
         { "SOON :)", "" }
 },
 }
