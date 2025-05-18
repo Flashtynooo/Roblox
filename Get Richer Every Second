@@ -1,0 +1,229 @@
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+local userLocale = player.LocaleId or "en"
+
+local messages = {
+    ["fr"] = {
+        Title = "INFO",
+        Text = "Plus de boutons s’ajoutent selon ton niveau, stats doivent suivre.",
+    },
+    ["en"] = {
+        Title = "INFO",
+        Text = "More buttons unlock by level, stats must match.",
+    },
+    ["es"] = {
+        Title = "INFO",
+        Text = "Más botones se desbloquean según tu nivel, las estadísticas deben coincidir.",
+    },
+    ["de"] = {
+        Title = "INFO",
+        Text = "Mehr Tasten schalten sich je nach Level frei, die Werte müssen passen.",
+    },
+    ["pt"] = {
+        Title = "INFO",
+        Text = "Mais botões desbloqueiam conforme o nível, os status devem corresponder.",
+    },
+    ["ru"] = {
+        Title = "ИНФО",
+        Text = "Больше кнопок открываются с повышением уровня, характеристики должны соответствовать.",
+    },
+    ["zh"] = {
+        Title = "信息",
+        Text = "更多按钮随等级解锁，属性必须匹配。",
+    },
+    ["ja"] = {
+        Title = "情報",
+        Text = "レベルに応じてボタンが増え、ステータスも合わせる必要があります。",
+    },
+    ["ko"] = {
+        Title = "정보",
+        Text = "레벨에 따라 더 많은 버튼이 잠금 해제되며, 능력치도 맞아야 합니다.",
+    },
+    ["it"] = {
+        Title = "INFO",
+        Text = "Più pulsanti si sbloccano con il livello, le statistiche devono corrispondere.",
+    },
+}
+
+local lang = "en"
+local prefix = userLocale:sub(1,2):lower()
+
+if messages[prefix] then
+    lang = prefix
+end
+
+local message = messages[lang]
+
+game.StarterGui:SetCore("SendNotification", {
+    Title = message.Title,
+    Text = message.Text,
+    Duration = 6
+})
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+local teleportPositions = {
+    [1] = Vector3.new(596, 376, 59),
+    [2] = Vector3.new(856, 472, 55),
+    [3] = Vector3.new(1108, 598, 58),
+    [4] = Vector3.new(1384, 748, 58),
+    [5] = Vector3.new(1638, 925, 63),
+    [6] = Vector3.new(1913, 1109, 69),
+    [7] = Vector3.new(2248, 1403, 71),
+    [8] = Vector3.new(2573, 1782, 73),
+}
+
+local teleportLoops = {}
+local createdButtons = {}
+
+-- Création ScreenGui
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "WinHub"
+ScreenGui.Parent = player:WaitForChild("PlayerGui")
+
+-- Hub Frame principal
+local hubFrame = Instance.new("Frame")
+hubFrame.Size = UDim2.new(0, 200, 0, 175)
+hubFrame.Position = UDim2.new(0.5, -100, 0.5, -90)
+hubFrame.BackgroundColor3 = Color3.fromRGB(70, 0, 70)
+hubFrame.Parent = ScreenGui
+hubFrame.Active = true
+hubFrame.Draggable = true
+local hubCorner = Instance.new("UICorner", hubFrame)
+hubCorner.CornerRadius = UDim.new(0, 12)
+local hubStroke = Instance.new("UIStroke", hubFrame)
+hubStroke.Color = Color3.fromRGB(255, 0, 255)
+hubStroke.Thickness = 3
+
+-- Titre au-dessus du hub
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(0, 200, 0, 30)
+title.Position = UDim2.new(0, 0, 0, 0)
+title.BackgroundTransparency = 1
+title.Text = "Get Richer Every Second"
+title.TextColor3 = Color3.fromRGB(0, 255, 0)
+title.Font = Enum.Font.GothamBold
+title.TextSize = 18
+title.Parent = hubFrame
+title.TextStrokeTransparency = 0.6
+title.TextXAlignment = Enum.TextXAlignment.Center
+title.TextYAlignment = Enum.TextYAlignment.Center
+
+-- ScrollingFrame pour les boutons
+local scroll = Instance.new("ScrollingFrame")
+scroll.Size = UDim2.new(1, -10, 1, -40)
+scroll.Position = UDim2.new(0, 5, 0, 35)
+scroll.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+scroll.BorderSizePixel = 0
+scroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+scroll.ScrollBarThickness = 6
+scroll.AutomaticCanvasSize = Enum.AutomaticSize.Y
+scroll.Parent = hubFrame
+
+local layout = Instance.new("UIListLayout", scroll)
+layout.Padding = UDim.new(0, 6)
+layout.SortOrder = Enum.SortOrder.LayoutOrder
+
+-- Style flshty pour bouton
+local function applyButtonStyle(button)
+    button.BackgroundColor3 = Color3.fromRGB(128, 0, 128)
+    local uiCorner = Instance.new("UICorner", button)
+    uiCorner.CornerRadius = UDim.new(0, 8)
+    button.TextColor3 = Color3.fromRGB(0, 255, 255)
+    button.Font = Enum.Font.Gotham
+    button.TextSize = 16
+    local uiStroke = Instance.new("UIStroke", button)
+    uiStroke.Color = Color3.fromRGB(255, 0, 255)
+    uiStroke.Thickness = 1.5
+end
+
+local function createButton(n)
+    local container = Instance.new("Frame")
+    container.Size = UDim2.new(1, 0, 0, 40)
+    container.BackgroundTransparency = 1
+
+    local btn = Instance.new("TextButton")
+    btn.Size = UDim2.new(0.7, 0, 1, 0)
+    btn.Position = UDim2.new(0, 0, 0, 0)
+    btn.Text = "Win ("..n..")"
+    applyButtonStyle(btn)
+    btn.Parent = container
+
+    local toggleBtn = Instance.new("TextButton")
+    toggleBtn.Size = UDim2.new(0.3, 0, 1, 0)
+    toggleBtn.Position = UDim2.new(0.7, 5, 0, 0)
+    toggleBtn.Text = "Off"
+    applyButtonStyle(toggleBtn)
+    toggleBtn.TextColor3 = Color3.fromRGB(255, 100, 100)
+    toggleBtn.Parent = container
+
+    -- Téléportation unique au clic du bouton principal
+    btn.MouseButton1Click:Connect(function()
+        local char = player.Character
+        if char and char:FindFirstChild("HumanoidRootPart") then
+            char.HumanoidRootPart.CFrame = CFrame.new(teleportPositions[n])
+        end
+    end)
+
+    -- ON/OFF loop de téléportation
+    toggleBtn.MouseButton1Click:Connect(function()
+        if teleportLoops[n] then
+            teleportLoops[n] = false
+            toggleBtn.Text = "Off"
+            toggleBtn.TextColor3 = Color3.fromRGB(255, 100, 100)
+        else
+            teleportLoops[n] = true
+            toggleBtn.Text = "On"
+            toggleBtn.TextColor3 = Color3.fromRGB(100, 255, 100)
+            coroutine.wrap(function()
+                while teleportLoops[n] do
+                    local char = player.Character
+                    if char and char:FindFirstChild("HumanoidRootPart") then
+                        char.HumanoidRootPart.CFrame = CFrame.new(teleportPositions[n])
+                    end
+                    wait(0.3)
+                end
+            end)()
+        end
+    end)
+
+    return container
+end
+
+-- Ajoute toujours le bouton Win (1)
+if not createdButtons[1] then
+    local btn1 = createButton(1)
+    btn1.Parent = scroll
+    createdButtons[1] = btn1
+end
+
+local function updateButtons()
+    local wallsFolder = workspace:FindFirstChild("Walls")
+    if not wallsFolder then return end
+
+    for i = 2, 8 do
+        local wall = wallsFolder:FindFirstChild(tostring(i))
+        if wall and wall.Transparency == 1 then
+            if not createdButtons[i] then
+                local btn = createButton(i)
+                btn.Parent = scroll
+                createdButtons[i] = btn
+            end
+        else
+            if createdButtons[i] then
+                teleportLoops[i] = false
+                createdButtons[i]:Destroy()
+                createdButtons[i] = nil
+            end
+        end
+    end
+end
+
+-- Coroutine pour mise à jour boutons toutes les 1s
+coroutine.wrap(function()
+    while true do
+        updateButtons()
+        wait(1)
+    end
+end)()
