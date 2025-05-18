@@ -109,8 +109,8 @@ local categories = {
 { "Mining world", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Mining%20world" },
         { "Line to CHICKEN JOCKEY!", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flashtynooo-hub/Line%20to%20CHICKEN%20JOCKEY!" }
     },
-["Soon..."] = {
-        { "SOON", "" }
+["Soon . . ."] = {
+        { "SOON :)", "" }
 },
 }
 
