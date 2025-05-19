@@ -21,7 +21,7 @@ local tool = Instance.new("Tool")
 tool.Name = "Jerk off"
 tool.RequiresHandle = false
 tool.Parent = pack
-tool.ToolTip = "made by flashtynooo (lol this tool dont exist on this game)"
+tool.ToolTip = "made by flashtynooo :)☠️"
 
 local doing = false
 local animtrack = nil
