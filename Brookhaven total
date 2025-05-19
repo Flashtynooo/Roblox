@@ -1,2 +1,16 @@
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Brookhaven%20anti-rspy%20%22need%22%20message"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Brookhaven%201"))()
+
+--:3 suce ma queue
+local gameId = game.PlaceId -- Récupère l'ID du jeu actuel
+
+if gameId == 4924922222 then
+    -- Si l'ID du jeu est celui spécifié, exécuter le lien
+    local url = loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Brookhaven%201"))()
+else
+    -- Sinon, envoyer une notification
+    game.StarterGui:SetCore("SendNotification", {
+        Title = "Hey",
+        Text = "Is not the good game -_-",
+        Duration = 4
+    })
+end
+
