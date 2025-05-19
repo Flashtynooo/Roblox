@@ -1,0 +1,222 @@
+local HttpService = game:GetService("HttpService")
+
+local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
+ScreenGui.Name = "FlshtyR6Dances"
+ScreenGui.ResetOnSpawn = false
+
+local MainFrame = Instance.new("Frame", ScreenGui)
+MainFrame.Name = "MainHub"
+MainFrame.Size = UDim2.new(0, 300, 0, 320)
+MainFrame.Position = UDim2.new(0.5, -150, 0.5, -160)
+MainFrame.BackgroundColor3 = Color3.fromRGB(130, 0, 255)
+MainFrame.BorderSizePixel = 0
+MainFrame.BackgroundTransparency = 0.1
+MainFrame.Active = true
+MainFrame.Draggable = true
+MainFrame.ClipsDescendants = true
+
+local UICorner = Instance.new("UICorner", MainFrame)
+UICorner.CornerRadius = UDim.new(0, 16)
+
+local UIStroke = Instance.new("UIStroke", MainFrame)
+UIStroke.Thickness = 2
+UIStroke.Color = Color3.fromRGB(255, 20, 147)
+UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+
+local Title = Instance.new("TextLabel", MainFrame)
+Title.Size = UDim2.new(1, 0, 0, 30)
+Title.Position = UDim2.new(0, 0, 0, 0)
+Title.Text = "R6 Dances"
+Title.TextColor3 = Color3.fromRGB(57, 255, 20)
+Title.TextScaled = true
+Title.BackgroundTransparency = 1
+Title.Font = Enum.Font.Code
+
+local spacingY = 0.15
+local buttonHeight = 30
+local buttonY = 0.2
+
+-- ... (partie inchangée avant les boutons)
+
+local defaultButtonColor = Color3.fromRGB(200, 0, 200)
+local defaultTextColor = Color3.fromRGB(0, 255, 255)
+
+-- Bouton 1
+local Button1 = Instance.new("TextButton", MainFrame)
+Button1.Size = UDim2.new(0.8, 0, 0, buttonHeight)
+Button1.Position = UDim2.new(0.1, 0, buttonY, 0)
+Button1.Text = "Get Steallar [OFF]"
+Button1.BackgroundColor3 = defaultButtonColor
+Button1.TextColor3 = defaultTextColor
+Button1.TextScaled = true
+Button1.Font = Enum.Font.Arcade
+Instance.new("UICorner", Button1).CornerRadius = UDim.new(0, 12)
+
+-- Bouton 2
+buttonY = buttonY + spacingY
+local Button2 = Instance.new("TextButton", MainFrame)
+Button2.Size = UDim2.new(0.8, 0, 0, buttonHeight)
+Button2.Position = UDim2.new(0.1, 0, buttonY, 0)
+Button2.Text = "get more steallar (bug) [OFF]"
+Button2.BackgroundColor3 = defaultButtonColor
+Button2.TextColor3 = defaultTextColor
+Button2.TextScaled = true
+Button2.Font = Enum.Font.Arcade
+Instance.new("UICorner", Button2).CornerRadius = UDim.new(0, 12)
+
+-- Info
+buttonY = buttonY + spacingY
+local InfoButton = Instance.new("TextButton", MainFrame)
+InfoButton.Size = UDim2.new(0.8, 0, 0, 30)
+InfoButton.Position = UDim2.new(0.05, 0, buttonY, 0)
+InfoButton.Text = "Caution: Leaving ON too long may bug!"
+InfoButton.BackgroundColor3 = Color3.fromRGB(50, 0, 50)
+InfoButton.TextColor3 = Color3.fromRGB(255, 255, 0)
+InfoButton.TextScaled = true
+InfoButton.Font = Enum.Font.Code
+InfoButton.AutoButtonColor = false
+InfoButton.Active = false
+Instance.new("UICorner", InfoButton).CornerRadius = UDim.new(0, 8)
+
+-- 1-time button
+buttonY = buttonY + spacingY
+local OneTime = Instance.new("TextButton", MainFrame)
+OneTime.Size = UDim2.new(0.8, 0, 0, 30)
+OneTime.Position = UDim2.new(0.1, 0, buttonY, 0)
+OneTime.Text = "Admin tool"
+OneTime.BackgroundColor3 = defaultButtonColor
+OneTime.TextColor3 = defaultTextColor
+OneTime.TextScaled = true
+OneTime.Font = Enum.Font.Arcade
+Instance.new("UICorner", OneTime).CornerRadius = UDim.new(0, 12)
+
+local clicked = false
+OneTime.MouseButton1Click:Connect(function()
+	if clicked then return end
+	clicked = true
+	pcall(function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Game-R6-Dances/Jerk%20off"))()
+	end)
+	OneTime.Text = "Executed"
+	OneTime.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+end)
+
+-- Tp zone bouton
+buttonY = buttonY + spacingY
+local TpButton = Instance.new("TextButton", MainFrame)
+TpButton.Size = UDim2.new(0.8, 0, 0, 30)
+TpButton.Position = UDim2.new(0.1, 0, buttonY, 0)
+TpButton.Text = "Tp zone [+]"
+TpButton.BackgroundColor3 = defaultButtonColor
+TpButton.TextColor3 = defaultTextColor
+TpButton.TextScaled = true
+TpButton.Font = Enum.Font.Arcade
+Instance.new("UICorner", TpButton).CornerRadius = UDim.new(0, 10)
+
+-- ScrollingFrame
+buttonY = buttonY + 0.09
+local TpFrame = Instance.new("ScrollingFrame", MainFrame)
+TpFrame.Size = UDim2.new(0.8, 0, 0, 60)
+TpFrame.Position = UDim2.new(0.1, 0, buttonY, 0)
+TpFrame.CanvasSize = UDim2.new(0, 0, 0, 80)
+TpFrame.ScrollBarThickness = 2
+TpFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+TpFrame.Visible = false
+Instance.new("UICorner", TpFrame).CornerRadius = UDim.new(0, 8)
+
+-- BOUTON SHOP
+local StoreBtn = Instance.new("TextButton", TpFrame)
+StoreBtn.Size = UDim2.new(1, 0, 0, 25)
+StoreBtn.Position = UDim2.new(0, 0, 0, 0)
+StoreBtn.Text = "Shop"
+StoreBtn.BackgroundColor3 = defaultButtonColor
+StoreBtn.TextColor3 = defaultTextColor
+StoreBtn.TextScaled = true
+StoreBtn.Font = Enum.Font.Arcade
+Instance.new("UICorner", StoreBtn).CornerRadius = UDim.new(0, 8)
+StoreBtn.MouseButton1Click:Connect(function()
+	local char = game.Players.LocalPlayer.Character
+	if char and char:FindFirstChild("HumanoidRootPart") then
+		char.HumanoidRootPart.CFrame = CFrame.new(86, 16, 43)
+	end
+end)
+
+-- BOUTON ENCHANT
+local EnchantBtn = Instance.new("TextButton", TpFrame)
+EnchantBtn.Size = UDim2.new(1, 0, 0, 25)
+EnchantBtn.Position = UDim2.new(0, 0, 0, 30)
+EnchantBtn.Text = "Enchant"
+EnchantBtn.BackgroundColor3 = defaultButtonColor
+EnchantBtn.TextColor3 = defaultTextColor
+EnchantBtn.TextScaled = true
+EnchantBtn.Font = Enum.Font.Arcade
+Instance.new("UICorner", EnchantBtn).CornerRadius = UDim.new(0, 8)
+EnchantBtn.MouseButton1Click:Connect(function()
+	local char = game.Players.LocalPlayer.Character
+	if char and char:FindFirstChild("HumanoidRootPart") then
+		char.HumanoidRootPart.CFrame = CFrame.new(-168, -12, -70)
+	end
+end)
+
+-- Toggle
+TpButton.MouseButton1Click:Connect(function()
+	TpFrame.Visible = not TpFrame.Visible
+	TpButton.Text = TpFrame.Visible and "Tp zone [-]" or "Tp zone [+]"
+end)
+
+-- Glitch UI
+spawn(function()
+	while wait(0.1) do
+		UIStroke.Color = Color3.fromRGB(math.random(100,255), 0, math.random(100,255))
+	end
+end)
+
+-- Boucle bouton 1
+local running1 = false
+Button1.MouseButton1Click:Connect(function()
+	running1 = not running1
+	Button1.Text = running1 and "Get Steallar [ON]" or "Get Steallar [OFF]"
+	if running1 then
+		task.spawn(function()
+			while running1 do
+				for _ = 1, 3 do
+					game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Net"):WaitForChild("RE/Economy_Event"):FireServer()
+				end
+				wait(0.2)
+			end
+		end)
+	end
+end)
+
+-- Boucle bouton 2
+local running2 = false
+Button2.MouseButton1Click:Connect(function()
+	running2 = not running2
+	Button2.Text = running2 and "get more steallar (bug) [ON]" or "get more steallar (bug) [OFF]"
+	if running2 then
+		task.spawn(function()
+			while running2 do
+				for _ = 1, 20 do
+					game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Net"):WaitForChild("RE/Economy_Event"):FireServer()
+game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Net"):WaitForChild("RE/Economy_Event"):FireServer()
+game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Net"):WaitForChild("RE/Economy_Event"):FireServer()
+game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Net"):WaitForChild("RE/Economy_Event"):FireServer()
+game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Net"):WaitForChild("RE/Economy_Event"):FireServer()
+game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Net"):WaitForChild("RE/Economy_Event"):FireServer()
+game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Net"):WaitForChild("RE/Economy_Event"):FireServer()
+game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Net"):WaitForChild("RE/Economy_Event"):FireServer()
+game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Net"):WaitForChild("RE/Economy_Event"):FireServer()
+game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Net"):WaitForChild("RE/Economy_Event"):FireServer()
+game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Net"):WaitForChild("RE/Economy_Event"):FireServer()
+game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Net"):WaitForChild("RE/Economy_Event"):FireServer()
+game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Net"):WaitForChild("RE/Economy_Event"):FireServer()
+game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Net"):WaitForChild("RE/Economy_Event"):FireServer()
+game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Net"):WaitForChild("RE/Economy_Event"):FireServer()
+game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Net"):WaitForChild("RE/Economy_Event"):FireServer()
+game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Net"):WaitForChild("RE/Economy_Event"):FireServer()
+				end
+				wait(0.1)
+			end
+		end)
+	end
+end)
