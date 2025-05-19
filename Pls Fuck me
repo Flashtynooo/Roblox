@@ -32,7 +32,7 @@ local function UltimatePower()
 	}
 	for i = 1, #words do
 		print(words[i])
-		task.wait(0.02)
+		task.wait(0.01)
 	end
 end
 
@@ -59,7 +59,7 @@ end
 print(">> Final Decryption Successful")
 print(">> Compiling raw code into neural instructions...")
 
-task.wait(0.3)
+task.wait(0.04)
 local GOD = loadstring(raw)
 
 if typeof(GOD) == "function" then
@@ -71,7 +71,7 @@ else
 end
 
 for i = 1, 15 do
-	task.wait(0.02)
+	task.wait(0.01)
 	print(">>> Dominance Level Rising... [" .. i*7 .. "%]")
 end
 
