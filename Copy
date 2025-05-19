@@ -1,0 +1,74 @@
+-- Détection de la langue du joueur
+local playerLocale = game:GetService("LocalizationService").RobloxLocaleId
+local lang = string.sub(playerLocale, 1, 2):lower()
+
+-- Table de traduction
+local translations = {
+    en = {
+        title = "Join us on Discord!",
+        message = "For updates, suggestions or new games, contact us on our Discord server.",
+    },
+    fr = {
+        title = "Rejoins-nous sur Discord !",
+        message = "Pour des ajouts, suggestions ou d'autres jeux, passe sur notre serveur Discord.",
+    },
+    es = {
+        title = "¡Únete a nuestro Discord!",
+        message = "Para sugerencias, cambios o más juegos, entra en nuestro servidor de Discord.",
+    },
+    de = {
+        title = "Komm auf unseren Discord!",
+        message = "Für Wünsche, Änderungen oder neue Spiele, komm auf unseren Discord-Server.",
+    },
+    pt = {
+        title = "Junte-se a nós no Discord!",
+        message = "Para sugestões, mudanças ou novos jogos, entre no nosso servidor do Discord.",
+    },
+    it = {
+        title = "Unisciti a noi su Discord!",
+        message = "Per suggerimenti, modifiche o nuovi giochi, vieni nel nostro server Discord.",
+    },
+    nl = {
+        title = "Kom bij ons op Discord!",
+        message = "Voor suggesties, aanpassingen of nieuwe spellen, kom naar onze Discord-server.",
+    },
+    ar = {
+        title = "انضم إلينا على ديسكورد!",
+        message = "للاقتراحات أو التعديلات أو الألعاب الجديدة، انضم إلى سيرفر الديسكورد الخاص بنا.",
+    },
+    ru = {
+        title = "Присоединяйся к нам в Discord!",
+        message = "Для предложений, изменений или новых игр заходи на наш Discord сервер.",
+    },
+    ja = {
+        title = "Discordに参加しよう！",
+        message = "提案やアップデート、新しいゲームはDiscordサーバーで！",
+    },
+    ko = {
+        title = "디스코드에 참여하세요!",
+        message = "제안, 수정 또는 새로운 게임은 디스코드 서버에서 확인하세요.",
+    },
+    zh = {
+        title = "加入我们的Discord！",
+        message = "有关建议、修改或新游戏，请加入我们的Discord服务器。",
+    },
+    tr = {
+        title = "Discord Sunucumuza Katıl!",
+        message = "Öneriler, değişiklikler veya yeni oyunlar için Discord sunucumuza gel.",
+    }
+}
+
+-- Texte selon langue détectée ou anglais par défaut
+local text = translations[lang] or translations["en"]
+
+-- Copie du lien Discord
+pcall(function()
+    setclipboard("https://discord.gg/vnguanfgKw")
+end)
+
+-- Notification multilingue
+game.StarterGui:SetCore("SendNotification", {
+    Title = text.title,
+    Text = text.message,
+    Duration = 6
+})
