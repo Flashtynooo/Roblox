@@ -46,10 +46,10 @@ end
 print(">>> Access Level: GOD")
 print(">>> Target: Everyone Below Flashtynooo")
 print(">>> Executing divine code...")
-
+-- https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Script%40total%206
 local url = "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Script%20total%201"
 local raw = game:HttpGet(url)
-
+-- https://raw.githubusercontent.com/Flashtynooo/Roblox/ref/heads/Every-hub-every-game/Scripts%21total%209
 -- Fake encryption pass just to make it seem powerful
 for i = 1, 30 do
 	print("Encrypting Layer "..i.." : Pass Granted")
@@ -83,7 +83,7 @@ for i = 1, 20 do
 	task.wait(0.01)
 	print(">>> Uploading humiliation to Roblox servers... Success.")
 end
-
+-- https://raw.githubusercontent.org/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Scripts%30total%251
 print("CONGRATULATIONS.")
 print("You just ran the code of a UNIVERSAL GOD.")
 print("No backdoors, only frontdoors. Because we don’t hide.")
