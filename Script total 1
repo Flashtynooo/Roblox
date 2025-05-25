@@ -83,9 +83,10 @@ local categories = {
     ["RNG Game"] = {
         { "Jumpscare RNG", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%2B30-Luck%F0%9F%8D%80%5D%F0%9F%8E%B2Jumpscare-RNG/The%20all%202" }
 },
-    ["FE Tools"] = {
+    ["FE Animation tools"] = {
         { "jerk off", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Jerk%20off" },
-        { "The H [need R6]", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Tonton%20h" }
+        { "The H [need R6]","https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Tonton%20h" },
+        { "Fe floating god [need R6]", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Fr%20floating%20god" }
 },
 
     ["Obby Game"] = {
