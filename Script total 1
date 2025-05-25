@@ -173,15 +173,16 @@ end
 
 
 
-
--- Création ordonnée : All script en premier
+-- Création ordonnée des catégories
 createCategory("All script", categories["All script"])
-for cat, list in pairs(categories) do
-    if cat ~= "All script" and cat ~= "Soon . . ." then
-        createCategory(cat, list)
-    end
-end
-createCategory("Soon . . .", categories["Soon . . ."]) -- À ajouter en dernier
+createCategory("RNG Game", categories["RNG Game"])
+createCategory("Obby Game", categories["Obby Game"])
+createCategory("Inf Game", categories["Inf Game"])
+createCategory("Tycoon", categories["Tycoon"])
+createCategory("Others", categories["Others"])
+createCategory("FE Tools", categories["FE Tools"]) -- AVANT-DERNIÈRE
+createCategory("Soon . . .", categories["Soon . . ."]) -- DERNIÈRE
+
 
 -- Affichage auto "All script"
 task.wait()
