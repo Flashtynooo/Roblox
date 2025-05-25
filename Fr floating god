@@ -1,1 +1,71 @@
+local plr = game:GetService("Players").LocalPlayer
+local char = plr.Character or plr.CharacterAdded:Wait()
+local hum = char:FindFirstChild("Humanoid") or char:WaitForChild("Humanoid")
+local anim = hum:FindFirstChildOfClass("Animator") or hum:WaitForChild("Animator")
+local pack = plr:FindFirstChild("Backpack") or plr:WaitForChild("Backpack")
+
+if workspace:FindFirstChild("aaa") then
+	workspace:FindFirstChild("aaa"):Destroy()
+end
+
+local function getmodel()
+	return hum.RigType == Enum.HumanoidRigType.R15 and "R15" or "R6"
+end
+
+-- Animation IDs (mêmes pour R6 et R15 ici, modifiables si besoin)
+local animIDs = {
+	R15 = {"rbxassetid://313762630", "rbxassetid://248336677"},
+	R6  = {"rbxassetid://313762630", "rbxassetid://248336677"}
+}
+
+local animations = {}
+for i, id in ipairs(animIDs[getmodel()]) do
+	local animation = Instance.new("Animation")
+	animation.AnimationId = id
+	animation.Name = "aaa_" .. i
+	animation.Parent = workspace
+	table.insert(animations, animation)
+end
+
+local tool = Instance.new("Tool")
+tool.Name = "Fe floating god (R6)"
+tool.RequiresHandle = false
+tool.Parent = pack
+tool.ToolTip = "floating god"
+
+local doing = false
+local animtracks = {}
+
+tool.Equipped:Connect(function()
+	doing = true
+	for _, animObj in ipairs(animations) do
+		local track = anim:LoadAnimation(animObj)
+		track:Play()
+		track:AdjustSpeed(0.5)
+		track.TimePosition = 0.5
+		table.insert(animtracks, track)
+	end
+end)
+
+tool.Unequipped:Connect(function()
+	doing = false
+	for _, track in ipairs(animtracks) do
+		if track then
+			track:Stop()
+			track:Destroy()
+		end
+	end
+	animtracks = {}
+end)
+
+hum.Died:Connect(function()
+	doing = false
+	for _, track in ipairs(animtracks) do
+		if track then
+			track:Stop()
+			track:Destroy()
+		end
+	end
+	animtracks = {}
+end)
 
