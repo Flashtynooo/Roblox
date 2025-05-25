@@ -83,7 +83,9 @@ local categories = {
     ["RNG Game"] = {
         { "Jumpscare RNG", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/%2B30-Luck%F0%9F%8D%80%5D%F0%9F%8E%B2Jumpscare-RNG/The%20all%202" }
 },
-
+    ["FE Tools"] = {
+        { "jerk off", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Jerk%20off" }
+},
 
     ["Obby Game"] = {
         { "oMega Obby 🌟 725 Stages!", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/725%20Stages%20total" },
