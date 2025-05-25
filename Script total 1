@@ -182,7 +182,7 @@ createCategory("Obby Game", categories["Obby Game"])
 createCategory("Inf Game", categories["Inf Game"])
 createCategory("Tycoon", categories["Tycoon"])
 createCategory("Others", categories["Others"])
-createCategory("FE Animation tools", categories["FE Tools"]) -- AVANT-DERNIÈRE
+createCategory("FE Animation", categories["FE Animation tools"]) -- AVANT-DERNIÈRE
 createCategory("Soon . . .", categories["Soon . . ."]) -- DERNIÈRE
 
 
