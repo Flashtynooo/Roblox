@@ -1,0 +1,80 @@
+local Players = game:GetService("Players")
+local lp = Players.LocalPlayer
+local char = lp.Character or lp.CharacterAdded:Wait()
+local hum = char:WaitForChild("Humanoid")
+local HRP = char:WaitForChild("HumanoidRootPart")
+
+-- Animations
+local animWalk = Instance.new("Animation")
+animWalk.AnimationId = "rbxassetid://180426354"
+
+local animAttack1 = Instance.new("Animation")
+animAttack1.AnimationId = "rbxassetid://218504594"
+
+local animAttack2 = Instance.new("Animation")
+animAttack2.AnimationId = "rbxassetid://74863286"
+
+local active = false
+local finished = false
+local walkTrack, atk1Track, atk2Track
+
+-- Fonction de détection du joueur le plus proche
+local function getClosestPlayer(maxDist)
+	local closest = nil
+	local shortest = maxDist
+	for _, plr in pairs(Players:GetPlayers()) do
+		if plr ~= lp and plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
+			local dist = (HRP.Position - plr.Character.HumanoidRootPart.Position).Magnitude
+			if dist < shortest then
+				shortest = dist
+				closest = plr
+			end
+		end
+	end
+	return closest, shortest
+end
+
+-- Fonction de suivi + animation
+task.spawn(function()
+	while true do
+		task.wait(0.1)
+		if finished then break end
+
+		local target, distance = getClosestPlayer(10)
+		if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
+			local targetHRP = target.Character.HumanoidRootPart
+
+			if not active then
+				active = true
+				-- Animation de marche
+				walkTrack = hum:LoadAnimation(animWalk)
+				walkTrack:Play()
+			end
+
+			-- Suivre le joueur
+			hum:MoveTo(targetHRP.Position)
+
+			-- Condition de toucher ou d'être très proche
+			if (HRP.Position - targetHRP.Position).Magnitude <= 1 then
+				if walkTrack and walkTrack.IsPlaying then walkTrack:Stop() end
+				hum:Move(Vector3.zero) -- Stop mouvement
+
+				-- Lancer les deux attaques en même temps
+				atk1Track = hum:LoadAnimation(animAttack1)
+				atk2Track = hum:LoadAnimation(animAttack2)
+				atk1Track:Play()
+				atk2Track:Play()
+
+				local done1, done2 = false, false
+
+				atk1Track.Stopped:Connect(function() done1 = true end)
+				atk2Track.Stopped:Connect(function() done2 = true end)
+
+				-- Attendre la fin des deux
+				repeat task.wait() until done1 and done2
+
+				finished = true -- ne plus refaire
+			end
+		end
+	end
+end)
