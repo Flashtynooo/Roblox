@@ -92,7 +92,7 @@ local function executeLoadstringZ()
 	if cooldownZ or not screenGui.Enabled then return end
 	cooldownZ = true
 	local success, err = pcall(function()
-		print("Action Z ici") -- remplace ici si tu veux un vrai loadstring
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Fighting-style/Z"))()
 	end)
 	if not success then warn("Erreur Z :", err) end
 	task.delay(cooldownTime, function() cooldownZ = false end)
