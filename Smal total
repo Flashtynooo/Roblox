@@ -1,0 +1,144 @@
+local plr = game:GetService("Players").LocalPlayer
+local char = plr.Character or plr.CharacterAdded:Wait()
+local hum = char:WaitForChild("Humanoid")
+local anim = hum:WaitForChild("Animator")
+local pack = plr:WaitForChild("Backpack")
+local uis = game:GetService("UserInputService")
+
+-- Supprimer ancien objet s'il existe
+if workspace:FindFirstChild("aaa") then
+	workspace:FindFirstChild("aaa"):Destroy()
+end
+
+-- Animation
+local function getmodel()
+	return hum.RigType == Enum.HumanoidRigType.R15 and "R15" or "R6"
+end
+
+local animIDs = {
+	R15 = {"rbxassetid://313762630", "rbxassetid://248336677"},
+	R6  = {"rbxassetid://313762630", "rbxassetid://248336677"}
+}
+
+local animations = {}
+for i, id in ipairs(animIDs[getmodel()]) do
+	local animation = Instance.new("Animation")
+	animation.AnimationId = id
+	animation.Name = "aaa_" .. i
+	animation.Parent = workspace
+	table.insert(animations, animation)
+end
+
+-- Tool
+local tool = Instance.new("Tool")
+tool.Name = "Fe floating god (R6)"
+tool.RequiresHandle = false
+tool.Parent = pack
+tool.ToolTip = "flshty_test fight simple"
+
+-- GUI setup
+local screenGui = Instance.new("ScreenGui", game.CoreGui)
+screenGui.Name = "FlshtyButtons"
+screenGui.ResetOnSpawn = false
+screenGui.Enabled = false
+
+-- Cooldown
+local cooldownTime = 2
+local cooldownA = false
+local cooldownZ = false
+
+-- Bouton A
+local buttonA = Instance.new("TextButton", screenGui)
+buttonA.Size = UDim2.new(0, 50, 0, 50)
+buttonA.Position = UDim2.new(1, -60, 0.5, -25)
+buttonA.BackgroundColor3 = Color3.new(1, 1, 1)
+buttonA.BackgroundTransparency = 0.7
+buttonA.BorderColor3 = Color3.new(1, 1, 1)
+buttonA.BorderSizePixel = 3
+buttonA.Text = "A"
+buttonA.TextColor3 = Color3.new(1, 1, 1)
+buttonA.TextScaled = true
+buttonA.Font = Enum.Font.GothamBold
+local cornerA = Instance.new("UICorner", buttonA)
+cornerA.CornerRadius = UDim.new(0, 25)
+
+-- Bouton Z
+local buttonZ = Instance.new("TextButton", screenGui)
+buttonZ.Size = UDim2.new(0, 50, 0, 50)
+buttonZ.Position = UDim2.new(1, -60, 0.5, -85)
+buttonZ.BackgroundColor3 = Color3.new(1, 1, 1)
+buttonZ.BackgroundTransparency = 0.7
+buttonZ.BorderColor3 = Color3.new(1, 1, 1)
+buttonZ.BorderSizePixel = 3
+buttonZ.Text = "Z"
+buttonZ.TextColor3 = Color3.new(1, 1, 1)
+buttonZ.TextScaled = true
+buttonZ.Font = Enum.Font.GothamBold
+local cornerZ = Instance.new("UICorner", buttonZ)
+cornerZ.CornerRadius = UDim.new(0, 25)
+
+-- Actions avec cooldown
+local function executeLoadstringA()
+	if cooldownA or not screenGui.Enabled then return end
+	cooldownA = true
+	local success, err = pcall(function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Fighting-style/Finder"))()
+	end)
+	if not success then warn("Erreur A :", err) end
+	task.delay(cooldownTime, function() cooldownA = false end)
+end
+
+local function executeLoadstringZ()
+	if cooldownZ or not screenGui.Enabled then return end
+	cooldownZ = true
+	local success, err = pcall(function()
+		print("Action Z ici") -- remplace ici si tu veux un vrai loadstring
+	end)
+	if not success then warn("Erreur Z :", err) end
+	task.delay(cooldownTime, function() cooldownZ = false end)
+end
+
+-- Clicks
+buttonA.MouseButton1Click:Connect(executeLoadstringA)
+buttonZ.MouseButton1Click:Connect(executeLoadstringZ)
+
+-- Clavier
+uis.InputBegan:Connect(function(input, gp)
+	if gp or not screenGui.Enabled then return end
+	if input.KeyCode == Enum.KeyCode.A then executeLoadstringA() end
+	if input.KeyCode == Enum.KeyCode.Z then executeLoadstringZ() end
+end)
+
+-- Animation Tool
+local animTracks = {}
+local doing = false
+
+tool.Equipped:Connect(function()
+	doing = true
+	screenGui.Enabled = true
+	for _, animObj in ipairs(animations) do
+		local track = anim:LoadAnimation(animObj)
+		track:Play()
+		track:AdjustSpeed(0.5)
+		track.TimePosition = 0.5
+		table.insert(animTracks, track)
+	end
+end)
+
+tool.Unequipped:Connect(function()
+	doing = false
+	screenGui.Enabled = false
+	for _, track in ipairs(animTracks) do
+		if track then track:Stop() track:Destroy() end
+	end
+	animTracks = {}
+end)
+
+hum.Died:Connect(function()
+	doing = false
+	screenGui:Destroy()
+	for _, track in ipairs(animTracks) do
+		if track then track:Stop() track:Destroy() end
+	end
+	animTracks = {}
+end)
