@@ -1,5 +1,6 @@
 local Players = game:GetService("Players")
 local lp = Players.LocalPlayer
+local RunService = game:GetService("RunService")
 local char = lp.Character or lp.CharacterAdded:Wait()
 local hum = char:WaitForChild("Humanoid")
 local HRP = char:WaitForChild("HumanoidRootPart")
@@ -14,14 +15,33 @@ animAttack1.AnimationId = "rbxassetid://218504594"
 local animAttack2 = Instance.new("Animation")
 animAttack2.AnimationId = "rbxassetid://74863286"
 
+local walkTrack, atk1Track, atk2Track
 local active = false
 local finished = false
-local walkTrack, atk1Track, atk2Track
+local trackedTarget = nil
+local noclipped = false
 
--- Fonction de détection du joueur le plus proche
+-- Noclip ciblé
+local function setNoclipBetween(char1, char2, state)
+	for _, part1 in ipairs(char1:GetDescendants()) do
+		if part1:IsA("BasePart") then
+			for _, part2 in ipairs(char2:GetDescendants()) do
+				if part2:IsA("BasePart") then
+					pcall(function()
+						part1.CanCollide = not state
+					end)
+					pcall(function()
+						part2.CanCollide = not state
+					end)
+				end
+			end
+		end
+	end
+end
+
+-- Trouver le joueur le plus proche
 local function getClosestPlayer(maxDist)
-	local closest = nil
-	local shortest = maxDist
+	local closest, shortest = nil, maxDist
 	for _, plr in pairs(Players:GetPlayers()) do
 		if plr ~= lp and plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
 			local dist = (HRP.Position - plr.Character.HumanoidRootPart.Position).Magnitude
@@ -34,32 +54,60 @@ local function getClosestPlayer(maxDist)
 	return closest, shortest
 end
 
--- Fonction de suivi + animation
+-- Suivi et comportement
 task.spawn(function()
-	while true do
+	while not finished do
 		task.wait(0.1)
-		if finished then break end
 
-		local target, distance = getClosestPlayer(10)
-		if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
-			local targetHRP = target.Character.HumanoidRootPart
+		if not trackedTarget then
+			local found, dist = getClosestPlayer(10)
+			if found then
+				trackedTarget = found
 
-			if not active then
+				-- Si le joueur quitte le jeu
+				found.AncestryChanged:Connect(function(_, parent)
+					if not parent then
+						if walkTrack then walkTrack:Stop() end
+						if noclipped and trackedTarget.Character then
+							setNoclipBetween(char, trackedTarget.Character, false)
+						end
+						finished = true
+					end
+				end)
+
+				-- Jouer l’animation de marche
 				active = true
-				-- Animation de marche
 				walkTrack = hum:LoadAnimation(animWalk)
 				walkTrack:Play()
+
+				-- Activer le noclip
+				setNoclipBetween(char, found.Character, true)
+				noclipped = true
+			end
+		end
+
+		if trackedTarget and trackedTarget.Character and trackedTarget.Character:FindFirstChild("HumanoidRootPart") then
+			local targetHRP = trackedTarget.Character.HumanoidRootPart
+			local dist = (HRP.Position - targetHRP.Position).Magnitude
+
+			if dist > 10 then
+				-- STOP tout si trop loin
+				if walkTrack and walkTrack.IsPlaying then
+					walkTrack:Stop()
+				end
+				if noclipped and trackedTarget.Character then
+					setNoclipBetween(char, trackedTarget.Character, false)
+				end
+				finished = true
+				break
 			end
 
-			-- Suivre le joueur
 			hum:MoveTo(targetHRP.Position)
 
-			-- Condition de toucher ou d'être très proche
-			if (HRP.Position - targetHRP.Position).Magnitude <= 1 then
+			if dist <= 1 then
 				if walkTrack and walkTrack.IsPlaying then walkTrack:Stop() end
-				hum:Move(Vector3.zero) -- Stop mouvement
+				hum:Move(Vector3.zero)
 
-				-- Lancer les deux attaques en même temps
 				atk1Track = hum:LoadAnimation(animAttack1)
 				atk2Track = hum:LoadAnimation(animAttack2)
 				atk1Track:Play()
@@ -70,10 +118,13 @@ task.spawn(function()
 				atk1Track.Stopped:Connect(function() done1 = true end)
 				atk2Track.Stopped:Connect(function() done2 = true end)
 
-				-- Attendre la fin des deux
 				repeat task.wait() until done1 and done2
 
-				finished = true -- ne plus refaire
+				-- Fin du script
+				if noclipped and trackedTarget.Character then
+					setNoclipBetween(char, trackedTarget.Character, false)
+				end
+				finished = true
 			end
 		end
 	end
