@@ -31,7 +31,7 @@ local tool = Instance.new("Tool")
 tool.Name = "Fe floating god (R6)"
 tool.RequiresHandle = false
 tool.Parent = pack
-tool.ToolTip = "floating god"
+tool.ToolTip = "flshty_test fight simple"
 
 local doing = false
 local animtracks = {}
