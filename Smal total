@@ -82,7 +82,7 @@ local function executeLoadstringA()
 	if cooldownA or not screenGui.Enabled then return end
 	cooldownA = true
 	local success, err = pcall(function()
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Fighting-style/Z"))()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Fighting-style/Finder"))()
 	end)
 	if not success then warn("Erreur A :", err) end
 	task.delay(cooldownTime, function() cooldownA = false end)
