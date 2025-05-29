@@ -1,56 +1,21 @@
-local originalScriptCode = game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Script%20total%201")
-local success, hubEnv = pcall(function()
-    return loadstring(originalScriptCode, "OriginalHub")()
-end)
+-- 1. Charge le script principal
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Script%20total%201"))()
 
-if not success then
-    warn("[FlshtyHub] Erreur chargement script principal:", hubEnv)
-    return
-end
+-- 2. Attendre que le hub se charge et placer le MainFrame dans une variable proprement
+wait(1)
 
-_G.HubManager = _G.HubManager or {}
-
-_G.HubManager.Sections = {}
-_G.HubManager.Buttons = {}
-
--- 💡 SÉCURITÉ : vérifie que le hub a bien retourné MainFrame
-local main = hubEnv and hubEnv.MainFrame
+local main = game.CoreGui:FindFirstChild("FlshtyHub") and game.CoreGui.FlshtyHub:FindFirstChild("MainHub")
 if not main then
-    warn("[FlshtyHub] MainFrame introuvable dans le hub retourné")
+    warn("[FlshtyHub] Impossible de trouver MainFrame automatiquement.")
     return
 end
 
-function _G.HubManager:AddSection(name, props)
-    local sec = Instance.new("Frame")
-    sec.Name = name
-    for k, v in pairs(props) do
-        sec[k] = v
-    end
-    sec.Parent = main
-    table.insert(self.Sections, sec)
-    return sec
-end
-
-function _G.HubManager:RemoveSection(name)
-    for i, s in ipairs(self.Sections) do
-        if s.Name == name then
-            s:Destroy()
-            table.remove(self.Sections, i)
-            return true
-        end
-    end
-    return false
-end
-
-print("[FlshtyHub] actif enfin...")
--- Interface HubManager directement intégrée
-
+-- 3. Initialise l'objet global
 _G.HubManager = _G.HubManager or {}
 _G.HubManager.Sections = _G.HubManager.Sections or {}
 _G.HubManager.Buttons = _G.HubManager.Buttons or {}
 
-local main = MainFrame -- ← Assure-toi que ce MainFrame existe dans ton script
-
+-- 4. Fonctions dynamiques
 function _G.HubManager:AddSection(name, props)
     local sec = Instance.new("Frame")
     sec.Name = name
@@ -105,4 +70,4 @@ function _G.HubManager:RemoveButton(buttonText)
     return false
 end
 
-print("[FlshtyHub] Interface HubManager chargée.")
+print("[FlshtyHub] Interface HubManager chargée avec succès.")
