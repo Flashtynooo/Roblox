@@ -77,7 +77,7 @@ if bestButtonName then
 	events:WaitForChild("RockReachedFinishEvent"):FireServer()
 	wait(6)
 	events:WaitForChild("RockReachedFinishEvent"):FireServer()
-	wait(3)
+
 
 else
 	warn("❌ Aucun rock valide trouvé dans le ScrollingFrame.")
