@@ -1,7 +1,4 @@
--- Wrapper du hub original avec système de modif global via _G
-
--- 1) Chargement du script principal d'origine
-local originalScriptCode = game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Script%20total%202")
+local originalScriptCode = game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Script%20total%201")
 local success, hubEnv = pcall(function()
     return loadstring(originalScriptCode, "OriginalHub")()
 end)
@@ -11,96 +8,38 @@ if not success then
     return
 end
 
--- 2) Initialisation de l'objet global pour contrôle externe
 _G.HubManager = _G.HubManager or {}
 
--- Stockage interne des sections et boutons, récupérés depuis le script original si possible
--- (Ici à adapter selon comment le script original structure ses sections)
+_G.HubManager.Sections = {}
+_G.HubManager.Buttons = {}
 
-_G.HubManager.Sections = _G.HubManager.Sections or {} -- tableau sections
-_G.HubManager.Buttons = _G.HubManager.Buttons or {} -- tableau boutons
+-- 💡 SÉCURITÉ : vérifie que le hub a bien retourné MainFrame
+local main = hubEnv and hubEnv.MainFrame
+if not main then
+    warn("[FlshtyHub] MainFrame introuvable dans le hub retourné")
+    return
+end
 
--- 3) Fonctions globales pour gérer les sections et boutons dynamiquement
-
-function _G.HubManager:AddSection(name, frameProperties)
-    -- Crée et ajoute une nouvelle section dans le hub
-    local newSection = Instance.new("Frame")
-    newSection.Name = name
-    for prop, val in pairs(frameProperties or {}) do
-        newSection[prop] = val
+function _G.HubManager:AddSection(name, props)
+    local sec = Instance.new("Frame")
+    sec.Name = name
+    for k, v in pairs(props) do
+        sec[k] = v
     end
-    newSection.Parent = hubEnv.MainFrame or game.CoreGui -- à adapter si le hub a un MainFrame
-    table.insert(_G.HubManager.Sections, newSection)
-    return newSection
+    sec.Parent = main
+    table.insert(self.Sections, sec)
+    return sec
 end
 
 function _G.HubManager:RemoveSection(name)
-    for i, sec in ipairs(_G.HubManager.Sections) do
-        if sec.Name == name then
-            if sec.Parent then
-                sec:Destroy()
-            end
-            table.remove(_G.HubManager.Sections, i)
+    for i, s in ipairs(self.Sections) do
+        if s.Name == name then
+            s:Destroy()
+            table.remove(self.Sections, i)
             return true
         end
     end
     return false
 end
 
-function _G.HubManager:AddButton(sectionName, buttonProps)
-    -- Cherche la section
-    local parentSection
-    for _, sec in ipairs(_G.HubManager.Sections) do
-        if sec.Name == sectionName then
-            parentSection = sec
-            break
-        end
-    end
-    if not parentSection then
-        warn("[HubManager] Section "..tostring(sectionName).." introuvable.")
-        return nil
-    end
-
-    local newBtn = Instance.new("TextButton")
-    for prop, val in pairs(buttonProps or {}) do
-        newBtn[prop] = val
-    end
-    newBtn.Parent = parentSection
-    table.insert(_G.HubManager.Buttons, newBtn)
-    return newBtn
-end
-
-function _G.HubManager:RemoveButton(buttonText)
-    for i, btn in ipairs(_G.HubManager.Buttons) do
-        if btn.Text == buttonText then
-            if btn.Parent then
-                btn:Destroy()
-            end
-            table.remove(_G.HubManager.Buttons, i)
-            return true
-        end
-    end
-    return false
-end
-
--- 4) Exemple de remplacement de fonction globale (par défaut)
--- Tu peux remplacer n'importe quelle fonction ici via _G.CustomFunction = function() ... end
-if not _G.CustomFunction then
-    _G.CustomFunction = function(...)
-        print("Fonction par défaut appelée", ...)
-    end
-end
-
--- 5) Expose aussi la possibilité d'appeler une fonction globale du hub si le script original l'expose
--- (Exemple hypothétique)
-function _G.HubManager:CallHubFunction(funcName, ...)
-    if hubEnv[funcName] and type(hubEnv[funcName]) == "function" then
-        return hubEnv[funcName](...)
-    else
-        warn("[HubManager] Fonction "..tostring(funcName).." non trouvée dans le hub.")
-        return nil
-    end
-end
-
--- 6) Confirmation chargement
-print("[FlshtyHub] Hub chargé ")
+print("[FlshtyHub] actif enfin...")
