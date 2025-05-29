@@ -133,6 +133,44 @@ local categories = {
     ["Soon . . ."] = {
         { "SOON :)", "" }
 },
+
+
+-- 🔄 Rendre la table accessible globalement
+_G.categories = categories
+
+-- ✅ Ajouter une catégorie entière
+_G.AddCategory = function(name, buttons)
+    if not _G.categories[name] then
+        _G.categories[name] = buttons
+    end
+end
+
+-- ✅ Supprimer une catégorie
+_G.RemoveCategory = function(name)
+    _G.categories[name] = nil
+end
+
+-- ✅ Ajouter un bouton à une catégorie existante
+_G.AddButtonToCategory = function(catName, buttonName, scriptUrl)
+    if not _G.categories[catName] then
+        _G.categories[catName] = {}
+    end
+    table.insert(_G.categories[catName], {buttonName, scriptUrl})
+end
+
+-- ✅ Supprimer un bouton précis dans une catégorie
+_G.RemoveButtonFromCategory = function(catName, buttonName)
+    local cat = _G.categories[catName]
+    if not cat then return end
+
+    for i, v in ipairs(cat) do
+        if v[1] == buttonName then
+            table.remove(cat, i)
+            break
+        end
+    end
+end
+
 }
 
 local activeFrame
@@ -226,40 +264,3 @@ toggleImage.MouseButton1Click:Connect(function()
         main.Visible = true
     end
 end)
-
-wait(0.1)
--- 🔄 Rendre la table accessible globalement
-_G.categories = categories
-
--- ✅ Ajouter une catégorie entière
-_G.AddCategory = function(name, buttons)
-    if not _G.categories[name] then
-        _G.categories[name] = buttons
-    end
-end
-
--- ✅ Supprimer une catégorie
-_G.RemoveCategory = function(name)
-    _G.categories[name] = nil
-end
-
--- ✅ Ajouter un bouton à une catégorie existante
-_G.AddButtonToCategory = function(catName, buttonName, scriptUrl)
-    if not _G.categories[catName] then
-        _G.categories[catName] = {}
-    end
-    table.insert(_G.categories[catName], {buttonName, scriptUrl})
-end
-
--- ✅ Supprimer un bouton précis dans une catégorie
-_G.RemoveButtonFromCategory = function(catName, buttonName)
-    local cat = _G.categories[catName]
-    if not cat then return end
-
-    for i, v in ipairs(cat) do
-        if v[1] == buttonName then
-            table.remove(cat, i)
-            break
-        end
-    end
-end
