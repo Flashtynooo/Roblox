@@ -270,6 +270,29 @@ createCategory("Others", categories["Others"])
 createCategory("FE Animation", categories["FE Animation tools"]) -- AVANT-DERNIÈRE
 createCategory("Soon . . .", categories["Soon . . ."]) -- DERNIÈRE
 
+_G._categoriesRef = categories -- C'est une *référence* à la table locale
+
+_G.AddCategory = function(name, buttons)
+    if not _G._categoriesRef[name] then
+        _G._categoriesRef[name] = buttons
+        createCategory(name, _G._categoriesRef[name]) -- Ajoute et affiche
+    end
+end
+
+_G.RemoveCategory = function(name)
+    if _G._categoriesRef[name] then
+        _G._categoriesRef[name] = nil
+        -- Supprimer l'affichage dans le GUI
+        for _, gui in ipairs(MainFrame:GetDescendants()) do
+            if gui:IsA("Frame") and gui.Name == name then
+                gui:Destroy()
+            end
+        end
+    end
+end
+
+
+
 
 -- Affichage auto "All script"
 task.wait()
