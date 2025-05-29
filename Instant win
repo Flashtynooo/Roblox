@@ -1,0 +1,65 @@
+
+
+
+local player = game.Players.LocalPlayer
+local scrollingFrame = player:WaitForChild("PlayerGui"):WaitForChild("Inventory"):WaitForChild("Base"):WaitForChild("ScrollingFrame")
+
+-- Hiérarchie des noms (du plus haut au plus bas)
+local hierarchy = {
+    "BabyYoda","Dominus","Yippe","LetMeDoItForYou","WhatTheDogDoing","Caseoh","DespacitoSpider","NyanCat","Moai","AmongUs",
+    "TheRock","Universal","Ton618","QuantumFlux","CelestialVortex","Quasar","Magnetar","NeutronStar","SuperNova","StarCluster",
+    "Nebula","Galaxy","BlackHole","Time","TheSun","Jupiter","Earth","Mars","MoneyRock","Mercury","Pluto","ObsidianRock",
+    "RainbowRock","Moon","NeonRock","JadeRock","Ceres","DiamondRock","AmethystRock","GhostRock","ElectricRock","SapphireRock",
+    "GoldRock","Meteor","CrystalRock","Asteroid","QuartzRock","AgileRock","FireRock","IceRock","Magma","LightRock","Water",
+    "HeavyRock","CheeseBall","MossRock","Basketball","Football","SpeedRock","TennisBall","SpongeBall","HoneycombRock",
+    "WoodRock","SandRock","BasicRock"
+}
+
+-- Index rapide des priorités
+local priority = {}
+for i, name in ipairs(hierarchy) do
+    priority[name] = #hierarchy - i + 1
+end
+
+-- Recherche du bouton le plus haut dans la hiérarchie
+local highestRank = -1
+local bestButtonName = nil
+
+for _, child in ipairs(scrollingFrame:GetDescendants()) do
+    if child:IsA("TextButton") and priority[child.Name] then
+        local rank = priority[child.Name]
+        if rank > highestRank then
+            highestRank = rank
+            bestButtonName = child.Name
+        end
+    end
+end
+
+-- Si trouvé, envoie l'événement Remote
+if bestButtonName then
+    print("🧠 Le TextButton avec le plus haut rang est : " .. bestButtonName)
+
+    local args = {
+        "SelectRock",
+        bestButtonName
+    }
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("InventoryEvent"):FireServer(unpack(args))
+else
+    warn("❌ Aucun bouton valide trouvé dans la hiérarchie.")
+end
+wait(2)
+local args = {
+	"StartControl"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RockControlEvent"):FireServer(unpack(args))
+
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("GetAvailableRocksEvent"):FireServer()
+local args = {
+	"StartControl"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RockControlEvent"):FireServer(unpack(args))
+
+for i = 1, 5 do
+	game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RockReachedFinishEvent"):FireServer()
+wait(1)
+end
