@@ -4,7 +4,7 @@ local gameId = game.PlaceId -- Récupère l'ID du jeu actuel
 
 if gameId == 121079467695036 then
     -- Si l'ID du jeu est celui spécifié, exécuter le lien
-    local url = loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Brookhaven%201"))()
+    local url = loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Roll-rock/Total%201"))()
 else
     -- Sinon, envoyer une notification
     game.StarterGui:SetCore("SendNotification", {
