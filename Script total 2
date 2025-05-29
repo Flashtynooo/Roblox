@@ -226,3 +226,60 @@ toggleImage.MouseButton1Click:Connect(function()
         main.Visible = true
     end
 end)
+
+wait(0.1)
+_G.AddSection = function(name)
+    if not _G.SectionFrames then _G.SectionFrames = {} end
+    if _G.SectionFrames[name] then return end
+
+    local section = Instance.new("Frame")
+    section.Name = name
+    section.Size = UDim2.new(1, 0, 0, 50)
+    section.BackgroundTransparency = 1
+    section.Parent = MainFrame -- ou la Frame où tu mets tes sections
+    _G.SectionFrames[name] = section
+
+    local label = Instance.new("TextLabel", section)
+    label.Size = UDim2.new(1, 0, 0, 25)
+    label.Position = UDim2.new(0, 0, 0, 0)
+    label.Text = name
+    label.TextScaled = true
+    label.BackgroundTransparency = 1
+    label.TextColor3 = Color3.fromRGB(255,255,255)
+end
+
+_G.AddButton = function(sectionName, buttonName, callback)
+    if not _G.SectionFrames or not _G.SectionFrames[sectionName] then return end
+
+    local section = _G.SectionFrames[sectionName]
+    local button = Instance.new("TextButton")
+    button.Name = buttonName
+    button.Size = UDim2.new(1, 0, 0, 25)
+    button.Position = UDim2.new(0, 0, 0, #section:GetChildren()*25)
+    button.Text = buttonName
+    button.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    button.TextColor3 = Color3.fromRGB(255,255,255)
+    button.TextScaled = true
+    button.Font = Enum.Font.SourceSans
+    button.Parent = section
+
+    button.MouseButton1Click:Connect(callback)
+end
+
+_G.RemoveSection = function(name)
+    if _G.SectionFrames and _G.SectionFrames[name] then
+        _G.SectionFrames[name]:Destroy()
+        _G.SectionFrames[name] = nil
+    end
+end
+
+_G.RemoveButton = function(sectionName, buttonName)
+    if not _G.SectionFrames or not _G.SectionFrames[sectionName] then return end
+
+    local section = _G.SectionFrames[sectionName]
+    for _, child in ipairs(section:GetChildren()) do
+        if child:IsA("TextButton") and child.Name == buttonName then
+            child:Destroy()
+        end
+    end
+end
