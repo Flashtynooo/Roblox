@@ -43,3 +43,66 @@ function _G.HubManager:RemoveSection(name)
 end
 
 print("[FlshtyHub] actif enfin...")
+-- Interface HubManager directement intégrée
+
+_G.HubManager = _G.HubManager or {}
+_G.HubManager.Sections = _G.HubManager.Sections or {}
+_G.HubManager.Buttons = _G.HubManager.Buttons or {}
+
+local main = MainFrame -- ← Assure-toi que ce MainFrame existe dans ton script
+
+function _G.HubManager:AddSection(name, props)
+    local sec = Instance.new("Frame")
+    sec.Name = name
+    for k, v in pairs(props or {}) do
+        sec[k] = v
+    end
+    sec.Parent = main
+    table.insert(self.Sections, sec)
+    return sec
+end
+
+function _G.HubManager:RemoveSection(name)
+    for i, s in ipairs(self.Sections) do
+        if s.Name == name then
+            s:Destroy()
+            table.remove(self.Sections, i)
+            return true
+        end
+    end
+    return false
+end
+
+function _G.HubManager:AddButton(sectionName, props)
+    local section = nil
+    for _, s in pairs(self.Sections) do
+        if s.Name == sectionName then
+            section = s
+            break
+        end
+    end
+    if not section then
+        warn("[HubManager] Section "..tostring(sectionName).." introuvable.")
+        return nil
+    end
+    local btn = Instance.new("TextButton")
+    for k, v in pairs(props or {}) do
+        btn[k] = v
+    end
+    btn.Parent = section
+    table.insert(self.Buttons, btn)
+    return btn
+end
+
+function _G.HubManager:RemoveButton(buttonText)
+    for i, b in ipairs(self.Buttons) do
+        if b.Text == buttonText then
+            b:Destroy()
+            table.remove(self.Buttons, i)
+            return true
+        end
+    end
+    return false
+end
+
+print("[FlshtyHub] Interface HubManager chargée.")
