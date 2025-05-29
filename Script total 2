@@ -226,3 +226,6 @@ toggleImage.MouseButton1Click:Connect(function()
         main.Visible = true
     end
 end)
+return {
+    MainFrame = MainFrame
+}
