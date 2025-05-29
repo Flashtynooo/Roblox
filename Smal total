@@ -1,27 +1,28 @@
 local plr = game:GetService("Players").LocalPlayer
 local char = plr.Character or plr.CharacterAdded:Wait()
 local hum = char:WaitForChild("Humanoid")
-local anim = hum:WaitForChild("Animator")
 local pack = plr:WaitForChild("Backpack")
 local uis = game:GetService("UserInputService")
 
--- Supprimer ancien objet s'il existe
+-- R15 check
+if hum.RigType == Enum.HumanoidRigType.R15 then
+	warn("This tool only works with R6 avatars.")
+	local message = Instance.new("Message", workspace)
+	message.Text = "❌ R15 is not supported. Switch to R6."
+	task.delay(4, function() message:Destroy() end)
+	return
+end
+
+-- Clean old
 if workspace:FindFirstChild("aaa") then
 	workspace:FindFirstChild("aaa"):Destroy()
 end
 
 -- Animation
-local function getmodel()
-	return hum.RigType == Enum.HumanoidRigType.R15 and "R15" or "R6"
-end
-
-local animIDs = {
-	R15 = {"rbxassetid://313762630", "rbxassetid://248336677"},
-	R6  = {"rbxassetid://313762630", "rbxassetid://248336677"}
-}
-
+local animIDs = {"rbxassetid://313762630", "rbxassetid://248336677"}
+local anim = hum:WaitForChild("Animator")
 local animations = {}
-for i, id in ipairs(animIDs[getmodel()]) do
+for i, id in ipairs(animIDs) do
 	local animation = Instance.new("Animation")
 	animation.AnimationId = id
 	animation.Name = "aaa_" .. i
@@ -31,70 +32,65 @@ end
 
 -- Tool
 local tool = Instance.new("Tool")
-tool.Name = "Fe floating god (R6)"
+tool.Name = "Fe floating true-flshty (R6)"
 tool.RequiresHandle = false
 tool.Parent = pack
-tool.ToolTip = "flshty_test fight simple"
+tool.ToolTip = "flshty_user fighting awake :)"
 
--- GUI setup
+-- GUI
 local screenGui = Instance.new("ScreenGui", game.CoreGui)
 screenGui.Name = "FlshtyButtons"
 screenGui.ResetOnSpawn = false
 screenGui.Enabled = false
+
+local buttonFrame = Instance.new("Frame", screenGui)
+buttonFrame.Size = UDim2.new(0, 60, 0, 120)
+buttonFrame.Position = UDim2.new(1, -70, 0.5, -60)
+buttonFrame.BackgroundTransparency = 1
+
+-- Boutons
+local function createButton(name, key)
+	local button = Instance.new("TextButton", buttonFrame)
+	button.Size = UDim2.new(1, 0, 0, 50)
+	button.BackgroundColor3 = Color3.new(1, 1, 1)
+	button.BackgroundTransparency = 0.7
+	button.BorderColor3 = Color3.new(1, 1, 1)
+	button.BorderSizePixel = 3
+	button.Text = key
+	button.TextColor3 = Color3.new(1, 1, 1)
+	button.TextScaled = true
+	button.Font = Enum.Font.GothamBold
+	local corner = Instance.new("UICorner", button)
+	corner.CornerRadius = UDim.new(0, 25)
+	return button
+end
+
+local buttonA = createButton("ButtonA", "A")
+buttonA.Position = UDim2.new(0, 0, 0, 60)
+
+local buttonZ = createButton("ButtonZ", "Z")
+buttonZ.Position = UDim2.new(0, 0, 0, 0)
 
 -- Cooldown
 local cooldownTime = 2
 local cooldownA = false
 local cooldownZ = false
 
--- Bouton A
-local buttonA = Instance.new("TextButton", screenGui)
-buttonA.Size = UDim2.new(0, 50, 0, 50)
-buttonA.Position = UDim2.new(1, -60, 0.5, -25)
-buttonA.BackgroundColor3 = Color3.new(1, 1, 1)
-buttonA.BackgroundTransparency = 0.7
-buttonA.BorderColor3 = Color3.new(1, 1, 1)
-buttonA.BorderSizePixel = 3
-buttonA.Text = "A"
-buttonA.TextColor3 = Color3.new(1, 1, 1)
-buttonA.TextScaled = true
-buttonA.Font = Enum.Font.GothamBold
-local cornerA = Instance.new("UICorner", buttonA)
-cornerA.CornerRadius = UDim.new(0, 25)
-
--- Bouton Z
-local buttonZ = Instance.new("TextButton", screenGui)
-buttonZ.Size = UDim2.new(0, 50, 0, 50)
-buttonZ.Position = UDim2.new(1, -60, 0.5, -85)
-buttonZ.BackgroundColor3 = Color3.new(1, 1, 1)
-buttonZ.BackgroundTransparency = 0.7
-buttonZ.BorderColor3 = Color3.new(1, 1, 1)
-buttonZ.BorderSizePixel = 3
-buttonZ.Text = "Z"
-buttonZ.TextColor3 = Color3.new(1, 1, 1)
-buttonZ.TextScaled = true
-buttonZ.Font = Enum.Font.GothamBold
-local cornerZ = Instance.new("UICorner", buttonZ)
-cornerZ.CornerRadius = UDim.new(0, 25)
-
--- Actions avec cooldown
 local function executeLoadstringA()
 	if cooldownA or not screenGui.Enabled then return end
 	cooldownA = true
-	local success, err = pcall(function()
+	pcall(function()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Fighting-style/Finder"))()
 	end)
-	if not success then warn("Erreur A :", err) end
 	task.delay(cooldownTime, function() cooldownA = false end)
 end
 
 local function executeLoadstringZ()
 	if cooldownZ or not screenGui.Enabled then return end
 	cooldownZ = true
-	local success, err = pcall(function()
+	pcall(function()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Fighting-style/Z"))()
 	end)
-	if not success then warn("Erreur Z :", err) end
 	task.delay(cooldownTime, function() cooldownZ = false end)
 end
 
@@ -102,7 +98,7 @@ end
 buttonA.MouseButton1Click:Connect(executeLoadstringA)
 buttonZ.MouseButton1Click:Connect(executeLoadstringZ)
 
--- Clavier
+-- Clavier (optionnel pour PC)
 uis.InputBegan:Connect(function(input, gp)
 	if gp or not screenGui.Enabled then return end
 	if input.KeyCode == Enum.KeyCode.A then executeLoadstringA() end
@@ -111,11 +107,13 @@ end)
 
 -- Animation Tool
 local animTracks = {}
-local doing = false
 
 tool.Equipped:Connect(function()
-	doing = true
 	screenGui.Enabled = true
+	-- Fling ON
+	pcall(function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Fighting-style/Fling%20on"))()
+	end)
 	for _, animObj in ipairs(animations) do
 		local track = anim:LoadAnimation(animObj)
 		track:Play()
@@ -126,8 +124,11 @@ tool.Equipped:Connect(function()
 end)
 
 tool.Unequipped:Connect(function()
-	doing = false
 	screenGui.Enabled = false
+	-- Fling OFF
+	pcall(function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Fighting-style/Fling%20off"))()
+	end)
 	for _, track in ipairs(animTracks) do
 		if track then track:Stop() track:Destroy() end
 	end
@@ -135,7 +136,6 @@ tool.Unequipped:Connect(function()
 end)
 
 hum.Died:Connect(function()
-	doing = false
 	screenGui:Destroy()
 	for _, track in ipairs(animTracks) do
 		if track then track:Stop() track:Destroy() end
