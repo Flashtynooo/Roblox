@@ -1,12 +1,22 @@
 
+local player = game.Players.LocalPlayer
+local CoreGui = game:GetService("CoreGui")
+
+if CoreGui:FindFirstChild("HandHub") then
+    CoreGui.HandHub:Destroy()
+end
+
+
+
 game.StarterGui:SetCore("SendNotification", {
     Title = "Hub Loaded",
     Text = "Created by @flashtynooo UPDATE 1.03",
     Duration = 4
 }) 
-local gui = Instance.new("ScreenGui", game.Players.LocalPlayer:WaitForChild("PlayerGui"))
+local gui = Instance.new("ScreenGui", CoreGui)
 gui.ResetOnSpawn = false
 gui.Name = "HandHub"
+gui.DisplayOrder = 10000
 
 local main = Instance.new("Frame", gui)
 main.Size = UDim2.new(0, 280, 0, 250)
@@ -17,13 +27,13 @@ main.BorderSizePixel = 2
 main.Active = true
 main.Draggable = true
 main.Name = "MainFrame"
-
+main.ZIndex = 9000
 local header = Instance.new("Frame", main)
 header.Size = UDim2.new(1, 0, 0, 30)
 header.BackgroundColor3 = Color3.fromRGB(40, 0, 60)
 header.BorderSizePixel = 0
 header.Name = "TopBar"
-
+header.ZIndex = 9100
 local title = Instance.new("TextLabel", header)
 title.Text = "Flshty HUB :)☠️"
 title.Size = UDim2.new(1, -90, 1, 0)
@@ -33,6 +43,7 @@ title.BackgroundTransparency = 1
 title.TextXAlignment = Enum.TextXAlignment.Left
 title.Font = Enum.Font.Arcade
 title.TextSize = 14
+title.ZIndex = 9200
 
 local minimized = false
 local lastVisibleSection = nil
@@ -47,6 +58,7 @@ local function createButton(txt, offsetX, callback)
     b.BorderSizePixel = 0
     b.Font = Enum.Font.Gotham
     b.TextSize = 14
+    b.ZIndex = 9300
     b.MouseButton1Click:Connect(callback)
 end
 
@@ -63,6 +75,7 @@ categoryScroll.BackgroundTransparency = 1
 categoryScroll.CanvasSize = UDim2.new(0, 0, 0, 0)
 categoryScroll.ScrollBarThickness = 4
 categoryScroll.ScrollingDirection = Enum.ScrollingDirection.X
+categoryScroll.ZIndex = 9400
 
 local categories = {
     ["All script"] = {
@@ -142,6 +155,7 @@ local function createCategory(cat, list)
     btn.BackgroundColor3 = Color3.fromRGB(90, 0, 110)
     btn.Font = Enum.Font.GothamBold
     btn.TextSize = 11
+    btn.ZIndex = 9400
     table.insert(categoryButtons, btn)
 
     categoryScroll.CanvasSize = UDim2.new(0, #categoryButtons * 75, 0, 0)
@@ -154,6 +168,7 @@ local function createCategory(cat, list)
     section.ScrollBarThickness = 4
     section.BackgroundColor3 = Color3.fromRGB(25, 0, 40)
     sections[cat] = section
+    section.ZIndex = 9400
 
     for i, entry in ipairs(list) do
         local name, link = unpack(entry)
@@ -165,6 +180,7 @@ local function createCategory(cat, list)
         hubBtn.TextColor3 = Color3.new(1, 1, 1)
         hubBtn.Font = Enum.Font.Gotham
         hubBtn.TextSize = 13
+        hubBtn.ZIndex = 9400
         hubBtn.MouseButton1Click:Connect(function()
             loadstring(game:HttpGet(link))()
         end)
