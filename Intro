@@ -2,95 +2,121 @@ local player = game.Players.LocalPlayer
 local gui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
 gui.IgnoreGuiInset = true
 gui.ResetOnSpawn = false
+gui.Name = "FlshtyHubIntro"
 
--- Fond sombre
+-- Fond noir total (plein écran)
 local bg = Instance.new("Frame", gui)
 bg.Size = UDim2.new(1, 0, 1, 0)
 bg.Position = UDim2.new(0, 0, 0, 0)
-bg.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
-bg.BackgroundTransparency = 0
-bg.ZIndex = 1
+bg.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+bg.ZIndex = 1000
 
--- Texte central
-local text = Instance.new("TextLabel", bg)
-text.Size = UDim2.new(1, 0, 1, 0)
-text.BackgroundTransparency = 1
-text.TextScaled = true
-text.Font = Enum.Font.Arcade or Enum.Font.GothamBlack
-text.TextColor3 = Color3.new(1, 1, 1)
-text.TextStrokeTransparency = 0.6
-text.TextStrokeColor3 = Color3.new(0, 0, 0)
-text.ZIndex = 2
-text.Text = ""
-
--- Son flippant en local
-local sound = Instance.new("Sound")
-sound.SoundId = "rbxassetid://90879695521129" -- (Screamer / bruit d'horreur)
-sound.Volume = 1
-sound.PlayOnRemove = false
-sound.Parent = player:WaitForChild("PlayerGui")
-sound:Play()
-
--- Shaking
-local function shakeText(intensity, duration)
-	local endTime = tick() + duration
-	while tick() < endTime do
-		text.Position = UDim2.new(0.5, math.random(-intensity, intensity), 0.5, math.random(-intensity, intensity))
-		text.AnchorPoint = Vector2.new(0.5, 0.5)
-		wait(0.02)
-	end
+-- Fonction glitch texte (durée divisée par 3, waits divisés par 3)
+local function glitchEffect(textLabel, duration)
+    local endTime = tick() + duration / 3
+    while tick() < endTime do
+        -- Décalage position
+        local offsetX = math.random(-5, 5)
+        local offsetY = math.random(-5, 5)
+        textLabel.Position = UDim2.new(0.5, offsetX, 0.5, offsetY)
+        textLabel.Rotation = math.random(-5, 5)
+        -- Décalage couleur rouge / cyan (glitch)
+        local r = math.random(150, 255)/255
+        local g = math.random(0, 50)/255
+        local b = math.random(150, 255)/255
+        textLabel.TextColor3 = Color3.new(r, g, b)
+        wait(0.05 / 3)
+    end
+    -- Reset position
+    textLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+    textLabel.Rotation = 0
+    textLabel.TextColor3 = Color3.new(1, 1, 1)
 end
 
--- Flash rouge
-local function flash()
-	local f = Instance.new("Frame", gui)
-	f.Size = UDim2.new(1, 0, 1, 0)
-	f.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
-	f.ZIndex = 999
-	f.BackgroundTransparency = 1
-	for i = 1, 0, -0.1 do
-		f.BackgroundTransparency = i
-		wait(0.01)
-	end
-	wait(0.05)
-	for i = 0, 1, 0.1 do
-		f.BackgroundTransparency = i
-		wait(0.01)
-	end
-	f:Destroy()
+-- Texte "Game"
+local gameText = Instance.new("TextLabel", gui)
+gameText.Size = UDim2.new(0.4, 0, 0.3, 0)
+gameText.Position = UDim2.new(0, 0, 0.5, 0)
+gameText.AnchorPoint = Vector2.new(0.81, 0.5)
+gameText.Text = "Game"
+gameText.Font = Enum.Font.Arcade
+gameText.TextScaled = true
+gameText.TextColor3 = Color3.new(1, 1, 1)
+gameText.TextStrokeTransparency = 0.4
+gameText.TextStrokeColor3 = Color3.new(0, 0, 0)
+gameText.BackgroundTransparency = 1
+gameText.ZIndex = 1001
+
+-- Texte "Hub"
+local hubText = Instance.new("TextLabel", gui)
+hubText.Size = UDim2.new(0.3, 0, 0.3, 0)
+hubText.Position = UDim2.new(0.8, 0, 0.5, 0)
+hubText.AnchorPoint = Vector2.new(0.8, 0.5)
+hubText.Text = "Hub"
+hubText.Font = Enum.Font.Arcade
+hubText.TextScaled = true
+hubText.TextColor3 = Color3.new(1, 1, 1)
+hubText.TextStrokeTransparency = 0.4
+hubText.TextStrokeColor3 = Color3.new(0, 0, 0)
+hubText.BackgroundTransparency = 1
+hubText.ZIndex = 1001
+
+-- Son glitch (glitch sound effect)
+local glitchSound = Instance.new("Sound", gui)
+glitchSound.SoundId = "rbxassetid://1588058260" -- Glitch Sound Effect
+glitchSound.Volume = 1
+glitchSound.PlaybackSpeed = 3
+glitchSound:Play()
+
+-- Glitch rapide sur "Game" (durée divisée par 3)
+glitchEffect(gameText, 1.5)
+
+-- Animation : "Game" devient transparent lentement (3 fois plus rapide)
+for i = 0, 1, 0.06 do
+	gameText.TextTransparency = i
+	gameText.TextStrokeTransparency = 0.4 + i * 0.6
+	wait(0.01)
 end
 
--- Animation
-task.spawn(function()
-	local sequence = {
-		{":)", Color3.fromRGB(0, 150, 0), 0.15},
-		{"☠️", Color3.fromRGB(150, 0, 0), 0.15},
-		{"flashtynooo", Color3.fromRGB(100, 0, 100), 0.2},
-		{"never die", Color3.fromRGB(200, 0, 0), 0.2},
-		{":)☠️", Color3.fromRGB(255, 0, 0), 0.25}
-	}
+-- Croix rouge au même endroit et taille que "Game"
+local cross = Instance.new("Frame", gui)
+cross.Size = gameText.Size
+cross.Position = gameText.Position
+cross.AnchorPoint = Vector2.new(0.8, 0.5)
+cross.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+cross.BackgroundTransparency = 0
+cross.ZIndex = 1002
 
-	for _, step in ipairs(sequence) do
-		text.Text = step[1]
-		text.TextColor3 = step[2]
-		shakeText(10, step[3])
-	end
+-- Sound pop
+local popSound = Instance.new("Sound", gui)
+popSound.SoundId = "rbxassetid://4607031412" -- Pop Sound Effect
+popSound.Volume = 2
+popSound.PlaybackSpeed = 3
+popSound:Play()
 
-	-- Final
-	text.Text = "flashtynooo never die :)☠️"
-	text.TextColor3 = Color3.fromRGB(255, 0, 0)
-	text.TextStrokeTransparency = 0.2
-	text.Size = UDim2.new(1.4, 0, 1.4, 0)
-	text.Rotation = 0
-	text.AnchorPoint = Vector2.new(0.5, 0.5)
+-- Texte "Flshty" au même endroit
+local flshtyText = Instance.new("TextLabel", gui)
+flshtyText.Size = gameText.Size
+flshtyText.Position = gameText.Position
+flshtyText.AnchorPoint = Vector2.new(0.8, 0.5)
+flshtyText.Text = "Flshty"
+flshtyText.Font = Enum.Font.Arcade
+flshtyText.TextScaled = true
+flshtyText.TextColor3 = Color3.fromRGB(255, 0, 255)
+flshtyText.TextStrokeTransparency = 0.3
+flshtyText.TextStrokeColor3 = Color3.new(0, 0, 0)
+flshtyText.BackgroundTransparency = 1
+flshtyText.TextTransparency = 1
+flshtyText.ZIndex = 1003
 
-	for i = 1, 12 do
-		text.Rotation = math.random(-60, 60)
-		text.Size = UDim2.new(1.3 + math.random() * 0.2, 0, 1.3 + math.random() * 0.2, 0)
-		text.Position = UDim2.new(0.5, math.random(-40,40), 0.5, math.random(-40,40))
-		wait(0.02)
-	end
+-- Faire apparaître "Flshty" progressivement avec glitch (3 fois plus rapide)
+for i = 1, 0, -0.15 do
+	flshtyText.TextTransparency = i
+	glitchEffect(flshtyText, 0.1 / 3)
+	wait(0.016)
+end
 
-	flash()
-	bg:Destroy()
-end)
+-- Garde affiché 2 secondes puis clean (divisé par 3)
+wait(2 / 3)
+
+gui:Destroy()
