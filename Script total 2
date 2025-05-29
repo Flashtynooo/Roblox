@@ -135,21 +135,25 @@ local categories = {
 },
 
 }
--- Associe la variable locale au global (juste pour lecture si besoin)
 _G.categories = categories
 
--- Fonction pour ajouter une nouvelle catégorie (et l'afficher)
+-- ta fonction createCategory (doit être déjà définie dans ton script principal)
+-- function createCategory(name, buttons) ... end
+
+-- fonctions globales pour modifier les catégories :
+
 _G.AddCategory = function(name, buttons)
-    if not categories[name] then
-        categories[name] = buttons
-        createCategory(name, categories[name]) -- Affiche la catégorie
+    if not _G.categories[name] then
+        _G.categories[name] = buttons
+        createCategory(name, _G.categories[name]) -- met à jour l'affichage
     end
 end
 
--- Supprime une catégorie (et son affichage)
 _G.RemoveCategory = function(name)
-    if categories[name] then
-        categories[name] = nil
+    if _G.categories[name] then
+        _G.categories[name] = nil
+
+        -- Supprime l'affichage dans le GUI
         for _, gui in ipairs(MainFrame:GetDescendants()) do
             if gui:IsA("Frame") and gui.Name == name then
                 gui:Destroy()
@@ -158,25 +162,24 @@ _G.RemoveCategory = function(name)
     end
 end
 
--- Ajoute un bouton à une catégorie existante (et le ré-affiche)
 _G.AddButtonToCategory = function(catName, buttonName, scriptUrl)
-    if not categories[catName] then
-        categories[catName] = {}
+    if not _G.categories[catName] then
+        _G.categories[catName] = {}
     end
-    table.insert(categories[catName], {buttonName, scriptUrl})
 
-    -- Met à jour l'affichage de la catégorie
+    table.insert(_G.categories[catName], {buttonName, scriptUrl})
+
+    -- Actualise l'affichage de la catégorie
     for _, gui in ipairs(MainFrame:GetDescendants()) do
         if gui:IsA("Frame") and gui.Name == catName then
             gui:Destroy()
         end
     end
-    createCategory(catName, categories[catName])
+    createCategory(catName, _G.categories[catName])
 end
 
--- Supprime un bouton d'une catégorie (et met à jour l'affichage)
 _G.RemoveButtonFromCategory = function(catName, buttonName)
-    local cat = categories[catName]
+    local cat = _G.categories[catName]
     if not cat then return end
 
     for i, v in ipairs(cat) do
@@ -186,14 +189,17 @@ _G.RemoveButtonFromCategory = function(catName, buttonName)
         end
     end
 
-    -- Met à jour l'affichage
+    -- Actualise l'affichage de la catégorie
     for _, gui in ipairs(MainFrame:GetDescendants()) do
         if gui:IsA("Frame") and gui.Name == catName then
             gui:Destroy()
         end
     end
-    createCategory(catName, categories[catName])
+    createCategory(catName, _G.categories[catName])
 end
+
+
+
 
 
 local activeFrame
