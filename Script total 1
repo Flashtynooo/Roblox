@@ -1,73 +1,83 @@
--- 1. Charge le script principal
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Script%20total%202"))()
 
--- 2. Attendre que le hub se charge et placer le MainFrame dans une variable proprement
-wait(1)
 
-local main = game.CoreGui:FindFirstChild("FlshtyHub") and game.CoreGui.FlshtyHub:FindFirstChild("MainHub")
-if not main then
-    warn("[FlshtyHub] Impossible de trouver MainFrame automatiquement.")
-    return
+
+
+
+local player = game.Players.LocalPlayer
+local CoreGui = Game:GetService("CoreGui")
+if CoreGui:FindFirstChild("Flshty_TrollHub") then
+    CoreGui.Flshty_TrollHub:Destroy()
 end
 
--- 3. Initialise l'objet global
-_G.HubManager = _G.HubManager or {}
-_G.HubManager.Sections = _G.HubManager.Sections or {}
-_G.HubManager.Buttons = _G.HubManager.Buttons or {}
+local gui = Instance.new("ScreenGui", game.CoreGui)
+gui.Name = "Flshty_TrollHub"
+gui.ResetOnSpawn = false
+gui.DisplayOrder = 10000000000
 
--- 4. Fonctions dynamiques
-function _G.HubManager:AddSection(name, props)
-    local sec = Instance.new("Frame")
-    sec.Name = name
-    for k, v in pairs(props or {}) do
-        sec[k] = v
-    end
-    sec.Parent = main
-    table.insert(self.Sections, sec)
-    return sec
-end
+local frame = Instance.new("Frame", gui)
+frame.Size = UDim2.new(0, 300, 0, 160)
+frame.Position = UDim2.new(0.5, -140, 0.5, -90)
+frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+frame.Active = true
+frame.Draggable = true
 
-function _G.HubManager:RemoveSection(name)
-    for i, s in ipairs(self.Sections) do
-        if s.Name == name then
-            s:Destroy()
-            table.remove(self.Sections, i)
-            return true
-        end
-    end
-    return false
-end
+local corner = Instance.new("UICorner", frame)
+corner.CornerRadius = UDim.new(0, 10)
 
-function _G.HubManager:AddButton(sectionName, props)
-    local section = nil
-    for _, s in pairs(self.Sections) do
-        if s.Name == sectionName then
-            section = s
-            break
-        end
-    end
-    if not section then
-        warn("[HubManager] Section "..tostring(sectionName).." introuvable.")
-        return nil
-    end
-    local btn = Instance.new("TextButton")
-    for k, v in pairs(props or {}) do
-        btn[k] = v
-    end
-    btn.Parent = section
-    table.insert(self.Buttons, btn)
-    return btn
-end
 
-function _G.HubManager:RemoveButton(buttonText)
-    for i, b in ipairs(self.Buttons) do
-        if b.Text == buttonText then
-            b:Destroy()
-            table.remove(self.Buttons, i)
-            return true
-        end
-    end
-    return false
-end
+local textbox = Instance.new("TextBox", frame)
+textbox.PlaceholderText = "Code in Discord"
+textbox.Text = ""
+textbox.Size = UDim2.new(0.6, -10, 0, 30)
+textbox.Position = UDim2.new(0.05, 0, 0.2, 0)
+textbox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+textbox.TextColor3 = Color3.fromRGB(255, 255, 255)
+textbox.Font = Enum.Font.Code
+textbox.TextScaled = true
+Instance.new("UICorner", textbox)
 
-print("[FlshtyHub] Interface HubManager chargée avec succès.")
+local sendBtn = Instance.new("TextButton", frame)
+sendBtn.Size = UDim2.new(0.3, 0, 0, 30)
+sendBtn.Position = UDim2.new(0.65, 0, 0.2, 0)
+sendBtn.Text = "Send"
+sendBtn.BackgroundColor3 = Color3.fromRGB(80, 0, 0)
+sendBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+sendBtn.Font = Enum.Font.Code
+sendBtn.TextScaled = true
+Instance.new("UICorner", sendBtn)
+
+local orText = Instance.new("TextLabel", frame)
+orText.Text = "Or"
+orText.Size = UDim2.new(1, 0, 0, 35)
+orText.Position = UDim2.new(0, 0, 0.35, 0)
+orText.BackgroundTransparency = 1
+orText.TextColor3 = Color3.fromRGB(150, 150, 150)
+orText.Font = Enum.Font.Code
+orText.TextScaled = true
+
+local flshtyBtn = Instance.new("TextButton", frame)
+flshtyBtn.Text = "Flshty hub"
+flshtyBtn.Size = UDim2.new(0.8, 0, 0, 35)
+flshtyBtn.Position = UDim2.new(0.1, 0, 0.65, 0)
+flshtyBtn.BackgroundColor3 = Color3.fromRGB(120, 0, 120)
+flshtyBtn.TextColor3 = Color3.fromRGB(0, 255, 255)
+flshtyBtn.Font = Enum.Font.Arcade
+flshtyBtn.TextScaled = true
+Instance.new("UICorner", flshtyBtn)
+
+
+-- Si le code est correct
+sendBtn.MouseButton1Click:Connect(function()
+	if textbox.Text == "Flshty_user" then
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Script%20total%201"))()
+		gui:Destroy()
+	end
+end)
+
+-- Flshty hub exécution
+flshtyBtn.MouseButton1Click:Connect(function()
+gui:Destroy()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Intro"))()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Copy"))()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Game-hub-protection/Protection%201%20(game%20hub)"))()
+	end)
