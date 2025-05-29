@@ -1,3 +1,7 @@
+--uwu lol antifling bro fuck me
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Fighting-style/Antifling"))()
+
 local plr = game:GetService("Players").LocalPlayer
 local char = plr.Character or plr.CharacterAdded:Wait()
 local hum = char:WaitForChild("Humanoid")
