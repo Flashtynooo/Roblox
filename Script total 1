@@ -1,5 +1,5 @@
 -- 1. Charge le script principal
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Script%20total%201"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Script%20total%202"))()
 
 -- 2. Attendre que le hub se charge et placer le MainFrame dans une variable proprement
 wait(1)
