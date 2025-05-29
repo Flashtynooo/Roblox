@@ -103,5 +103,4 @@ function _G.HubManager:CallHubFunction(funcName, ...)
 end
 
 -- 6) Confirmation chargement
-print("[FlshtyHub] Hub chargé et prêt à la modification via _G.HubManager")
-
+print("[FlshtyHub] Hub chargé ")
