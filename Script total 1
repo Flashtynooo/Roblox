@@ -1,7 +1,7 @@
 
 game.StarterGui:SetCore("SendNotification", {
     Title = "Hub Loaded",
-    Text = "Created by @flashtynooo UPDATE 1.02",
+    Text = "Created by @flashtynooo UPDATE 1.03",
     Duration = 4
 }) 
 local gui = Instance.new("ScreenGui", game.Players.LocalPlayer:WaitForChild("PlayerGui"))
