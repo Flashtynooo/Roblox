@@ -1,51 +1,63 @@
---[[ 🔒 ANTI-FLING by flashtynooo | Ignore ton propre corps ]]
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local LocalPlayer = Players.LocalPlayer
 local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
 
--- Protection contre fling des AUTRES
+-- On récupère le Tool fling (celui que tu as créé)
+local function getFlingTool()
+    local pack = LocalPlayer:FindFirstChild("Backpack")
+    if pack then
+        return pack:FindFirstChild("Fe floating true-flshty (R6)")
+    end
+    local char = LocalPlayer.Character
+    if char then
+        return char:FindFirstChild("Fe floating true-flshty (R6)")
+    end
+    return nil
+end
+
 local function AntiFling()
-	for _, player in pairs(Players:GetPlayers()) do
-		if player ~= LocalPlayer and player.Character then
-			for _, part in pairs(player.Character:GetDescendants()) do
-				if part:IsA("BasePart") then
-					-- Supprimer tout effet fling
-					part.CanCollide = false
-					part.Velocity = Vector3.zero
-					part.RotVelocity = Vector3.zero
-					part.AssemblyLinearVelocity = Vector3.zero
-					part.AssemblyAngularVelocity = Vector3.zero
-					
-					-- Enlève la physique personnalisée qui peut fling
-					part.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
-				end
-			end
-		end
-	end
+    local flingTool = getFlingTool()
+    for _, player in pairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer and player.Character then
+            for _, part in pairs(player.Character:GetDescendants()) do
+                if part:IsA("BasePart") then
+                    -- Ignore la vélocité du tool fling (ne pas bloquer)
+                    if flingTool and (part:IsDescendantOf(flingTool) or part == flingTool) then
+                        -- Ignore les parties du Tool fling
+                    else
+                        -- Désactiver les collisions et vélocités sur les autres joueurs
+                        part.CanCollide = false
+                        part.Velocity = Vector3.zero
+                        part.RotVelocity = Vector3.zero
+                        part.AssemblyLinearVelocity = Vector3.zero
+                        part.AssemblyAngularVelocity = Vector3.zero
+                        part.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
+                    end
+                end
+            end
+        end
+    end
 end
 
--- Repositionnement d'urgence si ton propre corps vole
 local function AutoAnchor()
-	if Character and Character:FindFirstChild("HumanoidRootPart") then
-		local hrp = Character.HumanoidRootPart
-		if hrp.Velocity.Magnitude > 100 then
-			hrp.Velocity = Vector3.zero
-			hrp.RotVelocity = Vector3.zero
-			hrp.CFrame = CFrame.new(0, 10, 0) -- replacer doucement
-		end
-	end
+    if Character and Character:FindFirstChild("HumanoidRootPart") then
+        local hrp = Character.HumanoidRootPart
+        if hrp.Velocity.Magnitude > 100 then
+            hrp.Velocity = Vector3.zero
+            hrp.RotVelocity = Vector3.zero
+            hrp.CFrame = CFrame.new(0, 10, 0)
+        end
+    end
 end
 
--- Surveillance constante
 RunService.Heartbeat:Connect(function()
-	pcall(AntiFling)
-	pcall(AutoAnchor)
+    pcall(AntiFling)
+    pcall(AutoAnchor)
 end)
 
--- Update le personnage si tu respawn
 LocalPlayer.CharacterAdded:Connect(function(char)
-	Character = char
+    Character = char
 end)
 
-print("✅ Anti-Fling ACTIVÉ (autres joueurs seulement)")
+print("✅ Anti-Fling ACTIVÉ et compatible avec ton outil fling.")
