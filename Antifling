@@ -1,0 +1,50 @@
+--[[ 🔒 ANTI-FLING by flashtynooo ]]
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
+local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+
+-- Fonction de protection contre le fling
+local function AntiFling()
+    for _, player in pairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer and player.Character then
+            local char = player.Character
+
+            -- Empêche les parties physiques dangereuses
+            for _, part in pairs(char:GetDescendants()) do
+                if part:IsA("BasePart") then
+                    part.CanCollide = false -- pas de collision
+                    part.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0) -- pas de puissance
+                    part.Velocity = Vector3.zero
+                    part.RotVelocity = Vector3.zero
+                    part.AssemblyLinearVelocity = Vector3.zero
+                    part.AssemblyAngularVelocity = Vector3.zero
+                end
+            end
+        end
+    end
+end
+
+-- Sécurité : Corrige ta position si tu es éjecté
+local function AutoAnchor()
+    if not Character or not Character:FindFirstChild("HumanoidRootPart") then return end
+    local hrp = Character.HumanoidRootPart
+    if hrp.Velocity.Magnitude > 100 then
+        hrp.Velocity = Vector3.zero
+        hrp.RotVelocity = Vector3.zero
+        hrp.CFrame = CFrame.new(0, 10, 0) -- Repositionne si fling violent
+    end
+end
+
+-- Lancement continu
+RunService.Heartbeat:Connect(function()
+    pcall(AntiFling)
+    pcall(AutoAnchor)
+end)
+
+-- Protection au respawn
+LocalPlayer.CharacterAdded:Connect(function(char)
+    Character = char
+end)
+
+print("✅ Anti-Fling ACTIVÉ : Tu es protégé contre les joueurs flingers.")
