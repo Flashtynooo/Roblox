@@ -1,0 +1,93 @@
+-- Flshty Style Rolling Riches Hub
+local player = game.Players.LocalPlayer
+local gui = Instance.new("ScreenGui", game.CoreGui)
+gui.Name = "RollingRiches"
+gui.ResetOnSpawn = false
+
+local main = Instance.new("Frame", gui)
+main.Size = UDim2.new(0, 300, 0, 200)
+main.Position = UDim2.new(0.5, -150, 0.5, -100)
+main.BackgroundColor3 = Color3.fromRGB(130, 0, 255)
+main.BorderSizePixel = 0
+main.Active = true
+main.Draggable = true
+
+Instance.new("UICorner", main).CornerRadius = UDim.new(0, 16)
+
+local stroke = Instance.new("UIStroke", main)
+stroke.Thickness = 2
+stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+
+local title = Instance.new("TextLabel", main)
+title.Size = UDim2.new(1, 0, 0, 30)
+title.Text = "Rolling Riches"
+title.TextColor3 = Color3.fromRGB(57, 255, 20)
+title.TextScaled = true
+title.BackgroundTransparency = 1
+title.Font = Enum.Font.Code
+
+-- Glitch animation
+spawn(function()
+	while wait(0.1) do
+		stroke.Color = Color3.fromRGB(math.random(100,255), 0, math.random(100,255))
+	end
+end)
+
+-- Toggle loop script button
+local toggleButton = Instance.new("TextButton", main)
+toggleButton.Size = UDim2.new(0.8, 0, 0, 40)
+toggleButton.Position = UDim2.new(0.1, 0, 0.35, 0)
+toggleButton.Text = "get win (money) [OFF]"
+toggleButton.BackgroundColor3 = Color3.fromRGB(200, 0, 200)
+toggleButton.TextColor3 = Color3.fromRGB(0, 255, 255)
+toggleButton.TextScaled = true
+toggleButton.Font = Enum.Font.Arcade
+Instance.new("UICorner", toggleButton).CornerRadius = UDim.new(0, 12)
+
+local looping = false
+local runningLoop = nil
+
+-- Instant win button
+local instantButton = Instance.new("TextButton", main)
+instantButton.Size = UDim2.new(0.8, 0, 0, 40)
+instantButton.Position = UDim2.new(0.1, 0, 0.6, 0)
+instantButton.Text = "instant win"
+instantButton.BackgroundColor3 = Color3.fromRGB(200, 0, 200)
+instantButton.TextColor3 = Color3.fromRGB(0, 255, 255)
+instantButton.TextScaled = true
+instantButton.Font = Enum.Font.Arcade
+Instance.new("UICorner", instantButton).CornerRadius = UDim.new(0, 12)
+
+local cooldown = false
+
+-- Bouton boucle ON/OFF
+toggleButton.MouseButton1Click:Connect(function()
+	looping = not looping
+	toggleButton.Text = "get win (money) [" .. (looping and "ON" or "OFF") .. "]"
+
+	if looping then
+		runningLoop = loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Roll-rock/Farm%20win%20money"))()
+	else
+		if typeof(runningLoop) == "thread" then
+			coroutine.close(runningLoop) -- ou coroutine.yield si coroutine.close indisponible
+		end
+	end
+end)
+
+-- Instant win bouton avec cooldown
+instantButton.MouseButton1Click:Connect(function()
+	if looping then return end
+	if cooldown then return end
+
+	cooldown = true
+	instantButton.Text = "cooldown 10s"
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Roll-rock/Instant%20win"))()
+
+	for i = 9, 1, -1 do
+		wait(1)
+		instantButton.Text = "cooldown " .. i .. "s"
+	end
+
+	instantButton.Text = "instant win"
+	cooldown = false
+end)
