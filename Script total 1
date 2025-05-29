@@ -1,7 +1,7 @@
 -- Wrapper du hub original avec système de modif global via _G
 
 -- 1) Chargement du script principal d'origine
-local originalScriptCode = game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Script%20total%201")
+local originalScriptCode = game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Script%20total%202")
 local success, hubEnv = pcall(function()
     return loadstring(originalScriptCode, "OriginalHub")()
 end)
