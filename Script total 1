@@ -76,7 +76,8 @@ local categories = {
         { "MAKE EVERYONE BALD AND SELL WIGS TYCOON", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/MAKE%20EVERYONE%20BALD%20AND%20SELL%20WIGS%20TYCOON" },
         { "FEEDING TRASH TO RICH PEOPLE TYCOON", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/FEEDING%20TRASH%20TO%20RICH%20PEOPLE%20TYCOON" },
         { "Get Richer Every Second", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Get%20Richer%20Every%20Second" },
-        { "Game: R6 Dances", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Game-R6-Dances/Ohyeeeman" }
+        { "Game: R6 Dances", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Game-R6-Dances/Ohyeeeman" },
+        { "Rolling Riches", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Roll-rock/Total%202" }
 },
 
 
@@ -110,7 +111,8 @@ local categories = {
     ["Others"] = {
         { "Brookhaven", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Brookhaven%20total" },
         { "Line to CHICKEN JOCKEY!", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flashtynooo-hub/Line%20to%20CHICKEN%20JOCKEY!" },
-        { "(Game: R6 Dances", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Game-R6-Dances/Ohyeeeman" }
+        { "(Game: R6 Dances", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Game-R6-Dances/Ohyeeeman" },
+        { "Rolling Riches", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Roll-rock/Total%202" }
 
 
 
