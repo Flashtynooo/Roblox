@@ -1,0 +1,29 @@
+local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
+
+local lp = Players.LocalPlayer
+_G.hiddenfling = true
+
+local function fling()
+    local hrp, c, vel, movel = nil, nil, nil, 0.1
+    while _G.hiddenfling do
+        RunService.Heartbeat:Wait()
+        c = lp.Character
+        hrp = c and c:FindFirstChild("HumanoidRootPart")
+        if hrp then
+            vel = hrp.Velocity
+            hrp.Velocity = vel * 10000 + Vector3.new(0, 10000, 0)
+            RunService.RenderStepped:Wait()
+            if c and c.Parent and hrp and hrp.Parent then
+                hrp.Velocity = vel
+            end
+            RunService.Stepped:Wait()
+            if c and c.Parent and hrp and hrp.Parent then
+                hrp.Velocity = vel + Vector3.new(0, movel, 0)
+                movel = movel * -1
+            end
+        end
+    end
+end
+
+coroutine.wrap(fling)()
