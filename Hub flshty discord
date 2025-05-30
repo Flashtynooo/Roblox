@@ -29,7 +29,7 @@ end
 
 _G.AddCategory("Setting", {
     { "Antifling * click (permanent)", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Fighting-style/Antifling" },
-    { "fling *click (permanent)", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Fighting-style/Antifling" }
+    { "fling *click (permanent)", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Fighting-style/Fling%20on" }
 
 })
 
