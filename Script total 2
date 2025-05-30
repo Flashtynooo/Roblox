@@ -137,7 +137,10 @@ local categories = {
 },
 
 }
-_G.categories = _G.categories or {}
+
+
+_G._categoriesRef = categories -- C'est une *référence* à la table locale
+
 
 _G.AddCategory = function(name, buttons)
     if not _G._categoriesRef[name] then
