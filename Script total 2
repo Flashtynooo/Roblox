@@ -150,13 +150,16 @@ _G.AddCategory = function(name, buttons)
 end
 
 _G.RemoveCategory = function(name)
-    if _G.categories[name] then
-        _G.categories[name] = nil
+    -- Supprime la catégorie dans la table
+    if _G._categoriesRef then
+        _G._categoriesRef[name] = nil
+    end
 
-        -- Supprime l'affichage dans le GUI
-        for _, gui in ipairs(MainFrame:GetDescendants()) do
-            if gui:IsA("Frame") and gui.Name == name then
-                gui:Destroy()
+    -- Supprime le Frame GUI visuel de la catégorie
+    if MainFrame then
+        for _, child in ipairs(MainFrame:GetChildren()) do
+            if child:IsA("Frame") and child.Name == name then
+                child:Destroy()
             end
         end
     end
