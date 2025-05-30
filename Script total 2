@@ -137,19 +137,46 @@ local categories = {
 },
 
 }
-_G.categories = categories
+_G.categories = _G.categories or {}
 
--- ta fonction createCategory (doit être déjà définie dans ton script principal)
--- function createCategory(name, buttons) ... end
-
--- fonctions globales pour modifier les catégories :
-
-_G.AddCategory = function(name, buttons)
+_G.AddCategory = function(name, buttons, position)
     if not _G.categories[name] then
         _G.categories[name] = buttons
-        createCategory(name, _G.categories[name]) -- met à jour l'affichage
+    end
+
+    local gui = game.CoreGui:FindFirstChild("HandHub")
+    if gui then
+        local mainFrame = gui:FindFirstChild("MainFrame")
+        if mainFrame then
+            local scrollingFrame = mainFrame:FindFirstChildWhichIsA("ScrollingFrame")
+            if scrollingFrame then
+                -- Supprime l'ancien bouton si existe
+                for _, child in pairs(scrollingFrame:GetChildren()) do
+                    if child:IsA("TextButton") and child.Text == name then
+                        child:Destroy()
+                    end
+                end
+
+                local button = Instance.new("TextButton")
+                button.Size = UDim2.new(0, 100, 0, 30)
+                button.Position = position or UDim2.new(0, 0, 0, 0) -- position par défaut si non donnée
+                button.Text = name
+                button.Parent = scrollingFrame
+                button.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+                button.TextColor3 = Color3.fromRGB(255, 255, 255)
+                button.Font = Enum.Font.SourceSans
+                button.TextScaled = true
+
+                button.MouseButton1Click:Connect(function()
+                    if _G.categories[name] then
+                        createCategory(name, _G.categories[name])
+                    end
+                end)
+            end
+        end
     end
 end
+
 
 _G.RemoveCategory = function(name)
 	-- Supprimer la catégorie dans les données
