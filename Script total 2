@@ -130,7 +130,7 @@ local categories = {
 
 
 },
-    ["Soon . . ."] = {
+    ["Soon..."] = {
         { "SOON :)", "" }
 },
 
@@ -271,7 +271,7 @@ createCategory("Inf Game", categories["Inf Game"])
 createCategory("Tycoon", categories["Tycoon"])
 createCategory("Others", categories["Others"])
 createCategory("FE Animation", categories["FE Animation tools"]) -- AVANT-DERNIÈRE
-createCategory("Soon . . .", categories["Soon . . ."]) -- DERNIÈRE
+createCategory("Soon...", categories["Soon..."]) -- DERNIÈRE
 
 _G._categoriesRef = categories -- C'est une *référence* à la table locale
 
