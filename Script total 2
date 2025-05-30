@@ -140,42 +140,46 @@ local categories = {
 _G.categories = _G.categories or {}
 
 _G.AddCategory = function(name, buttons, position)
+    -- Ajout dans la table globale
     if not _G.categories[name] then
         _G.categories[name] = buttons
     end
 
+    -- Récupération du GUI
     local gui = game.CoreGui:FindFirstChild("HandHub")
-    if gui then
-        local mainFrame = gui:FindFirstChild("MainFrame")
-        if mainFrame then
-            local scrollingFrame = mainFrame:FindFirstChildWhichIsA("ScrollingFrame")
-            if scrollingFrame then
-                -- Supprime l'ancien bouton si existe
-                for _, child in pairs(scrollingFrame:GetChildren()) do
-                    if child:IsA("TextButton") and child.Text == name then
-                        child:Destroy()
-                    end
-                end
+    if not gui then return end
 
-                local button = Instance.new("TextButton")
-                button.Size = UDim2.new(0, 100, 0, 30)
-                button.Position = position or UDim2.new(0, 0, 0, 0) -- position par défaut si non donnée
-                button.Text = name
-                button.Parent = scrollingFrame
-                button.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-                button.TextColor3 = Color3.fromRGB(255, 255, 255)
-                button.Font = Enum.Font.SourceSans
-                button.TextScaled = true
+    local mainFrame = gui:FindFirstChild("MainFrame")
+    if not mainFrame then return end
 
-                button.MouseButton1Click:Connect(function()
-                    if _G.categories[name] then
-                        createCategory(name, _G.categories[name])
-                    end
-                end)
-            end
+    local scrollingFrame = mainFrame:FindFirstChildWhichIsA("ScrollingFrame")
+    if not scrollingFrame then return end
+
+    -- Supprime ancien bouton pour cette catégorie si existant
+    for _, child in pairs(scrollingFrame:GetChildren()) do
+        if child:IsA("TextButton") and child.Name == name then
+            child:Destroy()
         end
     end
+
+    -- Crée bouton catégorie à la position choisie
+    local button = Instance.new("TextButton")
+    button.Name = name
+    button.Size = UDim2.new(0, 150, 0, 40)
+    button.Position = position or UDim2.new(0, 0, 0, 0)
+    button.Text = name
+    button.Parent = scrollingFrame
+    button.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    button.Font = Enum.Font.SourceSansBold
+    button.TextScaled = true
+
+    -- Au clic, appelle createCategory pour afficher les boutons de la catégorie
+    button.MouseButton1Click:Connect(function()
+        createCategory(name, _G.categories[name])
+    end)
 end
+
 
 
 _G.RemoveCategory = function(name)
