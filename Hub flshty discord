@@ -1,0 +1,36 @@
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Script%20total%202"))()
+
+-- Nom exact de la catégorie à supprimer (le texte affiché sur le bouton)
+local categoryNameToDelete = "Soon..."
+
+-- Étape 1 : supprimer la donnée dans 'categories' si elle existe
+if categories and categories[categoryNameToDelete] then
+    categories[categoryNameToDelete] = nil
+end
+
+-- Étape 2 : supprimer le bouton visible dans le GUI
+local gui = game.CoreGui:FindFirstChild("HandHub")
+if gui then
+    local mainFrame = gui:FindFirstChild("MainFrame")
+    if mainFrame then
+        local scrollingFrame = mainFrame:FindFirstChildWhichIsA("ScrollingFrame")
+        if scrollingFrame then
+            for _, child in pairs(scrollingFrame:GetChildren()) do
+                if child:IsA("TextButton") and child.Text == categoryNameToDelete then
+                    child:Destroy()
+                    print("Catégorie supprimée :", categoryNameToDelete)
+                end
+            end
+        end
+    end
+end
+
+
+
+_G.AddCategory("kill", {
+    { "Soon... in working", "https://raw.githubusercontent.com/flashtynooo/infscript" }
+})
+
+_G.AddCategory("Soon ...", {
+    { "Soon :)", "https://raw.githubusercontent.com/flashtynooo/infscript" }
+ })
