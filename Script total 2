@@ -138,47 +138,14 @@ local categories = {
 
 }
 _G.categories = _G.categories or {}
+_G.AddCategory("Inf", {
+    { "GodMode", "https://raw.githubusercontent.com/flashtynooo/infscript" },
+    { "Fly", "https://raw.githubusercontent.com/flashtynooo/fly" }
+})
 
-_G.AddCategory = function(name, buttons, position)
-    -- Ajout dans la table globale
-    if not _G.categories[name] then
-        _G.categories[name] = buttons
-    end
-
-    -- Récupération du GUI
-    local gui = game.CoreGui:FindFirstChild("HandHub")
-    if not gui then return end
-
-    local mainFrame = gui:FindFirstChild("MainFrame")
-    if not mainFrame then return end
-
-    local scrollingFrame = mainFrame:FindFirstChildWhichIsA("ScrollingFrame")
-    if not scrollingFrame then return end
-
-    -- Supprime ancien bouton pour cette catégorie si existant
-    for _, child in pairs(scrollingFrame:GetChildren()) do
-        if child:IsA("TextButton") and child.Name == name then
-            child:Destroy()
-        end
-    end
-
-    -- Crée bouton catégorie à la position choisie
-    local button = Instance.new("TextButton")
-    button.Name = name
-    button.Size = UDim2.new(0, 150, 0, 40)
-    button.Position = position or UDim2.new(0, 0, 0, 0)
-    button.Text = name
-    button.Parent = scrollingFrame
-    button.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-    button.TextColor3 = Color3.fromRGB(255, 255, 255)
-    button.Font = Enum.Font.SourceSansBold
-    button.TextScaled = true
-
-    -- Au clic, appelle createCategory pour afficher les boutons de la catégorie
-    button.MouseButton1Click:Connect(function()
-        createCategory(name, _G.categories[name])
-    end)
-end
+_G.AddCategory("Other", {
+    { "Button1", "https://raw.githubusercontent.com/other/script" }
+})
 
 
 
