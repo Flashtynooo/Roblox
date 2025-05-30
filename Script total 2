@@ -132,7 +132,6 @@ local categories = {
 
 
 },
-_G._categoriesRef = categories
     ["Soon..."] = {
         { "SOON :)", "" }
 },
@@ -153,19 +152,17 @@ _G.AddCategory = function(name, buttons)
 end
 
 _G.RemoveCategory = function(name)
-    -- Supprimer dans la table de données
-    if _G._categoriesRef then
-        _G._categoriesRef[name] = nil
-    end
+	-- Supprimer la catégorie dans les données
+	if _G.categories and _G.categories[name] then
+		_G.categories[name] = nil
+	end
 
-    -- Supprimer le visuel (le frame affiché)
-    if MainFrame then
-        for _, child in ipairs(MainFrame:GetChildren()) do
-            if child:IsA("Frame") and child.Name == name then
-                child:Destroy()
-            end
-        end
-    end
+	-- Supprimer la frame de cette catégorie
+	for _, v in pairs(game.CoreGui:GetDescendants()) do
+		if v:IsA("Frame") and v.Name == name then
+			v:Destroy()
+		end
+	end
 end
 
 _G.AddButtonToCategory = function(catName, buttonName, scriptUrl)
