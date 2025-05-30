@@ -138,30 +138,14 @@ local categories = {
 
 }
 _G.categories = _G.categories or {}
-_G.AddCategory("Inf", {
-    { "GodMode", "https://raw.githubusercontent.com/flashtynooo/infscript" },
-    { "Fly", "https://raw.githubusercontent.com/flashtynooo/fly" }
-})
 
-_G.AddCategory("Other", {
-    { "Button1", "https://raw.githubusercontent.com/other/script" }
-})
-
-
-
-_G.RemoveCategory = function(name)
-	-- Supprimer la catégorie dans les données
-	if _G.categories and _G.categories[name] then
-		_G.categories[name] = nil
-	end
-
-	-- Supprimer la frame de cette catégorie
-	for _, v in pairs(game.CoreGui:GetDescendants()) do
-		if v:IsA("Frame") and v.Name == name then
-			v:Destroy()
-		end
-	end
+_G.AddCategory = function(name, buttons)
+    if not _G._categoriesRef[name] then
+        _G._categoriesRef[name] = buttons
+        createCategory(name, _G._categoriesRef[name]) -- Ajoute et affiche
+    end
 end
+
 
 _G.AddButtonToCategory = function(catName, buttonName, scriptUrl)
     if not _G.categories[catName] then
