@@ -77,6 +77,8 @@ categoryScroll.ScrollBarThickness = 4
 categoryScroll.ScrollingDirection = Enum.ScrollingDirection.X
 categoryScroll.ZIndex = 9400
 
+_G._categoriesRef = categories
+
 local categories = {
     ["All script"] = {
         { "⛏️ Dig to Earth's CORE!", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/%E2%9B%8F%EF%B8%8F%20Dig%20to%20Earth's%20CORE!" },
@@ -150,12 +152,12 @@ _G.AddCategory = function(name, buttons)
 end
 
 _G.RemoveCategory = function(name)
-    -- Supprime la catégorie dans la table
+    -- Supprimer dans la table de données
     if _G._categoriesRef then
         _G._categoriesRef[name] = nil
     end
 
-    -- Supprime le Frame GUI visuel de la catégorie
+    -- Supprimer le visuel (le frame affiché)
     if MainFrame then
         for _, child in ipairs(MainFrame:GetChildren()) do
             if child:IsA("Frame") and child.Name == name then
