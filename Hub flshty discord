@@ -27,8 +27,8 @@ end
 
 
 
-_G.AddCategory("kill", {
-    { "Soon... in working", "https://raw.githubusercontent.com/flashtynooo/infscript" }
+_G.AddCategory("Setting", {
+    { "Antifling (permanent)", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Fighting-style/Antifling" }
 })
 
 _G.AddCategory("Soon ...", {
