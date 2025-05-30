@@ -10,7 +10,7 @@ end
 
 game.StarterGui:SetCore("SendNotification", {
     Title = "Hub Loaded",
-    Text = "Created by @flashtynooo UPDATE 1.03",
+    Text = "Created by @flashtynooo UPDATE 1.04",
     Duration = 4
 }) 
 local gui = Instance.new("ScreenGui", CoreGui)
