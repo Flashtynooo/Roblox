@@ -2,16 +2,29 @@ local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local LocalPlayer = Players.LocalPlayer
 
+_G.g_antiFling = true
+
+-- On garde en mémoire les parties que NOUS avons modifiées (et uniquement celles-là)
+local modifiedParts = {}
+
 local function AntiFling()
     for _, player in pairs(Players:GetPlayers()) do
         if player ~= LocalPlayer and player.Character then
             for _, part in pairs(player.Character:GetDescendants()) do
                 if part:IsA("BasePart") then
-                    -- Juste désactiver la collision (évite certains fling)
-                    part.CanCollide = false
-                    -- Remettre vélocités à zéro localement (pour limiter fling sur les autres)
-                    part.Velocity = Vector3.new(0,0,0)
-                    part.RotVelocity = Vector3.new(0,0,0)
+                    if _G.g_antiFling then
+                        if part.CanCollide == true then
+                            part.CanCollide = false
+                            modifiedParts[part] = true
+                        end
+                        part.Velocity = Vector3.new(0, 0, 0)
+                        part.RotVelocity = Vector3.new(0, 0, 0)
+                    else
+                        if modifiedParts[part] then
+                            part.CanCollide = true
+                            modifiedParts[part] = nil
+                        end
+                    end
                 end
             end
         end
@@ -22,4 +35,4 @@ RunService.Heartbeat:Connect(function()
     pcall(AntiFling)
 end)
 
-print("✅ Anti-Fling ACTIVÉ sans ancrage ni blocage perso")
+print("✅ Anti-Fling activable/désactivable sans affecter les objets déjà noclip")
