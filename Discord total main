@@ -1,4 +1,5 @@
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flshty-hub-discord-user/SECTIONS%20info"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flshty-hub-discord-user/SECTIONS%20Setting"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flshty-hub-discord-user/SECTIONS%20more..."))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flshty-hub-discord-user/Translate"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flshty-hub-discord-user/Main"))()
