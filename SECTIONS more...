@@ -1,0 +1,30 @@
+_G.Sections = _G.Sections or {}
+
+_G.Sections["more..."] = function(parent)
+    
+    -- VideoFrame
+    local video = Instance.new("VideoFrame", parent)
+    video.Size = UDim2.new(1.1, -20, 1, 10)
+    video.Position = UDim2.new(0, 0, 0, 0)
+    video.Video = "rbxassetid://5608410985"
+    video.Looped = true
+    video.Playing = true
+    video.BackgroundColor3 = Color3.new(0,0,0)
+    video.BorderSizePixel = 0
+    video.ClipsDescendants = true
+-- Texte explicatif
+    local infoText = Instance.new("TextLabel", parent)
+    infoText.Size = UDim2.new(1, -20, 0, 60)
+    infoText.Position = UDim2.new(0, 10, 0, 75)
+    infoText.Text = "When?\nPossible?"
+    infoText.TextColor3 = Color3.new(0,255,0.128)
+    infoText.BackgroundColor3 = Color3.fromRGB(0, 30, 12)
+    
+    
+    infoText.Font = Enum.Font.GothamBold
+    infoText.TextScaled = true
+    infoText.TextWrapped = true
+    infoText.BackgroundTransparency = 1
+    
+
+end
