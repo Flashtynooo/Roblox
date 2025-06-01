@@ -1,0 +1,143 @@
+local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+
+local player = Players.LocalPlayer
+
+-- Taille du hub
+local HUB_WIDTH, HUB_HEIGHT = 420, 300
+local COLLAPSED_HEIGHT = 40
+local ANIM_TIME = 0.5
+
+local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
+ScreenGui.Name = "FlshtyHub"
+ScreenGui.ResetOnSpawn = false
+
+-- Main hub
+local MainFrame = Instance.new("Frame", ScreenGui)
+MainFrame.Name = "MainFrame"
+MainFrame.Size = UDim2.new(0, HUB_WIDTH, 0, HUB_HEIGHT)
+MainFrame.Position = UDim2.new(0.5, -HUB_WIDTH/2, 0.5, -HUB_HEIGHT/2)
+MainFrame.BackgroundColor3 = Color3.fromRGB(130, 0, 255)
+MainFrame.BackgroundTransparency = 0.1
+MainFrame.Active = true
+MainFrame.Draggable = true
+MainFrame.ClipsDescendants = true
+
+Instance.new("UICorner", MainFrame).CornerRadius = UDim.new(0, 20)
+
+local UIStroke = Instance.new("UIStroke", MainFrame)
+UIStroke.Thickness = 3
+UIStroke.Color = Color3.fromRGB(255, 20, 147)
+UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+
+spawn(function()
+	while true do
+		UIStroke.Color = Color3.fromRGB(math.random(150,255), 20, math.random(150,255))
+		wait(0.08)
+	end
+end)
+
+-- Titre
+local Title = Instance.new("TextLabel", MainFrame)
+Title.Size = UDim2.new(1, 0, 0, 30)
+Title.Position = UDim2.new(0, 0, 0, 0)
+Title.BackgroundTransparency = 1
+Title.Text = "🔥 FLSHTY HUB 🔥"
+Title.TextColor3 = Color3.fromRGB(57, 255, 20)
+Title.Font = Enum.Font.Arcade
+Title.TextScaled = true
+
+-- Bouton CLOSE (au lieu de minimize)
+local CloseBtn = Instance.new("TextButton", MainFrame)
+CloseBtn.Size = UDim2.new(0, 60, 0, 30)
+CloseBtn.Position = UDim2.new(1, -70, 0, 5)
+CloseBtn.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
+CloseBtn.Text = "CLOSE"
+CloseBtn.Font = Enum.Font.Arcade
+CloseBtn.TextScaled = true
+CloseBtn.TextColor3 = Color3.new(1,1,1)
+Instance.new("UICorner", CloseBtn).CornerRadius = UDim.new(0, 6)
+
+-- Bouton image toujours visible (pour toggle open/close)
+local DeployButton = Instance.new("ImageButton", ScreenGui)
+DeployButton.Name = "DeployButton"
+DeployButton.Size = UDim2.new(0, 59, 0, 59)
+DeployButton.Position = UDim2.new(0, 20, -0.5, 200)
+DeployButton.BackgroundTransparency = 0
+DeployButton.Image = "rbxassetid://72763607239056"
+DeployButton.AutoButtonColor = true
+DeployButton.Active = true
+DeployButton.Draggable = true
+
+-- Nav
+local NavFrame = Instance.new("Frame", MainFrame)
+NavFrame.Size = UDim2.new(0, 110, 1, -40)
+NavFrame.Position = UDim2.new(0, 10, 0, 40)
+NavFrame.BackgroundColor3 = Color3.fromRGB(20, 0, 40)
+NavFrame.BackgroundTransparency = 0.2
+Instance.new("UICorner", NavFrame).CornerRadius = UDim.new(0, 10)
+
+-- ContentFrame
+local ContentFrame = Instance.new("Frame", MainFrame)
+ContentFrame.Name = "ContentFrame"
+ContentFrame.Position = UDim2.new(0, 125, 0, 40)
+ContentFrame.Size = UDim2.new(1, -135, 1, -50)
+ContentFrame.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+ContentFrame.BackgroundTransparency = 0.6
+ContentFrame.ClipsDescendants = true
+Instance.new("UICorner", ContentFrame).CornerRadius = UDim.new(0, 12)
+
+-- Fonction pour afficher une section
+local function ShowSection(name)
+	for _, child in pairs(ContentFrame:GetChildren()) do
+		child:Destroy()
+	end
+
+	if _G.Sections and type(_G.Sections[name]) == "function" then
+		_G.Sections[name](ContentFrame)
+	else
+		local label = Instance.new("TextLabel", ContentFrame)
+		label.Size = UDim2.new(1, 0, 0, 30)
+		label.Position = UDim2.new(0, 0, 0, 10)
+		label.Text = "Section: "..name
+		label.Font = Enum.Font.GothamBold
+		label.TextColor3 = Color3.new(1,1,1)
+		label.TextScaled = true
+		label.BackgroundTransparency = 1
+	end
+end
+
+-- Boutons de section
+local sections = {"info","settings","more..."}
+for i, secName in ipairs(sections) do
+	local btn = Instance.new("TextButton", NavFrame)
+	btn.Size = UDim2.new(1, 0, 0, 40)
+	btn.Position = UDim2.new(0, 0, 0, (i-1)*45 + 5)
+	btn.Text = secName:sub(1,1):upper()..secName:sub(2)
+	btn.Font = Enum.Font.Arcade
+	btn.TextScaled = true
+	btn.BackgroundColor3 = Color3.fromRGB(200, 0, 200)
+	btn.TextColor3 = Color3.fromRGB(0, 255, 255)
+	Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 12)
+
+	btn.MouseButton1Click:Connect(function()
+		ShowSection(secName)
+	end)
+end
+
+-- Toggle état
+local isOpen = true
+
+-- Action du bouton image
+DeployButton.MouseButton1Click:Connect(function()
+	isOpen = not isOpen
+	MainFrame.Visible = isOpen
+end)
+
+-- Action du bouton "Close"
+CloseBtn.MouseButton1Click:Connect(function()
+	ScreenGui:Destroy()
+end)
+
+-- Section par défaut
+ShowSection("info")
