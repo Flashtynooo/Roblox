@@ -1,0 +1,199 @@
+_G.Sections = _G.Sections or {}
+_G.SettingsState = _G.SettingsState or {}
+if _G.SettingsInitialized then return end
+_G.SettingsInitialized = true
+
+_G.Sections.settings = function(parent)
+    parent:ClearAllChildren()
+
+    local Lang = game:GetService("LocalizationService").RobloxLocaleId
+    local isFR = string.sub(Lang, 1, 2) == "fr"
+
+    local function t(fr, en)
+        return isFR and fr or en
+    end
+
+    -- Cadre principal (fond noir)
+    local Frame = Instance.new("Frame", parent)
+    Frame.Size = UDim2.new(1, 0, 1, 0)
+    Frame.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+    Frame.ClipsDescendants = true
+    local UICornerFrame = Instance.new("UICorner", Frame)
+    UICornerFrame.CornerRadius = UDim.new(0, 15)
+    local UIStroke = Instance.new("UIStroke", Frame)
+    UIStroke.Thickness = 3
+    UIStroke.Color = Color3.fromRGB(0, 255, 128)
+
+    -- Titre
+    local Title = Instance.new("TextLabel", Frame)
+    Title.Size = UDim2.new(1, 0, 0, 40)
+    Title.BackgroundTransparency = 1
+    Title.Text = t("Paramètres", "Settings")
+    Title.TextColor3 = Color3.fromRGB(0, 255, 128)
+    Title.Font = Enum.Font.Gotham
+    Title.TextScaled = true
+
+    -- ScrollingFrame
+    local Scroll = Instance.new("ScrollingFrame", Frame)
+    Scroll.Size = UDim2.new(1, -20, 1, -100)
+    Scroll.Position = UDim2.new(0, 10, 0, 50)
+    Scroll.BackgroundTransparency = 1
+    Scroll.BorderSizePixel = 0
+    Scroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+    Scroll.ScrollBarThickness = 6
+    Scroll.VerticalScrollBarInset = Enum.ScrollBarInset.Always
+    Scroll.AutomaticCanvasSize = Enum.AutomaticSize.Y
+
+    local UIListLayout = Instance.new("UIListLayout", Scroll)
+    UIListLayout.Padding = UDim.new(0, 8)
+    UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+
+    -- Fonction bouton simple
+    local function creerBouton(nom, callback)
+        local btn = Instance.new("TextButton", Scroll)
+        btn.Size = UDim2.new(0.95, 0, 0, 40)
+        btn.BackgroundColor3 = Color3.fromRGB(0, 50, 20)
+        btn.TextColor3 = Color3.fromRGB(0, 255, 128)
+        btn.Font = Enum.Font.Gotham
+        btn.TextScaled = true
+        btn.Text = _G.SettingsState[nom] and ("✔️ " .. nom) or nom
+        Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 12)
+        Instance.new("UIStroke", btn).Color = Color3.fromRGB(0, 255, 128)
+
+        btn.MouseEnter:Connect(function()
+            btn.BackgroundColor3 = Color3.fromRGB(0, 70, 30)
+        end)
+        btn.MouseLeave:Connect(function()
+            btn.BackgroundColor3 = Color3.fromRGB(0, 50, 20)
+        end)
+
+        btn.MouseButton1Click:Connect(function()
+            if not _G.SettingsState[nom] then
+                pcall(callback)
+                btn.Text = "✔️ " .. nom
+                btn.BackgroundColor3 = Color3.fromRGB(0, 30, 12)
+                _G.SettingsState[nom] = true
+            end
+        end)
+    end
+
+    -- Fonction toggle
+    local function creerToggle(nom, texteOn, texteOff, onFunc, offFunc, etatInitial)
+        local etat = _G.SettingsState[nom] or etatInitial
+        local btn = Instance.new("TextButton", Scroll)
+        btn.Size = UDim2.new(0.95, 0, 0, 40)
+        btn.BackgroundColor3 = Color3.fromRGB(0, 50, 20)
+        btn.TextColor3 = Color3.fromRGB(0, 255, 128)
+        btn.Font = Enum.Font.Gotham
+        btn.TextScaled = true
+        btn.Text = etat and (texteOn .. " (ON)") or (texteOff .. " (OFF)")
+        Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 12)
+        Instance.new("UIStroke", btn).Color = Color3.fromRGB(0, 255, 128)
+
+        btn.MouseEnter:Connect(function()
+            btn.BackgroundColor3 = Color3.fromRGB(0, 70, 30)
+        end)
+        btn.MouseLeave:Connect(function()
+            btn.BackgroundColor3 = Color3.fromRGB(0, 50, 20)
+        end)
+
+        btn.MouseButton1Click:Connect(function()
+            etat = not etat
+            _G.SettingsState[nom] = etat
+            if etat then
+                pcall(onFunc)
+                btn.Text = texteOn .. " (ON)"
+            else
+                pcall(offFunc)
+                btn.Text = texteOff .. " (OFF)"
+            end
+        end)
+    end
+
+    -- Boutons simples
+    creerBouton(t("Supprimer Brouillard / Flou", "Remove Fog / Blur"), function()
+        local e = game:GetService("Lighting")
+        for _, v in pairs(e:GetChildren()) do
+            if v:IsA("BlurEffect") or v:IsA("DepthOfFieldEffect") or v:IsA("SunRaysEffect") then
+                v:Destroy()
+            end
+        end
+        e.FogStart = 999999
+        e.FogEnd = 999999
+    end)
+
+    creerBouton(t("Supprimer Ciel", "Remove Sky"), function()
+        local e = game:GetService("Lighting")
+        for _, v in pairs(e:GetChildren()) do
+            if v:IsA("Sky") then v:Destroy() end
+        end
+    end)
+
+    creerBouton("Fullbright", function()
+        local e = game:GetService("Lighting")
+        e.Brightness = 3
+        e.ClockTime = 12
+        e.FogEnd = 1e10
+        e.GlobalShadows = false
+    end)
+
+    -- Toggles
+    creerToggle("Fling", "Fling", "Fling", function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Fighting-style/Fling%20on"))()
+    end, function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Fighting-style/Fling%20off"))()
+    end, false)
+
+    creerToggle("Antifling", "Antifling", "Antifling", function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Fighting-style/Antifling"))()
+    end, function()
+        _G.g_antiFling = false
+    end, false)
+
+    -- Boutons fixes
+    local function creerBoutonFixe(nom, callback)
+        local btn = Instance.new("TextButton", Frame)
+        btn.Size = UDim2.new(0.45, 0, 0, 40)
+        btn.Position = UDim2.new(nom == t("Rejoindre", "Rejoin") and 0.05 or 0.5, 0, 1, -45)
+        btn.BackgroundColor3 = Color3.fromRGB(0, 50, 20)
+        btn.TextColor3 = Color3.fromRGB(250, 255, 128)
+        btn.Font = Enum.Font.Gotham
+        btn.TextScaled = true
+        btn.Text = nom
+        Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 12)
+        Instance.new("UIStroke", btn).Color = Color3.fromRGB(0, 255, 128)
+
+        btn.MouseButton1Click:Connect(function()
+            pcall(callback)
+            btn.BackgroundColor3 = Color3.fromRGB(0, 30, 12)
+            btn.Text = ":) " .. nom
+        end)
+    end
+
+    creerBoutonFixe(t("Rejoindre", "Rejoin"), function()
+        game:GetService("TeleportService"):Teleport(game.PlaceId, game.Players.LocalPlayer)
+    end)
+
+    creerBoutonFixe(t("Changer de serveur", "Change Server"), function()
+        local HttpService = game:GetService("HttpService")
+        local TeleportService = game:GetService("TeleportService")
+        local PlaceId = game.PlaceId
+        local function demanderListeServeurs(cursor)
+            local url = "https://games.roblox.com/v1/games/" .. PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"
+            if cursor then url = url .. "&cursor=" .. cursor end
+            local s, r = pcall(function() return game:HttpGet(url) end)
+            return (s and r) and HttpService:JSONDecode(r) or nil
+        end
+        local function teleporterVersNouveauServeur()
+            local serveurs = demanderListeServeurs()
+            if not serveurs or not serveurs.data then return end
+            for _, s in pairs(serveurs.data) do
+                if s.playing < s.maxPlayers then
+                    return TeleportService:TeleportToPlaceInstance(PlaceId, s.id, game.Players.LocalPlayer)
+                end
+            end
+        end
+        teleporterVersNouveauServeur()
+    end)
+end
