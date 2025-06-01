@@ -1,0 +1,138 @@
+_G.Sections = _G.Sections or {}
+
+_G.Sections.info = function(parent)
+	parent:ClearAllChildren()
+
+	local Players = game:GetService("Players")
+	local player = Players.LocalPlayer
+	local Lighting = game:GetService("Lighting")
+
+	-- Détection de la langue du joueur
+	local lang = (player.LocaleId:sub(1, 2)):lower()
+	local isFrench = lang == "fr"
+
+	-- Traductions FR
+	local jours = {
+		["Sunday"] = "Dimanche", ["Monday"] = "Lundi", ["Tuesday"] = "Mardi",
+		["Wednesday"] = "Mercredi", ["Thursday"] = "Jeudi", ["Friday"] = "Vendredi", ["Saturday"] = "Samedi"
+	}
+	local mois = {
+		["January"] = "Janvier", ["February"] = "Février", ["March"] = "Mars", ["April"] = "Avril",
+		["May"] = "Mai", ["June"] = "Juin", ["July"] = "Juillet", ["August"] = "Août",
+		["September"] = "Septembre", ["October"] = "Octobre", ["November"] = "Novembre", ["December"] = "Décembre"
+	}
+
+	-- Texte multilingue
+	local T = {
+		Name = isFrench and "Nom : " or "Name: ",
+		Username = isFrench and "@" or "@",
+		Time = isFrench and "Heure : " or "Time: ",
+		GameName = isFrench and "Nom du jeu : " or "Game name: ",
+		GameID = isFrench and "ID du jeu : " or "Game ID: ",
+		UserID = isFrench and "Ton ID : " or "Your ID: ",
+		PlayersOnline = isFrench and "Joueurs en ligne : " or "Players online: ",
+		AccountAge = isFrench and "Âge du compte : " or "Account age: ",
+		Days = isFrench and " jours" or " days",
+		Executor = isFrench and "Exécuteur : " or "Executor: "
+	}
+
+	-- Cadre principal
+	local Frame = Instance.new("Frame", parent)
+	Frame.Size = UDim2.new(1, 0, 1, 0)
+	Frame.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+	Instance.new("UICorner", Frame).CornerRadius = UDim.new(0, 15)
+	local stroke = Instance.new("UIStroke", Frame)
+	stroke.Color = Color3.fromRGB(0, 255, 128)
+	stroke.Thickness = 3
+
+	-- ScrollingFrame
+	local Scroll = Instance.new("ScrollingFrame", Frame)
+	Scroll.Size = UDim2.new(1, -20, 1, -10)
+	Scroll.Position = UDim2.new(0, 10, 0, 5)
+	Scroll.BackgroundTransparency = 1
+	Scroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+	Scroll.ScrollBarThickness = 6
+	Scroll.AutomaticCanvasSize = Enum.AutomaticSize.Y
+	Scroll.VerticalScrollBarInset = Enum.ScrollBarInset.Always
+
+	local Layout = Instance.new("UIListLayout", Scroll)
+	Layout.Padding = UDim.new(0, 6)
+	Layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+	Layout.SortOrder = Enum.SortOrder.LayoutOrder
+
+	-- Fonction pour créer une ligne
+	local function createText(text, copyable)
+		local label = Instance.new("TextButton", Scroll)
+		label.Size = UDim2.new(0.95, 0, 0, 30)
+		label.Text = (copyable and "📋 " or "") .. text
+		label.BackgroundColor3 = Color3.fromRGB(0, 30, 10)
+		label.TextColor3 = Color3.fromRGB(0, 255, 128)
+		label.Font = Enum.Font.Gotham
+		label.TextScaled = true
+		label.TextXAlignment = Enum.TextXAlignment.Left
+		Instance.new("UICorner", label).CornerRadius = UDim.new(0, 8)
+		Instance.new("UIStroke", label).Color = Color3.fromRGB(0, 255, 128)
+
+		if not copyable then
+			label.AutoButtonColor = false
+		else
+			label.MouseButton1Click:Connect(function()
+				setclipboard(text)
+			end)
+		end
+		return label
+	end
+
+	-- Photo du joueur
+	local thumb = Players:GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
+	local img = Instance.new("ImageLabel", Scroll)
+	img.Size = UDim2.new(0, 100, 0, 100)
+	img.Image = thumb
+	img.BackgroundTransparency = 1
+
+	-- Nom & @
+	createText(T.Name .. player.DisplayName, false)
+	createText(T.Username .. player.Name, false)
+
+	-- Heure mise à jour
+	local hourLabel = createText(T.Time .. "...", false)
+	task.spawn(function()
+		while true do
+			local t = os.date("*t")
+			local jourEN = os.date("%A")
+			local moisEN = os.date("%B")
+			local jour = isFrench and (jours[jourEN] or jourEN) or jourEN
+			local mois = isFrench and (mois[moisEN] or moisEN) or moisEN
+			local texte = string.format(
+				"%s%s %02d %s %04d - %02dh%02d:%02d",
+				T.Time, jour, t.day, mois, t.year, t.hour, t.min, t.sec
+			)
+			hourLabel.Text = texte
+			wait(1)
+		end
+	end)
+
+	-- Infos diverses
+	local success, info = pcall(function()
+		return game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId)
+	end)
+	local gameName = success and info.Name or (isFrench and "Inconnu" or "Unknown")
+	createText(T.GameName .. gameName, true)
+	createText(T.GameID .. game.PlaceId, true)
+	createText(T.UserID .. player.UserId, true)
+
+	-- Nombre de joueurs
+	local playerCountLabel = createText(T.PlayersOnline .. #Players:GetPlayers(), false)
+	task.spawn(function()
+		while wait(3) do
+			playerCountLabel.Text = T.PlayersOnline .. #Players:GetPlayers()
+		end
+	end)
+
+	-- Âge du compte
+	createText(T.AccountAge .. player.AccountAge .. T.Days, false)
+
+	-- Exécuteur
+	local executor = identifyexecutor and identifyexecutor() or (isFrench and "Inconnu" or "Unknown")
+	createText(T.Executor .. executor, false)
+end
