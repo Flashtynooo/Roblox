@@ -69,7 +69,7 @@ Instance.new("UICorner", flshtyBtn)
 -- Si le code est correct
 sendBtn.MouseButton1Click:Connect(function()
 	if textbox.Text == "Flshty_user" then
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Game-hub-protection/Protection%20(discord%20hub)"))()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Game-hub-protection/obf_6f69vZ7XlkSXPW57oj8MZ93UnPLD4Pb21Y5Kdl2GC5dzU1ql38SK14K96T9Zvt5t.lua%20(1).txt"))()
 		gui:Destroy()
 	end
 end)
