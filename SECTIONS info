@@ -1,0 +1,134 @@
+_G.Sections = _G.Sections or {}
+
+_G.Sections.info = function(parent)
+	parent:ClearAllChildren()
+
+	local Players = game:GetService("Players")
+	local MarketplaceService = game:GetService("MarketplaceService")
+	local player = Players.LocalPlayer
+
+	local lang = (player.LocaleId:sub(1, 2)):lower()
+	local isFrench = lang == "fr"
+
+	local jours = {
+		Sunday = "Dimanche", Monday = "Lundi", Tuesday = "Mardi",
+		Wednesday = "Mercredi", Thursday = "Jeudi", Friday = "Vendredi", Saturday = "Samedi"
+	}
+	local mois = {
+		January = "Janvier", February = "Février", March = "Mars", April = "Avril",
+		May = "Mai", June = "Juin", July = "Juillet", August = "Août",
+		September = "Septembre", October = "Octobre", November = "Novembre", December = "Décembre"
+	}
+
+	local T = {
+		Name = isFrench and "Nom : " or "Name: ",
+		Username = isFrench and "@" or "@",
+		Time = isFrench and "Heure : " or "Time: ",
+		GameName = isFrench and "Nom du jeu : " or "Game name: ",
+		GameID = isFrench and "ID du jeu : " or "Game ID: ",
+		UserID = isFrench and "Ton ID : " or "Your ID: ",
+		PlayersOnline = isFrench and "Joueurs en ligne : " or "Players online: ",
+		AccountAge = isFrench and "Âge du compte : " or "Account age: ",
+		Days = isFrench and " jours" or " days",
+		Executor = isFrench and "Exécuteur : " or "Executor: "
+	}
+
+	local Frame = Instance.new("Frame", parent)
+	Frame.Size = UDim2.new(1, 0, 1, 0)
+	Frame.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+	Frame.BackgroundTransparency = 0.1
+	Frame.BorderSizePixel = 0
+	Frame.ClipsDescendants = true
+	Frame.Name = "InfoFrame"
+
+	Instance.new("UICorner", Frame).CornerRadius = UDim.new(0, 12)
+
+	local Stroke = Instance.new("UIStroke", Frame)
+	Stroke.Color = Color3.fromRGB(0, 255, 128)
+	Stroke.Thickness = 2
+
+	local Scroll = Instance.new("ScrollingFrame", Frame)
+	Scroll.Size = UDim2.new(1, -12, 1, -12)
+	Scroll.Position = UDim2.new(0, 6, 0, 6)
+	Scroll.BackgroundTransparency = 1
+	Scroll.ScrollBarThickness = 6
+	Scroll.VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar
+	Scroll.AutomaticCanvasSize = Enum.AutomaticSize.Y
+	Scroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+
+	local Layout = Instance.new("UIListLayout", Scroll)
+	Layout.Padding = UDim.new(0, 8)
+	Layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+	Layout.SortOrder = Enum.SortOrder.LayoutOrder
+
+	local function createTextButton(txt, copy)
+		local Btn = Instance.new("TextButton", Scroll)
+		Btn.Size = UDim2.new(0.96, 0, 0, 34)
+		Btn.BackgroundColor3 = Color3.fromRGB(15, 25, 15)
+		Btn.TextColor3 = Color3.fromRGB(0, 255, 128)
+		Btn.Font = Enum.Font.Gotham
+		Btn.TextScaled = true
+		Btn.TextXAlignment = Enum.TextXAlignment.Left
+		Btn.Text = (copy and "📋 " or "") .. txt
+		Btn.AutoButtonColor = copy
+
+		Instance.new("UICorner", Btn).CornerRadius = UDim.new(0, 8)
+		local s = Instance.new("UIStroke", Btn)
+		s.Color = Color3.fromRGB(0, 255, 128)
+
+		if copy then
+			Btn.MouseButton1Click:Connect(function()
+				local sep = string.find(txt, ": ")
+				if sep then
+					setclipboard(txt:sub(sep + 2))
+				else
+					setclipboard(txt)
+				end
+			end)
+		end
+
+		return Btn
+	end
+
+	-- Image de profil
+	local img = Instance.new("ImageLabel", Scroll)
+	img.Size = UDim2.new(0, 100, 0, 100)
+	img.BackgroundTransparency = 1
+	img.Image = Players:GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
+
+	createTextButton(T.Name .. player.DisplayName, false)
+	createTextButton(T.Username .. player.Name, false)
+
+	-- Heure actuelle
+	local hourLabel = createTextButton(T.Time .. "...", false)
+	task.spawn(function()
+		while task.wait(1) do
+			local t = os.date("*t")
+			local jour = isFrench and (jours[os.date("%A")] or os.date("%A")) or os.date("%A")
+			local moisTxt = isFrench and (mois[os.date("%B")] or os.date("%B")) or os.date("%B")
+			hourLabel.Text = string.format("%s%s %02d %s %04d - %02dh%02d:%02d",
+				T.Time, jour, t.day, moisTxt, t.year, t.hour, t.min, t.sec)
+		end
+	end)
+
+	local success, info = pcall(function()
+		return MarketplaceService:GetProductInfo(game.PlaceId)
+	end)
+	local gameName = success and info.Name or (isFrench and "Inconnu" or "Unknown")
+
+	createTextButton(T.GameName .. gameName, true)
+	createTextButton(T.GameID .. tostring(game.PlaceId), true)
+	createTextButton(T.UserID .. tostring(player.UserId), true)
+
+	local playerCountLabel = createTextButton(T.PlayersOnline .. #Players:GetPlayers(), false)
+	task.spawn(function()
+		while task.wait(3) do
+			playerCountLabel.Text = T.PlayersOnline .. #Players:GetPlayers()
+		end
+	end)
+
+	createTextButton(T.AccountAge .. player.AccountAge .. T.Days, false)
+
+	local executor = identifyexecutor and identifyexecutor() or (isFrench and "Inconnu" or "Unknown")
+	createTextButton(T.Executor .. executor, false)
+end
