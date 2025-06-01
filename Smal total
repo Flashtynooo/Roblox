@@ -69,7 +69,7 @@ local function createButton(name, key)
 	return button
 end
 
-local buttonA = createButton("ButtonA", "A")
+local buttonE = createButton("ButtonE", "E")
 buttonA.Position = UDim2.new(0, 0, 0, 60)
 
 local buttonZ = createButton("ButtonZ", "Z")
@@ -77,16 +77,16 @@ buttonZ.Position = UDim2.new(0, 0, 0, 0)
 
 -- Cooldown
 local cooldownTime = 2
-local cooldownA = false
+local cooldownE = false
 local cooldownZ = false
 
-local function executeLoadstringA()
-	if cooldownA or not screenGui.Enabled then return end
-	cooldownA = true
+local function executeLoadstringE()
+	if cooldownE or not screenGui.Enabled then return end
+	cooldownE = true
 	pcall(function()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Fighting-style/Finder"))()
 	end)
-	task.delay(cooldownTime, function() cooldownA = false end)
+	task.delay(cooldownTime, function() cooldownE = false end)
 end
 
 local function executeLoadstringZ()
