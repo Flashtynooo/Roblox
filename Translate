@@ -1,0 +1,90 @@
+-- Services
+local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+
+local player = Players.LocalPlayer
+
+-- Taille du hub
+local HUB_WIDTH, HUB_HEIGHT = 420, 300
+local COLLAPSED_HEIGHT = 40
+local ANIM_TIME = 0.5
+
+-- Initialisation globale
+_G.Sections = _G.Sections or {}
+_G.SelectedLanguage = _G.SelectedLanguage or "auto"
+
+-- Traductions multilingues
+local LangData = {
+	fr = {
+		info = "Infos", settings = "Réglages", ["more..."] = "Plus...", Translate = "Traduire",
+		Name = "Nom : ", Username = "@", Time = "Heure : ", GameName = "Nom du jeu : ", GameID = "ID du jeu : ",
+		UserID = "Ton ID : ", PlayersOnline = "Joueurs en ligne : ", AccountAge = "Âge du compte : ",
+		Days = " jours", Executor = "Exécuteur : "
+	},
+	en = {
+		info = "Info", settings = "Settings", ["more..."] = "More...", Translate = "Translate",
+		Name = "Name: ", Username = "@", Time = "Time: ", GameName = "Game name: ", GameID = "Game ID: ",
+		UserID = "Your ID: ", PlayersOnline = "Players online: ", AccountAge = "Account age: ",
+		Days = " days", Executor = "Executor: "
+	},
+	es = {
+		info = "Info", settings = "Configuración", ["more..."] = "Más...", Translate = "Traducir",
+		Name = "Nombre: ", Username = "@", Time = "Hora: ", GameName = "Nombre del juego: ", GameID = "ID del juego: ",
+		UserID = "Tu ID: ", PlayersOnline = "Jugadores en línea: ", AccountAge = "Edad de la cuenta: ",
+		Days = " días", Executor = "Ejecutor: "
+	},
+	it = {
+		info = "Info", settings = "Impostazioni", ["more..."] = "Altro...", Translate = "Traduci",
+		Name = "Nome: ", Username = "@", Time = "Ora: ", GameName = "Nome del gioco: ", GameID = "ID del gioco: ",
+		UserID = "Il tuo ID: ", PlayersOnline = "Giocatori online: ", AccountAge = "Età account: ",
+		Days = " giorni", Executor = "Esecutore: "
+	},
+	de = {
+		info = "Info", settings = "Einstellungen", ["more..."] = "Mehr...", Translate = "Übersetzen",
+		Name = "Name: ", Username = "@", Time = "Uhrzeit: ", GameName = "Spielname: ", GameID = "Spiel-ID: ",
+		UserID = "Deine ID: ", PlayersOnline = "Spieler online: ", AccountAge = "Account-Alter: ",
+		Days = " Tage", Executor = "Executor: "
+	}
+}
+
+local function GetLang()
+	local lang = _G.SelectedLanguage
+	if lang == "auto" then
+		local locale = Players.LocalPlayer.LocaleId:sub(1, 2)
+		lang = (LangData[locale] and locale) or "en"
+	end
+	return LangData[lang]
+end
+
+-- Section Translate
+_G.Sections["Translate"] = function(parent)
+	parent:ClearAllChildren()
+
+	local langs = {"fr", "en", "es", "it", "de"}
+	local langNames = {fr="Français", en="English", es="Español", it="Italiano", de="Deutsch"}
+
+	local Layout = Instance.new("UIListLayout", parent)
+	Layout.Padding = UDim.new(0, 8)
+	Layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+	Layout.SortOrder = Enum.SortOrder.LayoutOrder
+
+	for _, code in ipairs(langs) do
+		local btn = Instance.new("TextButton", parent)
+		btn.Size = UDim2.new(0.9, 0, 0, 40)
+		btn.Text = "\240\159\140\144 " .. langNames[code]
+		btn.BackgroundColor3 = Color3.fromRGB(0, 30, 10)
+		btn.TextColor3 = Color3.fromRGB(0, 255, 128)
+		btn.Font = Enum.Font.Arcade
+		btn.TextScaled = true
+		Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 10)
+		Instance.new("UIStroke", btn).Color = Color3.fromRGB(0, 255, 128)
+
+		btn.MouseButton1Click:Connect(function()
+			_G.SelectedLanguage = code
+			if game.CoreGui:FindFirstChild("FlshtyHub") then
+				game.CoreGui.FlshtyHub:Destroy()
+			end
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flshty-hub-discord-user/Discord%20total%20main"))()
+		end)
+	end
+end
