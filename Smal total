@@ -1,5 +1,6 @@
---uwu lol antifling bro fuck me
+-- UWU Flashy System - Fe fighting tool + GUI styled + Shiftlock horizontal
 
+-- Anti-fling
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Fighting-style/Antifling"))()
 
 local plr = game:GetService("Players").LocalPlayer
@@ -7,13 +8,13 @@ local char = plr.Character or plr.CharacterAdded:Wait()
 local hum = char:WaitForChild("Humanoid")
 local pack = plr:WaitForChild("Backpack")
 local uis = game:GetService("UserInputService")
+local rs = game:GetService("RunService")
 
 -- R15 check
 if hum.RigType == Enum.HumanoidRigType.R15 then
-	warn("This tool only works with R6 avatars.")
-	local message = Instance.new("Message", workspace)
-	message.Text = "❌ R15 is not supported. Switch to R6."
-	task.delay(4, function() message:Destroy() end)
+	local msg = Instance.new("Message", workspace)
+	msg.Text = "❌ R15 is not supported. Switch to R6."
+	task.delay(4, function() msg:Destroy() end)
 	return
 end
 
@@ -22,7 +23,7 @@ if workspace:FindFirstChild("aaa") then
 	workspace:FindFirstChild("aaa"):Destroy()
 end
 
--- Animation
+-- Animation setup
 local animIDs = {"rbxassetid://313762630", "rbxassetid://248336677"}
 local anim = hum:WaitForChild("Animator")
 local animations = {}
@@ -42,107 +43,153 @@ tool.Parent = pack
 tool.ToolTip = "flshty_user fighting awake :)"
 
 -- GUI
-local screenGui = Instance.new("ScreenGui", game.CoreGui)
-screenGui.Name = "FlshtyButtons"
-screenGui.ResetOnSpawn = false
-screenGui.Enabled = false
+local gui = Instance.new("ScreenGui", game.CoreGui)
+gui.Name = "FlshtyButtons"
+gui.ResetOnSpawn = false
+gui.Enabled = false
 
-local buttonFrame = Instance.new("Frame", screenGui)
-buttonFrame.Size = UDim2.new(0, 60, 0, 120)
-buttonFrame.Position = UDim2.new(1, -70, 0.5, -60)
-buttonFrame.BackgroundTransparency = 1
+local frame = Instance.new("Frame", gui)
+frame.Size = UDim2.new(0, 70, 0, 250)
+frame.Position = UDim2.new(1, -80, 0.5, -125)
+frame.BackgroundTransparency = 1
 
--- Boutons
-local function createButton(name, key)
-	local button = Instance.new("TextButton", buttonFrame)
-	button.Size = UDim2.new(1, 0, 0, 50)
-	button.BackgroundColor3 = Color3.new(1, 1, 1)
-	button.BackgroundTransparency = 0.7
-	button.BorderColor3 = Color3.new(1, 1, 1)
-	button.BorderSizePixel = 3
-	button.Text = key
-	button.TextColor3 = Color3.new(1, 1, 1)
-	button.TextScaled = true
-	button.Font = Enum.Font.GothamBold
-	local corner = Instance.new("UICorner", button)
-	corner.CornerRadius = UDim.new(0, 25)
-	return button
+-- Boutons stylés
+local function createBtn(text)
+	local btn = Instance.new("TextButton", frame)
+	btn.Size = UDim2.new(1, 0, 0, 50)
+	btn.BackgroundColor3 = Color3.fromRGB(130, 0, 255)
+	btn.TextColor3 = Color3.fromRGB(0, 255, 255)
+	btn.Font = Enum.Font.Arcade
+	btn.Text = text
+	btn.TextScaled = true
+	local uic = Instance.new("UICorner", btn)
+	uic.CornerRadius = UDim.new(0, 14)
+	local stroke = Instance.new("UIStroke", btn)
+	stroke.Color = Color3.fromRGB(255, 20, 147)
+	stroke.Thickness = 2
+	return btn
 end
 
-local buttonE = createButton("ButtonE", "E")
-buttonE.Position = UDim2.new(0, 0, 0, 60)
-
-local buttonZ = createButton("ButtonZ", "Z")
+local buttonZ = createBtn("Z")
 buttonZ.Position = UDim2.new(0, 0, 0, 0)
 
--- Cooldown
-local cooldownTime = 2
-local cooldownE = false
-local cooldownZ = false
+local buttonE = createBtn("E")
+buttonE.Position = UDim2.new(0, 0, 0, 60)
 
-local function executeLoadstringE()
-	if cooldownE or not screenGui.Enabled then return end
-	cooldownE = true
-	pcall(function()
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Fighting-style/Finder"))()
-	end)
-	task.delay(cooldownTime, function() cooldownE = false end)
+local buttonX = createBtn("X")
+buttonX.Position = UDim2.new(0, 0, 0, 120)
+
+local buttonLock = createBtn("🔒")
+buttonLock.Position = UDim2.new(-1.3, 0, 0, 200)
+
+-- Cooldowns
+local cd = {E = false, Z = false, X = false, LOCK = false}
+local function cooldown(key, duration)
+	cd[key] = true
+	task.delay(duration, function() cd[key] = false end)
 end
 
-local function executeLoadstringZ()
-	if cooldownZ or not screenGui.Enabled then return end
-	cooldownZ = true
-	pcall(function()
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Fighting-style/Z"))()
-	end)
-	task.delay(cooldownTime, function() cooldownZ = false end)
+-- Execution
+local function exeE()
+	if cd.E or not gui.Enabled then return end
+	cooldown("E", 2)
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Fighting-style/Finder"))()
 end
 
--- Clicks
-buttonE.MouseButton1Click:Connect(executeLoadstringE)
-buttonZ.MouseButton1Click:Connect(executeLoadstringZ)
+local function exeZ()
+	if cd.Z or not gui.Enabled then return end
+	cooldown("Z", 2)
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Fighting-style/Z"))()
+end
 
--- Clavier (optionnel pour PC)
-uis.InputBegan:Connect(function(input, gp)
-	if gp or not screenGui.Enabled then return end
-	if input.KeyCode == Enum.KeyCode.E then executeLoadstringE() end
-	if input.KeyCode == Enum.KeyCode.Z then executeLoadstringZ() end
+local function exeX()
+	if cd.X or not gui.Enabled then return end
+	cooldown("X", 0.2)
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Fighting-style/DASH%20LIGHT"))()
+end
+
+-- Shiftlock system
+local shiftlockActive = false
+local shiftConn
+local function getClosestPlayer()
+	local closest, dist = nil, math.huge
+	for _, p in pairs(game:GetService("Players"):GetPlayers()) do
+		if p ~= plr and p.Character and p.Character:FindFirstChild("HumanoidRootPart") then
+			local d = (p.Character.HumanoidRootPart.Position - char.HumanoidRootPart.Position).Magnitude
+			if d < dist then
+				dist = d
+				closest = p
+			end
+		end
+	end
+	return closest
+end
+
+local function toggleShiftlock()
+	if cd.LOCK then return end
+	cooldown("LOCK", 0.2)
+	shiftlockActive = not shiftlockActive
+	if shiftlockActive then
+		shiftConn = rs.RenderStepped:Connect(function()
+			local target = getClosestPlayer()
+			if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
+				local root = char:FindFirstChild("HumanoidRootPart")
+				local targetPos = Vector3.new(target.Character.HumanoidRootPart.Position.X, root.Position.Y, target.Character.HumanoidRootPart.Position.Z)
+				root.CFrame = CFrame.new(root.Position, targetPos)
+			end
+		end)
+	else
+		if shiftConn then shiftConn:Disconnect() shiftConn = nil end
+	end
+end
+
+-- Connexions boutons
+buttonE.MouseButton1Click:Connect(exeE)
+buttonZ.MouseButton1Click:Connect(exeZ)
+buttonX.MouseButton1Click:Connect(exeX)
+buttonLock.MouseButton1Click:Connect(toggleShiftlock)
+
+-- Clavier
+uis.InputBegan:Connect(function(input, gpe)
+	if gpe or not gui.Enabled then return end
+	if input.KeyCode == Enum.KeyCode.E then exeE() end
+	if input.KeyCode == Enum.KeyCode.Z then exeZ() end
+	if input.KeyCode == Enum.KeyCode.X then exeX() end
 end)
 
--- Animation Tool
+-- Animation tool
 local animTracks = {}
-
 tool.Equipped:Connect(function()
-	screenGui.Enabled = true
-	-- Fling ON
+	gui.Enabled = true
 	pcall(function()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Fighting-style/Fling%20on"))()
 	end)
-	for _, animObj in ipairs(animations) do
-		local track = anim:LoadAnimation(animObj)
-		track:Play()
-		track:AdjustSpeed(0.5)
-		track.TimePosition = 0.5
-		table.insert(animTracks, track)
+	for _, a in ipairs(animations) do
+		local t = anim:LoadAnimation(a)
+		t:Play()
+		t:AdjustSpeed(0.5)
+		t.TimePosition = 0.5
+		table.insert(animTracks, t)
 	end
 end)
 
 tool.Unequipped:Connect(function()
-	screenGui.Enabled = false
-	-- Fling OFF
+	gui.Enabled = false
 	pcall(function()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Fighting-style/Fling%20off"))()
 	end)
-	for _, track in ipairs(animTracks) do
-		if track then track:Stop() track:Destroy() end
+	for _, t in ipairs(animTracks) do
+		if t then t:Stop() t:Destroy() end
 	end
 	animTracks = {}
+	if shiftConn then shiftConn:Disconnect() shiftConn = nil end
 end)
 
 hum.Died:Connect(function()
-	screenGui:Destroy()
-	for _, track in ipairs(animTracks) do
-		if track then track:Stop() track:Destroy() end
+	gui:Destroy()
+	if shiftConn then shiftConn:Disconnect() shiftConn = nil end
+	for _, t in ipairs(animTracks) do
+		if t then t:Stop() t:Destroy() end
 	end
 	animTracks = {}
 end)
