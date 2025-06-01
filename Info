@@ -9,32 +9,92 @@ _G.Sections.info = function(parent)
 
 	-- Détection de la langue du joueur
 	local lang = (player.LocaleId:sub(1, 2)):lower()
-	local isFrench = lang == "fr"
 
-	-- Traductions FR
+	-- Traductions des jours et mois
 	local jours = {
-		["Sunday"] = "Dimanche", ["Monday"] = "Lundi", ["Tuesday"] = "Mardi",
-		["Wednesday"] = "Mercredi", ["Thursday"] = "Jeudi", ["Friday"] = "Vendredi", ["Saturday"] = "Samedi"
-	}
-	local mois = {
-		["January"] = "Janvier", ["February"] = "Février", ["March"] = "Mars", ["April"] = "Avril",
-		["May"] = "Mai", ["June"] = "Juin", ["July"] = "Juillet", ["August"] = "Août",
-		["September"] = "Septembre", ["October"] = "Octobre", ["November"] = "Novembre", ["December"] = "Décembre"
+		fr = {
+			Sunday = "Dimanche", Monday = "Lundi", Tuesday = "Mardi", Wednesday = "Mercredi",
+			Thursday = "Jeudi", Friday = "Vendredi", Saturday = "Samedi"
+		},
+		es = {
+			Sunday = "Domingo", Monday = "Lunes", Tuesday = "Martes", Wednesday = "Miércoles",
+			Thursday = "Jueves", Friday = "Viernes", Saturday = "Sábado"
+		},
+		it = {
+			Sunday = "Domenica", Monday = "Lunedì", Tuesday = "Martedì", Wednesday = "Mercoledì",
+			Thursday = "Giovedì", Friday = "Venerdì", Saturday = "Sabato"
+		},
+		de = {
+			Sunday = "Sonntag", Monday = "Montag", Tuesday = "Dienstag", Wednesday = "Mittwoch",
+			Thursday = "Donnerstag", Friday = "Freitag", Saturday = "Samstag"
+		}
 	}
 
-	-- Texte multilingue
-	local T = {
-		Name = isFrench and "Nom : " or "Name: ",
-		Username = isFrench and "@" or "@",
-		Time = isFrench and "Heure : " or "Time: ",
-		GameName = isFrench and "Nom du jeu : " or "Game name: ",
-		GameID = isFrench and "ID du jeu : " or "Game ID: ",
-		UserID = isFrench and "Ton ID : " or "Your ID: ",
-		PlayersOnline = isFrench and "Joueurs en ligne : " or "Players online: ",
-		AccountAge = isFrench and "Âge du compte : " or "Account age: ",
-		Days = isFrench and " jours" or " days",
-		Executor = isFrench and "Exécuteur : " or "Executor: "
+	local mois = {
+		fr = {
+			January = "Janvier", February = "Février", March = "Mars", April = "Avril",
+			May = "Mai", June = "Juin", July = "Juillet", August = "Août",
+			September = "Septembre", October = "Octobre", November = "Novembre", December = "Décembre"
+		},
+		es = {
+			January = "Enero", February = "Febrero", March = "Marzo", April = "Abril",
+			May = "Mayo", June = "Junio", July = "Julio", August = "Agosto",
+			September = "Septiembre", October = "Octubre", November = "Noviembre", December = "Diciembre"
+		},
+		it = {
+			January = "Gennaio", February = "Febbraio", March = "Marzo", April = "Aprile",
+			May = "Maggio", June = "Giugno", July = "Luglio", August = "Agosto",
+			September = "Settembre", October = "Ottobre", November = "Novembre", December = "Dicembre"
+		},
+		de = {
+			January = "Januar", February = "Februar", March = "März", April = "April",
+			May = "Mai", June = "Juni", July = "Juli", August = "August",
+			September = "September", October = "Oktober", November = "November", December = "Dezember"
+		}
 	}
+
+	-- Traductions
+	local translations = {
+		fr = {
+			Name = "Nom : ", Username = "@", Time = "Heure : ",
+			GameName = "Nom du jeu : ", GameID = "ID du jeu : ",
+			UserID = "Ton ID : ", PlayersOnline = "Joueurs en ligne : ",
+			AccountAge = "Âge du compte : ", Days = " jours", Executor = "Exécuteur : ",
+			Unknown = "Inconnu"
+		},
+		es = {
+			Name = "Nombre: ", Username = "@", Time = "Hora: ",
+			GameName = "Nombre del juego: ", GameID = "ID del juego: ",
+			UserID = "Tu ID: ", PlayersOnline = "Jugadores en línea: ",
+			AccountAge = "Antigüedad de la cuenta: ", Days = " días", Executor = "Ejecutor: ",
+			Unknown = "Desconocido"
+		},
+		it = {
+			Name = "Nome: ", Username = "@", Time = "Ora: ",
+			GameName = "Nome del gioco: ", GameID = "ID del gioco: ",
+			UserID = "Il tuo ID: ", PlayersOnline = "Giocatori online: ",
+			AccountAge = "Età dell'account: ", Days = " giorni", Executor = "Esecutore: ",
+			Unknown = "Sconosciuto"
+		},
+		de = {
+			Name = "Name: ", Username = "@", Time = "Uhrzeit: ",
+			GameName = "Spielname: ", GameID = "Spiel-ID: ",
+			UserID = "Deine ID: ", PlayersOnline = "Spieler online: ",
+			AccountAge = "Accountalter: ", Days = " Tage", Executor = "Executor: ",
+			Unknown = "Unbekannt"
+		}
+	}
+
+	local T = translations[lang] or translations["en"] or {
+		Name = "Name: ", Username = "@", Time = "Time: ",
+		GameName = "Game name: ", GameID = "Game ID: ",
+		UserID = "Your ID: ", PlayersOnline = "Players online: ",
+		AccountAge = "Account age: ", Days = " days", Executor = "Executor: ",
+		Unknown = "Unknown"
+	}
+
+	local currentJours = jours[lang] or {}
+	local currentMois = mois[lang] or {}
 
 	-- Cadre principal
 	local Frame = Instance.new("Frame", parent)
@@ -45,7 +105,6 @@ _G.Sections.info = function(parent)
 	stroke.Color = Color3.fromRGB(0, 255, 128)
 	stroke.Thickness = 3
 
-	-- ScrollingFrame
 	local Scroll = Instance.new("ScrollingFrame", Frame)
 	Scroll.Size = UDim2.new(1, -20, 1, -10)
 	Scroll.Position = UDim2.new(0, 10, 0, 5)
@@ -60,7 +119,6 @@ _G.Sections.info = function(parent)
 	Layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 	Layout.SortOrder = Enum.SortOrder.LayoutOrder
 
-	-- Fonction pour créer une ligne
 	local function createText(text, copyable)
 		local label = Instance.new("TextButton", Scroll)
 		label.Size = UDim2.new(0.95, 0, 0, 30)
@@ -83,26 +141,23 @@ _G.Sections.info = function(parent)
 		return label
 	end
 
-	-- Photo du joueur
 	local thumb = Players:GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
 	local img = Instance.new("ImageLabel", Scroll)
 	img.Size = UDim2.new(0, 100, 0, 100)
 	img.Image = thumb
 	img.BackgroundTransparency = 1
 
-	-- Nom & @
 	createText(T.Name .. player.DisplayName, false)
 	createText(T.Username .. player.Name, false)
 
-	-- Heure mise à jour
 	local hourLabel = createText(T.Time .. "...", false)
 	task.spawn(function()
 		while true do
 			local t = os.date("*t")
 			local jourEN = os.date("%A")
 			local moisEN = os.date("%B")
-			local jour = isFrench and (jours[jourEN] or jourEN) or jourEN
-			local mois = isFrench and (mois[moisEN] or moisEN) or moisEN
+			local jour = currentJours[jourEN] or jourEN
+			local mois = currentMois[moisEN] or moisEN
 			local texte = string.format(
 				"%s%s %02d %s %04d - %02dh%02d:%02d",
 				T.Time, jour, t.day, mois, t.year, t.hour, t.min, t.sec
@@ -112,16 +167,14 @@ _G.Sections.info = function(parent)
 		end
 	end)
 
-	-- Infos diverses
 	local success, info = pcall(function()
 		return game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId)
 	end)
-	local gameName = success and info.Name or (isFrench and "Inconnu" or "Unknown")
+	local gameName = success and info.Name or T.Unknown
 	createText(T.GameName .. gameName, true)
 	createText(T.GameID .. game.PlaceId, true)
 	createText(T.UserID .. player.UserId, true)
 
-	-- Nombre de joueurs
 	local playerCountLabel = createText(T.PlayersOnline .. #Players:GetPlayers(), false)
 	task.spawn(function()
 		while wait(3) do
@@ -129,10 +182,7 @@ _G.Sections.info = function(parent)
 		end
 	end)
 
-	-- Âge du compte
 	createText(T.AccountAge .. player.AccountAge .. T.Days, false)
-
-	-- Exécuteur
-	local executor = identifyexecutor and identifyexecutor() or (isFrench and "Inconnu" or "Unknown")
+	local executor = identifyexecutor and identifyexecutor() or T.Unknown
 	createText(T.Executor .. executor, false)
 end
