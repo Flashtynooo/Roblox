@@ -70,7 +70,7 @@ local function createButton(name, key)
 end
 
 local buttonE = createButton("ButtonE", "E")
-buttonA.Position = UDim2.new(0, 0, 0, 60)
+buttonE.Position = UDim2.new(0, 0, 0, 60)
 
 local buttonZ = createButton("ButtonZ", "Z")
 buttonZ.Position = UDim2.new(0, 0, 0, 0)
@@ -99,13 +99,13 @@ local function executeLoadstringZ()
 end
 
 -- Clicks
-buttonA.MouseButton1Click:Connect(executeLoadstringA)
+buttonE.MouseButton1Click:Connect(executeLoadstringE)
 buttonZ.MouseButton1Click:Connect(executeLoadstringZ)
 
 -- Clavier (optionnel pour PC)
 uis.InputBegan:Connect(function(input, gp)
 	if gp or not screenGui.Enabled then return end
-	if input.KeyCode == Enum.KeyCode.A then executeLoadstringA() end
+	if input.KeyCode == Enum.KeyCode.E then executeLoadstringE() end
 	if input.KeyCode == Enum.KeyCode.Z then executeLoadstringZ() end
 end)
 
