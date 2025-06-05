@@ -25,7 +25,7 @@ end
 
 -- Animation setup
 local animIDs = {"rbxassetid://313762630", "rbxassetid://248336677"}
-local anim = hum:WaitForChild("Animator")
+local animator = hum:WaitForChild("Animator")
 local animations = {}
 for i, id in ipairs(animIDs) do
 	local animation = Instance.new("Animation")
@@ -82,6 +82,11 @@ buttonX.Position = UDim2.new(0, 0, 0, 120)
 local buttonLock = createBtn("🔒")
 buttonLock.Position = UDim2.new(-1.3, 0, 0, 200)
 
+-- ** Nouveau bouton Stop Anim **
+local buttonStopAnim = createBtn("Stop Anim")
+buttonStopAnim.Position = UDim2.new(0, 0, 0, 180)
+buttonStopAnim.Visible = false -- caché par défaut
+
 -- Cooldowns
 local cd = {E = false, Z = false, X = false, LOCK = false}
 local function cooldown(key, duration)
@@ -89,7 +94,7 @@ local function cooldown(key, duration)
 	task.delay(duration, function() cd[key] = false end)
 end
 
--- Execution
+-- Execution fonctions pour boutons Z, E, X
 local function exeE()
 	if cd.E or not gui.Enabled then return end
 	cooldown("E", 2)
@@ -149,6 +154,69 @@ buttonZ.MouseButton1Click:Connect(exeZ)
 buttonX.MouseButton1Click:Connect(exeX)
 buttonLock.MouseButton1Click:Connect(toggleShiftlock)
 
+-- Bouton Stop Anim
+local REDUCED_WALK_SPEED = 1
+local NORMAL_WALK_SPEED = 16
+local frozenAnimTracks = {}
+
+local function gradualWalkSpeedRestore(duration)
+	local startSpeed = hum.WalkSpeed
+	local targetSpeed = NORMAL_WALK_SPEED
+	local steps = 20
+	local stepTime = duration / steps
+	
+	for i = 1, steps do
+		local alpha = i / steps
+		hum.WalkSpeed = startSpeed + (targetSpeed - startSpeed) * alpha
+		task.wait(stepTime)
+	end
+	hum.WalkSpeed = targetSpeed
+end
+
+local function playFrozenAnimations()
+	hum.WalkSpeed = REDUCED_WALK_SPEED
+	
+	-- Anim 1 - loop = false, play speed 3, freeze à 1.5s
+	local anim1 = Instance.new("Animation")
+	anim1.AnimationId = "rbxassetid://184574340"
+	local track1 = hum:LoadAnimation(anim1)
+	track1.Looped = false
+	track1:Play(0, 1, 3)
+	track1.TimePosition = 1.5
+	task.delay(0.1, function() track1:AdjustSpeed(0) end)
+	
+	-- Anim 2 - loop true, speed 3
+	local anim2 = Instance.new("Animation")
+	anim2.AnimationId = "rbxassetid://33796059"
+	local track2 = hum:LoadAnimation(anim2)
+	track2.Looped = true
+	track2:Play(0, 1, 3)
+	
+	-- Anim 3 - loop true, speed 3
+	local anim3 = Instance.new("Animation")
+	anim3.AnimationId = "rbxassetid://180612465"
+	local track3 = hum:LoadAnimation(anim3)
+	track3.Looped = true
+	track3:Play(0, 1, 3)
+	
+	frozenAnimTracks = {track1, track2, track3}
+end
+
+buttonStopAnim.MouseButton1Click:Connect(function()
+	-- Stop les anims persos
+	for _, t in ipairs(frozenAnimTracks) do
+		if t and t.IsPlaying then
+			t:Stop()
+		end
+	end
+	frozenAnimTracks = {}
+	
+	-- Remonter la vitesse doucement (en tâche parallèle)
+	task.spawn(function()
+		gradualWalkSpeedRestore(2)
+	end)
+end)
+
 -- Clavier
 uis.InputBegan:Connect(function(input, gpe)
 	if gpe or not gui.Enabled then return end
@@ -157,15 +225,18 @@ uis.InputBegan:Connect(function(input, gpe)
 	if input.KeyCode == Enum.KeyCode.X then exeX() end
 end)
 
--- Animation tool
 local animTracks = {}
 tool.Equipped:Connect(function()
 	gui.Enabled = true
+	buttonStopAnim.Visible = true -- afficher bouton stop anim
+	
+	playFrozenAnimations() -- lance nos anims persos en priorité
+	
 	pcall(function()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Fighting-style/Fling%20on"))()
 	end)
 	for _, a in ipairs(animations) do
-		local t = anim:LoadAnimation(a)
+		local t = animator:LoadAnimation(a)
 		t:Play()
 		t:AdjustSpeed(0.5)
 		t.TimePosition = 0.5
@@ -175,21 +246,24 @@ end)
 
 tool.Unequipped:Connect(function()
 	gui.Enabled = false
+	buttonStopAnim.Visible = false -- cacher bouton stop anim
+	
 	pcall(function()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Fighting-style/Fling%20off"))()
 	end)
+	-- Stop anims persos et reset vitesse progressivement
+	for _, t in ipairs(frozenAnimTracks) do
+		if t then t:Stop() t:Destroy() end
+	end
+	frozenAnimTracks = {}
+	
 	for _, t in ipairs(animTracks) do
 		if t then t:Stop() t:Destroy() end
 	end
 	animTracks = {}
+	
 	if shiftConn then shiftConn:Disconnect() shiftConn = nil end
+	hum.WalkSpeed = NORMAL_WALK_SPEED
 end)
 
-hum.Died:Connect(function()
-	gui:Destroy()
-	if shiftConn then shiftConn:Disconnect() shiftConn = nil end
-	for _, t in ipairs(animTracks) do
-		if t then t:Stop() t:Destroy() end
-	end
-	animTracks = {}
-end)
+tool.Parent = pack
