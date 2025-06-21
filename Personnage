@@ -1,0 +1,75 @@
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+
+-- Supprime tous les accessoires
+for _, accessory in pairs(character:GetChildren()) do
+	if accessory:IsA("Accessory") then
+		accessory:Destroy()
+	end
+end
+
+-- Supprime les vêtements Shirt, Pants, ShirtGraphic
+for _, clothing in pairs(character:GetChildren()) do
+	if clothing:IsA("Shirt") or clothing:IsA("Pants") or clothing:IsA("ShirtGraphic") then
+		clothing:Destroy()
+	end
+end
+
+-- Supprime les CharacterMesh (types modifiant bras, jambes, tête)
+for _, mesh in pairs(character:GetChildren()) do
+	if mesh:IsA("CharacterMesh") then
+		mesh:Destroy()
+	end
+end
+
+-- Supprime le visage (Decal sur la tête)
+local head = character:FindFirstChild("Head")
+if head then
+	for _, decal in pairs(head:GetChildren()) do
+		if decal:IsA("Decal") then
+			decal:Destroy()
+		end
+	end
+end
+
+-- Liste des parties corps R6 et R15 à mettre en noir
+local bodyParts = {
+	-- R6
+	"Head", "Torso", "Left Arm", "Right Arm", "Left Leg", "Right Leg",
+	-- R15
+	"UpperTorso", "LowerTorso",
+	"LeftUpperArm", "RightUpperArm", "LeftLowerArm", "RightLowerArm", "LeftHand", "RightHand",
+	"LeftUpperLeg", "RightUpperLeg", "LeftLowerLeg", "RightLowerLeg", "LeftFoot", "RightFoot",
+}
+
+local function isBodyPart(name)
+	for _, partName in pairs(bodyParts) do
+		if partName == name then
+			return true
+		end
+	end
+	return false
+end
+
+-- Met les parties du corps en noir
+for _, part in pairs(character:GetChildren()) do
+	if part:IsA("BasePart") and isBodyPart(part.Name) then
+		part.BrickColor = BrickColor.new("Really black")
+		part.Material = Enum.Material.SmoothPlastic
+		for _, c in pairs(part:GetChildren()) do
+			if c:IsA("Decal") or c:IsA("Texture") then
+				c:Destroy()
+			end
+		end
+	end
+end
+
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local head = character:WaitForChild("Head")
+
+-- Crée le decal
+local decal = Instance.new("Decal")
+decal.Texture = "rbxassetid://179693472" -- ID de ton decal
+decal.Face = Enum.NormalId.Front          -- Face avant de la tête
+decal.Parent = head
