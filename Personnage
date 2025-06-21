@@ -1,75 +1,163 @@
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 
+-- SUPPRIMER ACCESSOIRES, VÊTEMENTS, MESHES, FACE, RECOLORER PARTIES CORPS EN NOIR SUR LE PERSONNAGE ORIGINAL
+
 -- Supprime tous les accessoires
 for _, accessory in pairs(character:GetChildren()) do
-	if accessory:IsA("Accessory") then
-		accessory:Destroy()
-	end
+    if accessory:IsA("Accessory") then
+        accessory:Destroy()
+    end
 end
 
 -- Supprime les vêtements Shirt, Pants, ShirtGraphic
-for _, clothing in pairs(character:GetChildren()) do
-	if clothing:IsA("Shirt") or clothing:IsA("Pants") or clothing:IsA("ShirtGraphic") then
-		clothing:Destroy()
-	end
+for _, item in pairs(character:GetChildren()) do
+    if item:IsA("Shirt") or item:IsA("Pants") or item:IsA("ShirtGraphic") then
+        item:Destroy()
+    end
 end
 
--- Supprime les CharacterMesh (types modifiant bras, jambes, tête)
+-- Supprime les CharacterMesh
 for _, mesh in pairs(character:GetChildren()) do
-	if mesh:IsA("CharacterMesh") then
-		mesh:Destroy()
-	end
+    if mesh:IsA("CharacterMesh") then
+        mesh:Destroy()
+    end
 end
 
 -- Supprime le visage (Decal sur la tête)
-local head = character:FindFirstChild("Head")
+local head = character:FindFirstChild("Head") or character:FindFirstChild("Tête")
 if head then
-	for _, decal in pairs(head:GetChildren()) do
-		if decal:IsA("Decal") then
-			decal:Destroy()
-		end
-	end
+    for _, decal in pairs(head:GetChildren()) do
+        if decal:IsA("Decal") then
+            decal:Destroy()
+        end
+    end
 end
 
 -- Liste des parties corps R6 et R15 à mettre en noir
 local bodyParts = {
-	-- R6
-	"Head", "Torso", "Left Arm", "Right Arm", "Left Leg", "Right Leg",
-	-- R15
-	"UpperTorso", "LowerTorso",
-	"LeftUpperArm", "RightUpperArm", "LeftLowerArm", "RightLowerArm", "LeftHand", "RightHand",
-	"LeftUpperLeg", "RightUpperLeg", "LeftLowerLeg", "RightLowerLeg", "LeftFoot", "RightFoot",
+    -- R6
+    "Head", "Torso", "Left Arm", "Right Arm", "Left Leg", "Right Leg",
+    -- R15
+    "UpperTorso", "LowerTorso",
+    "LeftUpperArm", "RightUpperArm", "LeftLowerArm", "RightLowerArm", "LeftHand", "RightHand",
+    "LeftUpperLeg", "RightUpperLeg", "LeftLowerLeg", "RightLowerLeg", "LeftFoot", "RightFoot",
 }
 
 local function isBodyPart(name)
-	for _, partName in pairs(bodyParts) do
-		if partName == name then
-			return true
-		end
-	end
-	return false
+    for _, partName in pairs(bodyParts) do
+        if partName == name then
+            return true
+        end
+    end
+    return false
 end
 
 -- Met les parties du corps en noir
 for _, part in pairs(character:GetChildren()) do
-	if part:IsA("BasePart") and isBodyPart(part.Name) then
-		part.BrickColor = BrickColor.new("Really black")
-		part.Material = Enum.Material.SmoothPlastic
-		for _, c in pairs(part:GetChildren()) do
-			if c:IsA("Decal") or c:IsA("Texture") then
-				c:Destroy()
-			end
-		end
-	end
+    if part:IsA("BasePart") and isBodyPart(part.Name) then
+        part.BrickColor = BrickColor.new("Really black")
+        part.Material = Enum.Material.SmoothPlastic
+        for _, c in pairs(part:GetChildren()) do
+            if c:IsA("Decal") or c:IsA("Texture") then
+                c:Destroy()
+            end
+        end
+    end
 end
 
-local player = game.Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local head = character:WaitForChild("Head")
+-- Rendre invisible le personnage original (sauf HumanoidRootPart)
+local function rendreInvisible(char)
+    for _, part in pairs(char:GetChildren()) do
+        if part:IsA("BasePart") and part.Name ~= "HumanoidRootPart" then
+            part.Transparency = 1
+            part.CanCollide = false
+        elseif part:IsA("Accessory") then
+            if part.Handle then
+                part.Handle.Transparency = 1
+                part.Handle.CanCollide = false
+            end
+        elseif part:IsA("Decal") or part:IsA("Texture") then
+            part.Transparency = 1
+        end
+    end
+end
 
--- Crée le decal
-local decal = Instance.new("Decal")
-decal.Texture = "rbxassetid://179693472" -- ID de ton decal
-decal.Face = Enum.NormalId.Front          -- Face avant de la tête
-decal.Parent = head
+-- Créer une nouvelle Part copiant les propriétés d'une part d'origine (sans decals)
+local function creerPartCopie(partOriginal)
+    local p = Instance.new("Part")
+    p.Name = partOriginal.Name
+    p.Size = partOriginal.Size
+    p.CFrame = partOriginal.CFrame
+    p.Anchored = true
+    p.CanCollide = false
+    p.Material = partOriginal.Material
+    p.Color = partOriginal.Color
+    p.Transparency = 0
+    p.CastShadow = false
+    p.TopSurface = partOriginal.TopSurface
+    p.BottomSurface = partOriginal.BottomSurface
+    p.Parent = nil
+
+    -- Copier les meshes (si existants)
+    for _, child in pairs(partOriginal:GetChildren()) do
+        if child:IsA("SpecialMesh") then
+            local mesh = child:Clone()
+            mesh.Parent = p
+        end
+    end
+
+    return p
+end
+
+-- Créer toutes les parts copiées (sauf HumanoidRootPart, accessoires et face decals)
+local function creerCopieParts(char)
+    local model = Instance.new("Model")
+    model.Name = player.Name .. "_CopieParts"
+    model.Parent = workspace
+
+    local partsTable = {}
+
+    for _, part in pairs(char:GetChildren()) do
+        if part:IsA("BasePart") and part.Name ~= "HumanoidRootPart" then
+            local copie = creerPartCopie(part)
+            copie.Parent = model
+            partsTable[part.Name] = copie
+        end
+    end
+
+    return model, partsTable
+end
+
+-- Suivre la position des parts originales et appliquer aux copies
+local function suivreParts(originalChar, copiePartsTable)
+    local RunService = game:GetService("RunService")
+    RunService.RenderStepped:Connect(function()
+        for originalName, copiePart in pairs(copiePartsTable) do
+            local originalPart = originalChar:FindFirstChild(originalName)
+            if originalPart and originalPart:IsA("BasePart") then
+                copiePart.CFrame = originalPart.CFrame
+            end
+        end
+    end)
+end
+
+-- Créer le décalque sur la tête de la copie (optionnel)
+local function ajouterDecalqueTete(copieModel)
+    local copieHead = copieModel:FindFirstChild("Head") or copieModel:FindFirstChild("Tête")
+    if copieHead then
+        local decal = Instance.new("Decal")
+        decal.Texture = "rbxassetid://179693472" -- ID de ton décalque
+        decal.Face = Enum.NormalId.Front
+        decal.Parent = copieHead
+    end
+end
+
+-- Execution
+rendreInvisible(character)
+
+local copieModel, copiePartsTable = creerCopieParts(character)
+
+ajouterDecalqueTete(copieModel)
+
+suivreParts(character, copiePartsTable)
