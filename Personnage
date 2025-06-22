@@ -2,6 +2,21 @@ local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoid = character:WaitForChild("Humanoid")
 
+-- Définition des parts à gérer dans _G
+_G.PartsToMove = {
+    "Head",
+    "Torso",
+    "Right Leg",
+    "Left Leg",
+    "Right Arm",
+    "Left Arm"
+}
+
+-- Variable pour stocker la vitesse avant animation
+local storedWalkSpeed = humanoid.WalkSpeed
+local storedJumpPower = humanoid.JumpPower
+local animationPlaying = false
+
 -- Nettoyage (vêtements, accessoires, face)
 for _, obj in pairs(character:GetChildren()) do
     if obj:IsA("Accessory") or obj:IsA("Shirt") or obj:IsA("Pants") or obj:IsA("ShirtGraphic") or obj:IsA("CharacterMesh") then
@@ -36,7 +51,7 @@ for _, part in pairs(character:GetChildren()) do
     end
 end
 
--- Invisibiliser l'original
+-- Invisibiliser l'original sauf HumanoidRootPart
 for _, part in pairs(character:GetChildren()) do
     if part:IsA("BasePart") and part.Name ~= "HumanoidRootPart" then
         part.Transparency = 1
@@ -71,11 +86,12 @@ end
 local copieModel = Instance.new("Model", workspace)
 copieModel.Name = "Flshty_test_CopieParts"
 local copiePartsTable = {}
-for _, part in pairs(character:GetChildren()) do
-    if part:IsA("BasePart") and part.Name ~= "HumanoidRootPart" then
+for _, partName in pairs(_G.PartsToMove) do
+    local part = character:FindFirstChild(partName)
+    if part and part:IsA("BasePart") then
         local copie = creerPartCopie(part)
         copie.Parent = copieModel
-        copiePartsTable[part.Name] = copie
+        copiePartsTable[partName] = copie
     end
 end
 
@@ -103,14 +119,21 @@ local function suivre()
 end
 suivre()
 
--- Blocage déplacement si animation
+-- Blocage déplacement si animation + mémorisation vitesse
 RunService.Heartbeat:Connect(function()
-    if _G.AnimationModule and _G.AnimationModule.IsPlaying and _G.AnimationModule.IsPlaying() then
+    local isPlaying = (_G.AnimationModule and _G.AnimationModule.IsPlaying and _G.AnimationModule.IsPlaying())
+    if isPlaying and not animationPlaying then
+        -- Animation démarre : stocker vitesse avant et bloquer
+        storedWalkSpeed = humanoid.WalkSpeed
+        storedJumpPower = humanoid.JumpPower
         humanoid.WalkSpeed = 0
         humanoid.JumpPower = 0
-    else
-        humanoid.WalkSpeed = 16
-        humanoid.JumpPower = 50
+        animationPlaying = true
+    elseif not isPlaying and animationPlaying then
+        -- Animation finit : remettre vitesse
+        humanoid.WalkSpeed = storedWalkSpeed
+        humanoid.JumpPower = storedJumpPower
+        animationPlaying = false
     end
 end)
 
