@@ -1,3 +1,19 @@
+
+local copieModel = workspace:FindFirstChild("Flshty_test_CopieParts")
+if copieModel then
+    copieModel:Destroy()
+end
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local head = character:FindFirstChild("Head")
+
+if head then
+    for _, decal in pairs(head:GetChildren()) do
+        if decal:IsA("Decal") then
+            decal:Destroy()
+        end
+    end
+end
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoid = character:WaitForChild("Humanoid")
