@@ -1,190 +1,124 @@
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoid = character:WaitForChild("Humanoid")
+local hrp = character:WaitForChild("HumanoidRootPart")
 
--- Liste des parties gérées
-_G.PartsToMove = {
-    "Head",
-    "Torso",
-    "Right Leg",
-    "Left Leg",
-    "Right Arm",
-    "Left Arm"
-}
+local decalID = 179693472 -- Décal pour la tête
 
--- Table pour stocker copies des parts
-local copieModel = workspace:FindFirstChild("Flshty_test_CopieParts") or Instance.new("Model", workspace)
-copieModel.Name = "Flshty_test_CopieParts"
-local copiePartsTable = {}
+-- Rendre invisible toutes les parties sauf HRP
+local function rendreInvisible(char)
+	for _, part in pairs(char:GetChildren()) do
+		if part:IsA("BasePart") and part.Name ~= "HumanoidRootPart" then
+			part.Transparency = 1
+			part.Color = Color3.new(0, 0, 0)
+			part.CanCollide = false
+		elseif part:IsA("Accessory") and part:FindFirstChild("Handle") then
+			part.Handle.Transparency = 1
+			part.Handle.CanCollide = false
+		elseif part:IsA("Decal") or part:IsA("Texture") then
+			part.Transparency = 1
+		end
+	end
+end
 
--- Crée une copie d'une part
+-- Créer une copie propre d'une part
 local function creerPartCopie(partOriginal)
-    local p = Instance.new("Part")
-    p.Name = partOriginal.Name
-    p.Size = partOriginal.Size
-    p.CFrame = partOriginal.CFrame
-    p.Anchored = true
-    p.CanCollide = false
-    p.Material = partOriginal.Material
-    p.Color = partOriginal.Color
-    p.Transparency = 0
-    p.CastShadow = false
-    p.TopSurface = partOriginal.TopSurface
-    p.BottomSurface = partOriginal.BottomSurface
-    -- Copie des meshes
-    for _, child in pairs(partOriginal:GetChildren()) do
-        if child:IsA("SpecialMesh") then
-            child:Clone().Parent = p
-        end
-    end
-    return p
+	local p = Instance.new("Part")
+	p.Name = partOriginal.Name
+	p.Size = partOriginal.Size
+	p.CFrame = partOriginal.CFrame
+	p.Anchored = true
+	p.CanCollide = false
+	p.Material = partOriginal.Material
+	p.Color = Color3.fromRGB(0, 0, 0) -- couleur noire
+	p.Transparency = 0
+	p.CastShadow = false
+	p.TopSurface = partOriginal.TopSurface
+	p.BottomSurface = partOriginal.BottomSurface
+
+	for _, child in pairs(partOriginal:GetChildren()) do
+		if child:IsA("SpecialMesh") then
+			child:Clone().Parent = p
+		end
+	end
+
+	-- Ajouter decal à la tête
+	if partOriginal.Name == "Head" then
+		local decal = Instance.new("Decal")
+		decal.Face = Enum.NormalId.Front
+		decal.Texture = "rbxassetid://" .. decalID
+		decal.Parent = p
+	end
+
+	return p
 end
 
--- Nettoyage/accessoires etc.
-for _, obj in pairs(character:GetChildren()) do
-    if obj:IsA("Accessory") or obj:IsA("Shirt") or obj:IsA("Pants") or obj:IsA("ShirtGraphic") or obj:IsA("CharacterMesh") then
-        obj:Destroy()
-    end
-end
-local head = character:FindFirstChild("Head") or character:FindFirstChild("Tête")
-if head then
-    for _, decal in pairs(head:GetChildren()) do
-        if decal:IsA("Decal") then
-            decal:Destroy()
-        end
-    end
-end
+-- Créer modèle et table des parties copiées
+local function creerCopieParts(char)
+	local model = Instance.new("Model", workspace)
+	model.Name = "Flshty_test_CopieParts"
 
--- Couleur noire sur corps
-local bodyParts = {
-    "Head", "Torso", "Left Arm", "Right Arm", "Left Leg", "Right Leg",
-    "UpperTorso", "LowerTorso",
-    "LeftUpperArm", "RightUpperArm", "LeftLowerArm", "RightLowerArm", "LeftHand", "RightHand",
-    "LeftUpperLeg", "RightUpperLeg", "LeftLowerLeg", "RightLowerLeg", "LeftFoot", "RightFoot",
-}
-for _, part in pairs(character:GetChildren()) do
-    if part:IsA("BasePart") and table.find(bodyParts, part.Name) then
-        part.BrickColor = BrickColor.new("Really black")
-        part.Material = Enum.Material.SmoothPlastic
-        for _, child in pairs(part:GetChildren()) do
-            if child:IsA("Decal") or child:IsA("Texture") then
-                child:Destroy()
-            end
-        end
-    end
+	local partsTable = {}
+
+	for _, part in pairs(char:GetChildren()) do
+		if part:IsA("BasePart") and part.Name ~= "HumanoidRootPart" then
+			local copie = creerPartCopie(part)
+			copie.Parent = model
+			partsTable[part.Name] = copie
+		end
+	end
+
+	return model, partsTable
 end
 
--- Invisibiliser l'original sauf HumanoidRootPart
-for _, part in pairs(character:GetChildren()) do
-    if part:IsA("BasePart") and part.Name ~= "HumanoidRootPart" then
-        part.Transparency = 1
-        part.CanCollide = false
-    end
+-- Variables globales
+_G.HELLO = false
+_G.head = false
+_G.body = false
+_G["left arm"] = false
+_G["right arm"] = false
+_G["left leg"] = false
+_G["right leg"] = false
+
+local copierLoop = true
+local copieModel, copiePartsTable
+
+-- Fonction principale de suivi
+local function suivrePartsLoop(originalChar, copiePartsTable)
+	local RunService = game:GetService("RunService")
+
+	RunService.RenderStepped:Connect(function()
+		if _G.HELLO then
+			-- Désactive le suivi
+			copierLoop = false
+			humanoid.WalkSpeed = 0
+			humanoid.JumpPower = 0
+
+			for name, part in pairs(copiePartsTable) do
+				part.Color = Color3.new(0, 0, 0)
+			end
+
+		else
+			-- Réactive le suivi
+			copierLoop = true
+			humanoid.WalkSpeed = 16
+			humanoid.JumpPower = 50
+		end
+
+		if copierLoop then
+			for name, part in pairs(copiePartsTable) do
+				if not _G[name:lower()] then
+					local original = originalChar:FindFirstChild(name)
+					if original and original:IsA("BasePart") then
+						part.CFrame = original.CFrame
+					end
+				end
+			end
+		end
+	end)
 end
 
--- Création des copies
-for _, partName in pairs(_G.PartsToMove) do
-    local part = character:FindFirstChild(partName)
-    if part and part:IsA("BasePart") then
-        local copie = copieModel:FindFirstChild(partName) or creerPartCopie(part)
-        copie.Parent = copieModel
-        copiePartsTable[partName] = copie
-    end
-end
-
--- Noclip sur toutes les copies
-game:GetService("RunService").Stepped:Connect(function()
-    for _, part in pairs(copieModel:GetDescendants()) do
-        if part:IsA("BasePart") then
-            part.CanCollide = false
-        end
-    end
-end)
-
--- Table globale pour gérer animation commune et animation par partie
-_G.AnimationModule = _G.AnimationModule or {}
-_G.AnimationModule.IsPlayingGlobal = false
-_G.AnimationModule.PartsPlaying = {}
-
--- Fonction pour savoir si une animation globale est en cours
-function _G.AnimationModule.IsPlaying()
-    return _G.AnimationModule.IsPlayingGlobal
-end
-
--- Démarrer animation pour une partie spécifique
-function _G.AnimationModule.PlayAnimationOnPart(partName, animFunc)
-    -- Si une animation est déjà en cours, ignore
-    if _G.AnimationModule.IsPlayingGlobal then return false end
-    if not copiePartsTable[partName] then return false end
-
-    _G.AnimationModule.IsPlayingGlobal = true
-    _G.AnimationModule.PartsPlaying[partName] = true
-
-    -- Bloquer vitesse joueur
-    local storedWalkSpeed = humanoid.WalkSpeed
-    local storedJumpPower = humanoid.JumpPower
-    humanoid.WalkSpeed = 0
-    humanoid.JumpPower = 0
-
-    -- Lance la fonction d’animation qui reçoit la copie de la part
-    coroutine.wrap(function()
-        animFunc(copiePartsTable[partName])
-        -- Fin animation : nettoyage
-        _G.AnimationModule.PartsPlaying[partName] = nil
-        _G.AnimationModule.IsPlayingGlobal = false
-        humanoid.WalkSpeed = storedWalkSpeed
-        humanoid.JumpPower = storedJumpPower
-    end)()
-
-    return true
-end
-
--- Suivi des parties sauf animation
-local RunService = game:GetService("RunService")
-RunService.RenderStepped:Connect(function()
-    if _G.AnimationModule.IsPlayingGlobal then return end
-    for name, copy in pairs(copiePartsTable) do
-        local original = character:FindFirstChild(name)
-        if original and original:IsA("BasePart") then
-            copy.CFrame = original.CFrame
-        end
-    end
-end)
-
--- Exemple d’animation simple: lever le bras droit en 2 sec
-function _G.AnimationModule.AnimRaiseRightArm(part)
-    local RunService = game:GetService("RunService")
-    local startTime = tick()
-    local duration = 2
-    local originalCFrame = part.CFrame
-    local offset = Vector3.new(0, 1, 0)
-
-    local conn
-    conn = RunService.RenderStepped:Connect(function()
-        local elapsed = tick() - startTime
-        if elapsed > duration then
-            part.CFrame = originalCFrame
-            conn:Disconnect()
-            return
-        end
-        local alpha = elapsed / duration
-        part.CFrame = originalCFrame * CFrame.new(offset * alpha)
-    end)
-
-    -- Attend la fin de l’animation avant de continuer (2 sec)
-    wait(duration)
-end
-
--- Ajout d’un exemple de lancement d’animation (par exemple pour bras droit)
--- _G.AnimationModule.PlayAnimationOnPart("Right Arm", _G.AnimationModule.AnimRaiseRightArm)
-
--- Optionnel: Deco visuelle sur tête copie
-local headCopy = copieModel:FindFirstChild("Head")
-if headCopy then
-    local decal = Instance.new("Decal")
-    decal.Texture = "rbxassetid://179693472"
-    decal.Face = Enum.NormalId.Front
-    decal.Parent = headCopy
-end
-
-print("Script de copie et animation chargé")
+-- ⚡ Exécution
+rendreInvisible(character)
+copieModel, copiePartsTable = creerCopieParts(character)
+suivrePartsLoop(character, copiePartsTable)
