@@ -1,7 +1,10 @@
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
 
--- SUPPRIMER ACCESSOIRES, VÊTEMENTS, MESHES, FACE, RECOLORER PARTIES CORPS EN NOIR SUR LE PERSONNAGE ORIGINAL
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- Suppressions accessoires, vêtements, decals etc --
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 -- Supprime tous les accessoires
 for _, accessory in pairs(character:GetChildren()) do
@@ -10,21 +13,21 @@ for _, accessory in pairs(character:GetChildren()) do
     end
 end
 
--- Supprime les vêtements Shirt, Pants, ShirtGraphic
+-- Supprime vêtements Shirt, Pants, ShirtGraphic
 for _, item in pairs(character:GetChildren()) do
     if item:IsA("Shirt") or item:IsA("Pants") or item:IsA("ShirtGraphic") then
         item:Destroy()
     end
 end
 
--- Supprime les CharacterMesh
+-- Supprime CharacterMesh
 for _, mesh in pairs(character:GetChildren()) do
     if mesh:IsA("CharacterMesh") then
         mesh:Destroy()
     end
 end
 
--- Supprime le visage (Decal sur la tête)
+-- Supprime visage (Decal sur la tête)
 local head = character:FindFirstChild("Head") or character:FindFirstChild("Tête")
 if head then
     for _, decal in pairs(head:GetChildren()) do
@@ -34,7 +37,7 @@ if head then
     end
 end
 
--- Liste des parties corps R6 et R15 à mettre en noir
+-- Liste des parties du corps R6 et R15 à mettre en noir
 local bodyParts = {
     -- R6
     "Head", "Torso", "Left Arm", "Right Arm", "Left Leg", "Right Leg",
@@ -130,19 +133,41 @@ local function creerCopieParts(char)
 end
 
 -- Suivre la position des parts originales et appliquer aux copies
-local function suivreParts(originalChar, copiePartsTable)
-    local RunService = game:GetService("RunService")
-    RunService.RenderStepped:Connect(function()
-        for originalName, copiePart in pairs(copiePartsTable) do
-            local originalPart = originalChar:FindFirstChild(originalName)
-            if originalPart and originalPart:IsA("BasePart") then
-                copiePart.CFrame = originalPart.CFrame
+local RunService = game:GetService("RunService")
+local suivrePartsActif = true
+
+local copiePartsTable = nil
+local originalChar = character
+
+local suiviConnection
+local function suivreParts()
+    if suiviConnection then
+        suiviConnection:Disconnect()
+        suiviConnection = nil
+    end
+    suiviConnection = RunService.RenderStepped:Connect(function()
+        if suivrePartsActif and not _G.AnimationModule then
+            -- Si _G.AnimationModule absent, on considère pas d'animation
+            for originalName, copiePart in pairs(copiePartsTable) do
+                local originalPart = originalChar:FindFirstChild(originalName)
+                if originalPart and originalPart:IsA("BasePart") then
+                    copiePart.CFrame = originalPart.CFrame
+                end
+            end
+        elseif suivrePartsActif and _G.AnimationModule then
+            if not _G.AnimationModule.IsPlaying() then
+                for originalName, copiePart in pairs(copiePartsTable) do
+                    local originalPart = originalChar:FindFirstChild(originalName)
+                    if originalPart and originalPart:IsA("BasePart") then
+                        copiePart.CFrame = originalPart.CFrame
+                    end
+                end
             end
         end
     end)
 end
 
--- Créer le décalque sur la tête de la copie (optionnel)
+-- Créer decalque sur la tête de la copie (optionnel)
 local function ajouterDecalqueTete(copieModel)
     local copieHead = copieModel:FindFirstChild("Head") or copieModel:FindFirstChild("Tête")
     if copieHead then
@@ -153,11 +178,28 @@ local function ajouterDecalqueTete(copieModel)
     end
 end
 
--- Execution
-rendreInvisible(character)
+local function bloquerDeplacement(humanoid, bloquer)
+    if bloquer then
+        humanoid.WalkSpeed = 0
+        humanoid.JumpPower = 0
+    else
+        humanoid.WalkSpeed = 16 -- valeur par défaut, adapte si besoin
+        humanoid.JumpPower = 50 -- valeur par défaut
+    end
+end
 
-local copieModel, copiePartsTable = creerCopieParts(character)
-
+-- Initialisation
+rendreInvisible(originalChar)
+local copieModel
+copieModel, copiePartsTable = creerCopieParts(originalChar)
 ajouterDecalqueTete(copieModel)
+suivreParts()
 
-suivreParts(character, copiePartsTable)
+-- Boucle pour bloquer déplacement si animation en cours
+RunService.Heartbeat:Connect(function()
+    if _G.AnimationModule and _G.AnimationModule.IsPlaying and _G.AnimationModule.IsPlaying() then
+        bloquerDeplacement(humanoid, true)
+    else
+        bloquerDeplacement(humanoid, false)
+    end
+end)
