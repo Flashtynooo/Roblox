@@ -2,7 +2,7 @@ local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoid = character:WaitForChild("Humanoid")
 
--- Définition des parts à gérer dans _G
+-- Liste des parties gérées
 _G.PartsToMove = {
     "Head",
     "Torso",
@@ -12,12 +12,35 @@ _G.PartsToMove = {
     "Left Arm"
 }
 
--- Variable pour stocker la vitesse avant animation
-local storedWalkSpeed = humanoid.WalkSpeed
-local storedJumpPower = humanoid.JumpPower
-local animationPlaying = false
+-- Table pour stocker copies des parts
+local copieModel = workspace:FindFirstChild("Flshty_test_CopieParts") or Instance.new("Model", workspace)
+copieModel.Name = "Flshty_test_CopieParts"
+local copiePartsTable = {}
 
--- Nettoyage (vêtements, accessoires, face)
+-- Crée une copie d'une part
+local function creerPartCopie(partOriginal)
+    local p = Instance.new("Part")
+    p.Name = partOriginal.Name
+    p.Size = partOriginal.Size
+    p.CFrame = partOriginal.CFrame
+    p.Anchored = true
+    p.CanCollide = false
+    p.Material = partOriginal.Material
+    p.Color = partOriginal.Color
+    p.Transparency = 0
+    p.CastShadow = false
+    p.TopSurface = partOriginal.TopSurface
+    p.BottomSurface = partOriginal.BottomSurface
+    -- Copie des meshes
+    for _, child in pairs(partOriginal:GetChildren()) do
+        if child:IsA("SpecialMesh") then
+            child:Clone().Parent = p
+        end
+    end
+    return p
+end
+
+-- Nettoyage/accessoires etc.
 for _, obj in pairs(character:GetChildren()) do
     if obj:IsA("Accessory") or obj:IsA("Shirt") or obj:IsA("Pants") or obj:IsA("ShirtGraphic") or obj:IsA("CharacterMesh") then
         obj:Destroy()
@@ -59,37 +82,11 @@ for _, part in pairs(character:GetChildren()) do
     end
 end
 
--- Fonction copie d'une part
-local function creerPartCopie(partOriginal)
-    local p = Instance.new("Part")
-    p.Name = partOriginal.Name
-    p.Size = partOriginal.Size
-    p.CFrame = partOriginal.CFrame
-    p.Anchored = true
-    p.CanCollide = false
-    p.Material = partOriginal.Material
-    p.Color = partOriginal.Color
-    p.Transparency = 0
-    p.CastShadow = false
-    p.TopSurface = partOriginal.TopSurface
-    p.BottomSurface = partOriginal.BottomSurface
-    -- Copier les meshes (si présents)
-    for _, child in pairs(partOriginal:GetChildren()) do
-        if child:IsA("SpecialMesh") then
-            child:Clone().Parent = p
-        end
-    end
-    return p
-end
-
--- Création copie model
-local copieModel = Instance.new("Model", workspace)
-copieModel.Name = "Flshty_test_CopieParts"
-local copiePartsTable = {}
+-- Création des copies
 for _, partName in pairs(_G.PartsToMove) do
     local part = character:FindFirstChild(partName)
     if part and part:IsA("BasePart") then
-        local copie = creerPartCopie(part)
+        local copie = copieModel:FindFirstChild(partName) or creerPartCopie(part)
         copie.Parent = copieModel
         copiePartsTable[partName] = copie
     end
@@ -104,40 +101,84 @@ game:GetService("RunService").Stepped:Connect(function()
     end
 end)
 
--- Suivi des parties sauf en animation
-local RunService = game:GetService("RunService")
-local function suivre()
-    RunService.RenderStepped:Connect(function()
-        if _G.AnimationModule and _G.AnimationModule.IsPlaying and _G.AnimationModule.IsPlaying() then return end
-        for name, copy in pairs(copiePartsTable) do
-            local original = character:FindFirstChild(name)
-            if original and original:IsA("BasePart") then
-                copy.CFrame = original.CFrame
-            end
-        end
-    end)
-end
-suivre()
+-- Table globale pour gérer animation commune et animation par partie
+_G.AnimationModule = _G.AnimationModule or {}
+_G.AnimationModule.IsPlayingGlobal = false
+_G.AnimationModule.PartsPlaying = {}
 
--- Blocage déplacement si animation + mémorisation vitesse
-RunService.Heartbeat:Connect(function()
-    local isPlaying = (_G.AnimationModule and _G.AnimationModule.IsPlaying and _G.AnimationModule.IsPlaying())
-    if isPlaying and not animationPlaying then
-        -- Animation démarre : stocker vitesse avant et bloquer
-        storedWalkSpeed = humanoid.WalkSpeed
-        storedJumpPower = humanoid.JumpPower
-        humanoid.WalkSpeed = 0
-        humanoid.JumpPower = 0
-        animationPlaying = true
-    elseif not isPlaying and animationPlaying then
-        -- Animation finit : remettre vitesse
+-- Fonction pour savoir si une animation globale est en cours
+function _G.AnimationModule.IsPlaying()
+    return _G.AnimationModule.IsPlayingGlobal
+end
+
+-- Démarrer animation pour une partie spécifique
+function _G.AnimationModule.PlayAnimationOnPart(partName, animFunc)
+    -- Si une animation est déjà en cours, ignore
+    if _G.AnimationModule.IsPlayingGlobal then return false end
+    if not copiePartsTable[partName] then return false end
+
+    _G.AnimationModule.IsPlayingGlobal = true
+    _G.AnimationModule.PartsPlaying[partName] = true
+
+    -- Bloquer vitesse joueur
+    local storedWalkSpeed = humanoid.WalkSpeed
+    local storedJumpPower = humanoid.JumpPower
+    humanoid.WalkSpeed = 0
+    humanoid.JumpPower = 0
+
+    -- Lance la fonction d’animation qui reçoit la copie de la part
+    coroutine.wrap(function()
+        animFunc(copiePartsTable[partName])
+        -- Fin animation : nettoyage
+        _G.AnimationModule.PartsPlaying[partName] = nil
+        _G.AnimationModule.IsPlayingGlobal = false
         humanoid.WalkSpeed = storedWalkSpeed
         humanoid.JumpPower = storedJumpPower
-        animationPlaying = false
+    end)()
+
+    return true
+end
+
+-- Suivi des parties sauf animation
+local RunService = game:GetService("RunService")
+RunService.RenderStepped:Connect(function()
+    if _G.AnimationModule.IsPlayingGlobal then return end
+    for name, copy in pairs(copiePartsTable) do
+        local original = character:FindFirstChild(name)
+        if original and original:IsA("BasePart") then
+            copy.CFrame = original.CFrame
+        end
     end
 end)
 
--- Déco visuelle (facultatif)
+-- Exemple d’animation simple: lever le bras droit en 2 sec
+function _G.AnimationModule.AnimRaiseRightArm(part)
+    local RunService = game:GetService("RunService")
+    local startTime = tick()
+    local duration = 2
+    local originalCFrame = part.CFrame
+    local offset = Vector3.new(0, 1, 0)
+
+    local conn
+    conn = RunService.RenderStepped:Connect(function()
+        local elapsed = tick() - startTime
+        if elapsed > duration then
+            part.CFrame = originalCFrame
+            conn:Disconnect()
+            return
+        end
+        local alpha = elapsed / duration
+        part.CFrame = originalCFrame * CFrame.new(offset * alpha)
+    end)
+
+    -- Attend la fin de l’animation avant de continuer (2 sec)
+    wait(duration)
+end
+
+-- Ajout d’un exemple de lancement d’animation (par exemple pour bras droit)
+-- _G.AnimationModule.PlayAnimationOnPart("Right Arm", _G.AnimationModule.AnimRaiseRightArm)
+
+-- Optionnel: Deco visuelle sur tête copie
 local headCopy = copieModel:FindFirstChild("Head")
 if headCopy then
     local decal = Instance.new("Decal")
@@ -146,5 +187,4 @@ if headCopy then
     decal.Parent = headCopy
 end
 
--- Chargement de protection anti-fling
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Fighting-style/Antifling"))()
+print("Script de copie et animation chargé")
