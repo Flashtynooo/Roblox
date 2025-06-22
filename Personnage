@@ -192,6 +192,16 @@ end
 rendreInvisible(originalChar)
 local copieModel
 copieModel, copiePartsTable = creerCopieParts(originalChar)
+-- Activer le noclip sur toutes les parties de Flshty_test_CopieParts
+RunService.Stepped:Connect(function()
+    if copieModel and copieModel.Name == "Flshty_test_CopieParts" then
+        for _, part in pairs(copieModel:GetDescendants()) do
+            if part:IsA("BasePart") then
+                part.CanCollide = false
+            end
+        end
+    end
+end)
 ajouterDecalqueTete(copieModel)
 suivreParts()
 
