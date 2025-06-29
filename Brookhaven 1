@@ -1,151 +1,232 @@
--- UI créé par flashtynooo, version GAME HUB :) BROOKHAVEN, style flshty
 
-local gui = Instance.new("ScreenGui", game.CoreGui)
-gui.Name = "GameHubBrookhaven"
-gui.ResetOnSpawn = false
+local gui = game.CoreGui:FindFirstChild("FlshtyHub")
+if gui then
+    gui:Destroy()
+end
+local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
+ScreenGui.Name = "FlshtyHub"
+ScreenGui.ResetOnSpawn = false
 
-local main = Instance.new("Frame", gui)
-main.Size = UDim2.new(0, 500, 0, 300)
-main.Position = UDim2.new(0.5, -250, 0.5, -150)
-main.BackgroundColor3 = Color3.fromRGB(130, 0, 255)
-main.BackgroundTransparency = 0.1
-main.BorderSizePixel = 0
-main.Active = true
-main.Draggable = true
-main.ClipsDescendants = true
+local MainFrame = Instance.new("Frame", ScreenGui)
+MainFrame.Size = UDim2.new(0, 300, 0, 260)
+MainFrame.Position = UDim2.new(0.5, -150, 0.5, -130)
+MainFrame.BackgroundColor3 = Color3.fromRGB(130, 0, 255)
+MainFrame.BorderSizePixel = 0
+MainFrame.Active = true
+MainFrame.Draggable = true
 
-local UICorner = Instance.new("UICorner", main)
+local UICorner = Instance.new("UICorner", MainFrame)
 UICorner.CornerRadius = UDim.new(0, 16)
 
-local UIStroke = Instance.new("UIStroke", main)
+local UIStroke = Instance.new("UIStroke", MainFrame)
 UIStroke.Thickness = 2
 UIStroke.Color = Color3.fromRGB(255, 20, 147)
-UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 
--- Glitch anim
 spawn(function()
 	while wait(0.1) do
 		UIStroke.Color = Color3.fromRGB(math.random(100,255), 0, math.random(100,255))
 	end
 end)
 
--- Titre + barre top
-local topBar = Instance.new("Frame", main)
-topBar.Size = UDim2.new(1, 0, 0, 35)
-topBar.BackgroundColor3 = Color3.fromRGB(110, 0, 200)
-topBar.BorderSizePixel = 0
+local Title = Instance.new("TextLabel", MainFrame)
+Title.Size = UDim2.new(1, 0, 0, 30)
+Title.Position = UDim2.new(0, 0, 0, 0)
+Title.Text = "Flshty HUB: BROOKHAVEN"
+Title.TextColor3 = Color3.fromRGB(57, 255, 20)
+Title.TextScaled = true
+Title.BackgroundTransparency = 1
+Title.Font = Enum.Font.Code
 
-local title = Instance.new("TextLabel", topBar)
-title.Size = UDim2.new(0.6, 0, 1, 0)
-title.Position = UDim2.new(0, 10, 0, 0)
-title.BackgroundTransparency = 1
-title.Text = "Flshty HUB :) BROOKHAVEN"
-title.Font = Enum.Font.Code
-title.TextSize = 18
-title.TextColor3 = Color3.fromRGB(57, 255, 20)
-title.TextXAlignment = Enum.TextXAlignment.Left
+-- Ajout de la catégorie "Soon"
+local buttonNames = {"Info", "Music", "Tools", "Soon"}
+local buttons = {}
 
--- Boutons menu haut
-local function createTopButton(name, text, order)
-	local btn = Instance.new("TextButton", topBar)
-	btn.Name = name
-	btn.Size = UDim2.new(0, 100, 0, 30)
-	btn.Position = UDim2.new(1, -110 * order, 0, 2)
+for i, name in ipairs(buttonNames) do
+	local btn = Instance.new("TextButton", MainFrame)
+	btn.Name = name.."Button"
+	btn.Size = UDim2.new(1/#buttonNames, -10, 0, 30)
+	btn.Position = UDim2.new((i-1)/#buttonNames, 5, 0, 35)
 	btn.BackgroundColor3 = Color3.fromRGB(200, 0, 200)
-	btn.Text = text
-	btn.Font = Enum.Font.Arcade
-	btn.TextSize = 14
 	btn.TextColor3 = Color3.fromRGB(0, 255, 255)
-	Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 8)
-	return btn
+	btn.Font = Enum.Font.Arcade
+	btn.TextSize = 16
+	btn.Text = name
+	btn.AutoButtonColor = true
+	local UICornerBtn = Instance.new("UICorner", btn)
+	UICornerBtn.CornerRadius = UDim.new(0, 12)
+	
+	buttons[name] = btn
+	
+	btn.MouseButton1Click:Connect(function()
+		_G.ShowCategory(name)
+	end)
 end
 
-local infoBtn = createTopButton("InfoBtn", "ℹ️ Info", 2)
-local musicBtn = createTopButton("MusicBtn", "🎵 Music", 1)
+local function createCategoryFrame(name)
+	local frame = Instance.new("ScrollingFrame", MainFrame)
+	frame.Name = name
+	frame.Size = UDim2.new(1, -20, 1, -80)
+	frame.Position = UDim2.new(0, 10, 0, 70)
+	frame.BackgroundColor3 = Color3.fromRGB(100, 0, 150)
+	frame.BorderSizePixel = 0
+	frame.CanvasSize = UDim2.new(0, 0, 1, 0)
+	frame.ScrollBarThickness = 6
+	Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 12)
+	frame.Visible = false
+	return frame
+end
 
--- Bouton Resize/Minimize
-local resizeBtn = Instance.new("TextButton", topBar)
-resizeBtn.Name = "ResizeBtn"
-resizeBtn.Size = UDim2.new(0, 40, 0, 30)
-resizeBtn.Position = UDim2.new(1, -40, 0, 2)
-resizeBtn.BackgroundColor3 = Color3.fromRGB(80, 0, 120)
-resizeBtn.Text = "−"
-resizeBtn.Font = Enum.Font.Arcade
-resizeBtn.TextSize = 18
-resizeBtn.TextColor3 = Color3.fromRGB(0, 255, 255)
-Instance.new("UICorner", resizeBtn).CornerRadius = UDim.new(0, 8)
+_G2info = createCategoryFrame("Info")
+_G2music = createCategoryFrame("Music")
 
--- Contenu (scrolling)
-local content = Instance.new("ScrollingFrame", main)
-content.Size = UDim2.new(1, -20, 1, -40)
-content.Position = UDim2.new(0, 10, 0, 40)
-content.BackgroundColor3 = Color3.fromRGB(90, 0, 130)
-content.BorderSizePixel = 0
-content.ScrollBarThickness = 8
-content.CanvasSize = UDim2.new(0, 0, 0, 400)
-content.AutomaticCanvasSize = Enum.AutomaticSize.Y
+_G2Tools = createCategoryFrame("Tools")
+_G2Soon = createCategoryFrame("Soon")
 
--- PANNEAUX
-local infoPanel = Instance.new("TextLabel", content)
-infoPanel.Size = UDim2.new(1, -20, 0, 150)
-infoPanel.Position = UDim2.new(0, 10, 0, 10)
-infoPanel.BackgroundColor3 = Color3.fromRGB(200, 0, 200)
-infoPanel.TextColor3 = Color3.fromRGB(0, 255, 255)
-infoPanel.Font = Enum.Font.Gotham
-infoPanel.TextSize = 14
-infoPanel.TextWrapped = true
-infoPanel.Text = "Welcome to the Game Hub.I just make the music for brookhaven                                                                                        But you need gamepass sorry :3                                                                                    Good test :)☠️                                                                                                                           DØNT FORG£T FLÁSHT¥NŌØÕ N€✓@R D|€ :)☠️"
-infoPanel.Visible = false
-Instance.new("UICorner", infoPanel).CornerRadius = UDim.new(0, 10)
+function _G.ShowCategory(name)
+	_G2info.Visible = false
+	_G2music.Visible = false
+	_G2Tools.Visible = false
+	_G2Soon.Visible = false
 
-local musicPanel = Instance.new("Frame", content)
-musicPanel.Size = UDim2.new(1, -20, 0, 240)
-musicPanel.Position = UDim2.new(0, 10, 0, 10)
-musicPanel.BackgroundColor3 = Color3.fromRGB(160, 0, 200)
-musicPanel.Visible = false
-Instance.new("UICorner", musicPanel).CornerRadius = UDim.new(0, 10)
+	if name == "Info" then
+		_G2info.Visible = true
+	elseif name == "Music" then
+		_G2music.Visible = true
+	elseif name == "Tools" then
+		_G2Tools.Visible = true
+	elseif name == "Soon" then
+		_G2Soon.Visible = true
+	end
+end
 
-local musicLabel = Instance.new("TextLabel", musicPanel)
-musicLabel.Size = UDim2.new(1, 0, 0, 30)
-musicLabel.Text = "🎧 Music Player"
-musicLabel.TextColor3 = Color3.fromRGB(0, 255, 255)
-musicLabel.Font = Enum.Font.Arcade
-musicLabel.TextSize = 16
-musicLabel.BackgroundTransparency = 1
+_G.ShowCategory("Info")
 
--- TextBox pour ID manuel
-local musicIdBox = Instance.new("TextBox", musicPanel)
-musicIdBox.Size = UDim2.new(1, -20, 0, 30)
-musicIdBox.Position = UDim2.new(0, 10, 0, 40)
-musicIdBox.PlaceholderText = "Enter music ID"
-musicIdBox.Font = Enum.Font.Gotham
-musicIdBox.TextSize = 14
-musicIdBox.BackgroundColor3 = Color3.fromRGB(90, 0, 130)
-musicIdBox.TextColor3 = Color3.new(1, 1, 1)
+local infoText = Instance.new("TextLabel", _G2info)
+infoText.Size = UDim2.new(1, -20, 0, 160)
+infoText.Position = UDim2.new(0, 10, 0, 10)
+infoText.BackgroundTransparency = 1
+infoText.TextColor3 = Color3.fromRGB(0, 255, 255)
+infoText.TextWrapped = true
+infoText.TextScaled = true
+infoText.Font = Enum.Font.Arcade
+infoText.TextXAlignment = Enum.TextXAlignment.Center
+infoText.TextYAlignment = Enum.TextYAlignment.Center
+
+local soonText = Instance.new("TextLabel", _G2Soon)
+soonText.Size = UDim2.new(1, -20, 0, 160)
+soonText.Position = UDim2.new(0, 10, 0, 10)
+soonText.BackgroundTransparency = 1
+soonText.TextColor3 = Color3.fromRGB(0, 255, 255)
+soonText.TextWrapped = true
+soonText.TextScaled = true
+soonText.Font = Enum.Font.Arcade
+soonText.TextXAlignment = Enum.TextXAlignment.Center
+soonText.TextYAlignment = Enum.TextYAlignment.Center
+
+local lang = game:GetService("LocalizationService").RobloxLocaleId
+local langShort = string.sub(lang, 1, 2)
+
+if langShort == "fr" then
+    infoText.Text =
+        "🌌 Flshty HUB\n\n"..
+        "Si tu as le **pass musique**, équipe un **véhicule** pour écouter la musique.\n\n"..
+        "🛠️ Normalement tu dois faire des actions pour obtenir des gears, mais avec Flshty HUB tu les obtiens en 1 clique."
+    soonText.Text = "🚧 Cette section arrivera bientôt. :)"
+elseif langShort == "es" then
+    infoText.Text =
+        "🌌 Flshty HUB\n\n"..
+        "Si tienes el **pase de música**, equipa un **vehículo** para escuchar música.\n\n"..
+        "🛠️ Normalmente necesitas hacer acciones para obtener gears, pero con Flshty HUB los obtienes en 1 cؚlؚiؚcؚ."
+    soonText.Text = "🚧 Esta sección llegará pronto."
+elseif langShort == "it" then
+    infoText.Text =
+        "🌌 Flshty HUB\n\n"..
+        "Se hai il **pass musica**, equipaggia un **veicolo** per ascoltare la musica.\n\n"..
+        "🛠️ Normalmente devi fare azioni per ottenere gears, ma con Flshty HUB li ottieni in 1 cؚlؚiؚcؚ."
+    soonText.Text = "🚧 Questa sezione arriverà presto."
+elseif langShort == "de" then
+    infoText.Text =
+        "🌌 Flshty HUB\n\n"..
+        "Wenn du den **Musik-Pass** hast, rüste ein **Fahrzeug** aus, um Musik zu hören.\n\n"..
+        "🛠️ Normalerweise musst du Aktionen ausführen, um Gears zu erhalten, aber mit Flshty HUB bekommst du sie mit 1 Kؚlؚiؚcؚkؚ."
+    soonText.Text = "🚧 Dieser Abschnitt kommt bald."
+else
+    infoText.Text =
+        "🌌 Flshty HUB\n\n"..
+        "If you have the **music pass**, equip a **vehicle** to play music.\n\n"..
+        "🛠️ Normally you need to do actions to get gears, but with Flshty HUB you get them in 1 cؚlؚiؚcؚkؚ."
+    soonText.Text = "🚧 This section will arrive sؚoؚoؚnؚ."
+end
+
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RE_Scooter = ReplicatedStorage:WaitForChild("RE"):WaitForChild("1NoMoto1rVehicle1s")
+local RE_Car = ReplicatedStorage:WaitForChild("RE"):WaitForChild("1Player1sCa1r")
+
+local lang = Players.LocalPlayer.LocaleId
+
+local translations = {
+    ["fr"] = {
+        music = "🎶 MUSIQUES 🎶",
+        placeholder = "📥 ID Musique...",
+    },
+    ["en"] = {
+        music = "🎶 MUSICS 🎶",
+        placeholder = "📥 Music ID...",
+    },
+    ["es"] = {
+        music = "🎶 MÚSICAS 🎶",
+        placeholder = "📥 ID de Música...",
+    },
+    ["it"] = {
+        music = "🎶 MUSICHE 🎶",
+        placeholder = "📥 ID Musica...",
+    },
+    ["de"] = {
+        music = "🎶 MUSIK 🎶",
+        placeholder = "📥 Musik-ID...",
+    },
+}
+
+local t = translations[string.sub(lang, 1, 2)] or translations["en"]
+
+_G2music.CanvasSize = UDim2.new(0, 0, 0, 9999)
+_G2music:ClearAllChildren()
+
+local yPosition = 10
+
+-- === TEXTBOX POUR ID CUSTOM ===
+local musicIdBox = Instance.new("TextBox", _G2music)
+musicIdBox.Size = UDim2.new(0.7, 0, 0, 40)
+musicIdBox.Position = UDim2.new(0.05, 0, 0, yPosition)
+musicIdBox.PlaceholderText = t.placeholder
+musicIdBox.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+musicIdBox.TextColor3 = Color3.fromRGB(0, 255, 0)
+musicIdBox.TextScaled = true
+musicIdBox.Font = Enum.Font.Code
 Instance.new("UICorner", musicIdBox).CornerRadius = UDim.new(0, 8)
 
--- Bouton play
-local playMusic = Instance.new("TextButton", musicPanel)
-playMusic.Size = UDim2.new(1, -20, 0, 30)
-playMusic.Position = UDim2.new(0, 10, 0, 80)
-playMusic.Text = "▶️ Play Custom Music"
-playMusic.BackgroundColor3 = Color3.fromRGB(120, 0, 255)
+local playMusic = Instance.new("TextButton", _G2music)
+playMusic.Size = UDim2.new(0.2, 0, 0, 40)
+playMusic.Position = UDim2.new(0.76, 0, 0, yPosition)
+playMusic.Text = "▶️"
+playMusic.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+playMusic.TextColor3 = Color3.fromRGB(0, 255, 0)
+playMusic.TextScaled = true
 playMusic.Font = Enum.Font.Arcade
-playMusic.TextSize = 14
-playMusic.TextColor3 = Color3.fromRGB(0, 255, 255)
 Instance.new("UICorner", playMusic).CornerRadius = UDim.new(0, 8)
+
+yPosition = yPosition + 50
 
 playMusic.MouseButton1Click:Connect(function()
 	local id = musicIdBox.Text
 	if id ~= "" then
-		local args1 = { "PickingScooterMusicText", id }
-		local args2 = { "PickingCarMusicText", id }
-		local rs = game:GetService("ReplicatedStorage"):WaitForChild("RE")
-		rs:WaitForChild("1NoMoto1rVehicle1s"):FireServer(unpack(args1))
-		rs:WaitForChild("1Player1sCa1r"):FireServer(unpack(args2))
+		RE_Scooter:FireServer("PickingScooterMusicText", id)
+		RE_Car:FireServer("PickingCarMusicText", id)
 	end
 end)
 
+-- === MUSIQUES PRÉ-DÉFINIES ===
 local predefined = {
 	{ name = "Doors Ending Theme", id = "103086632976213" },
 	{ name = "~Obama Boss Fight~", id = "131902818695416" },
@@ -155,58 +236,154 @@ local predefined = {
 	{ name = "~Deja Vu~", id = "16831106636" },
 }
 
-for i, mus in ipairs(predefined) do
-	local btn = Instance.new("TextButton", musicPanel)
-	btn.Size = UDim2.new(1, -20, 0, 30)
-	btn.Position = UDim2.new(0, 10, 0, 120 + (i-1)*35)
-	btn.Text = "▶️ " .. mus.name
-	btn.BackgroundColor3 = Color3.fromRGB(150, 0, 255)
-	btn.Font = Enum.Font.Gotham
-	btn.TextSize = 14
-	btn.TextColor3 = Color3.new(1, 1, 1)
-	Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 8)
+local musicFrame = Instance.new("Frame", _G2music)
+musicFrame.Size = UDim2.new(0.9, 0, 0, (#predefined * 50) + 40)
+musicFrame.Position = UDim2.new(0.05, 0, 0, yPosition)
+musicFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Instance.new("UICorner", musicFrame).CornerRadius = UDim.new(0, 12)
 
-	btn.MouseButton1Click:Connect(function()
-		local id = mus.id
-		local args1 = { "PickingScooterMusicText", id }
-		local args2 = { "PickingCarMusicText", id }
-		local rs = game:GetService("ReplicatedStorage"):WaitForChild("RE")
-		rs:WaitForChild("1NoMoto1rVehicle1s"):FireServer(unpack(args1))
-		rs:WaitForChild("1Player1sCa1r"):FireServer(unpack(args2))
+local musicLabel = Instance.new("TextLabel", musicFrame)
+musicLabel.Size = UDim2.new(1, 0, 0, 30)
+musicLabel.Position = UDim2.new(0, 0, 0, 0)
+musicLabel.Text = t.music
+musicLabel.TextColor3 = Color3.fromRGB(0, 255, 0)
+musicLabel.BackgroundTransparency = 1
+musicLabel.TextScaled = true
+musicLabel.Font = Enum.Font.Arcade
+
+for i, music in ipairs(predefined) do
+	local button = Instance.new("TextButton", musicFrame)
+	button.Size = UDim2.new(0.9, 0, 0, 40)
+	button.Position = UDim2.new(0.05, 0, 0, 30 + (i-1)*45)
+	button.Text = music.name
+	button.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+	button.TextColor3 = Color3.fromRGB(0, 255, 0)
+	button.TextScaled = true
+	button.Font = Enum.Font.Arcade
+	Instance.new("UICorner", button).CornerRadius = UDim.new(0, 8)
+
+	button.MouseButton1Click:Connect(function()
+		RE_Scooter:FireServer("PickingScooterMusicText", music.id)
+		RE_Car:FireServer("PickingCarMusicText", music.id)
 	end)
 end
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RE = ReplicatedStorage:WaitForChild("RE"):WaitForChild("1Too1l")
 
--- Navigation
-local function showPanel(name)
-	infoPanel.Visible = false
-	musicPanel.Visible = false
-	if name == "Info" then
-		infoPanel.Visible = true
-	elseif name == "Music" then
-		musicPanel.Visible = true
-	end
+local folder = workspace:FindFirstChild("WorkspaceCom")
+local giveTools = folder and folder:FindFirstChild("001_GiveTools")
+
+if not folder or not giveTools then
+    warn("❌ WorkspaceCom ou 001_GiveTools non trouvé.")
+    return
 end
 
-infoBtn.MouseButton1Click:Connect(function()
-	showPanel("Info")
-end)
+_G2Tools.CanvasSize = UDim2.new(0, 0, 0, 9999)
+_G2Tools:ClearAllChildren()
 
-musicBtn.MouseButton1Click:Connect(function()
-	showPanel("Music")
-end)
+-- === BARRE DE RECHERCHE ===
+local searchBox = Instance.new("TextBox")
+searchBox.Parent = _G2Tools
+searchBox.Size = UDim2.new(0.8, 0, 0, 40)
+searchBox.Position = UDim2.new(0.1, 0, 0, 10)
+searchBox.PlaceholderText = "🔍 Rechercher un tool..."
+searchBox.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+searchBox.TextColor3 = Color3.fromRGB(0, 255, 0)
+searchBox.TextScaled = true
+searchBox.Font = Enum.Font.Code
+Instance.new("UICorner", searchBox).CornerRadius = UDim.new(0, 8)
 
--- Minimize
-local isMinimized = false
-resizeBtn.MouseButton1Click:Connect(function()
-	if isMinimized then
-		main.Size = UDim2.new(0, 500, 0, 300)
-		content.Size = UDim2.new(1, -20, 1, -40)
-		resizeBtn.Text = "−"
-		isMinimized = false
-	else
-		main.Size = UDim2.new(0, 500, 0, 40)
-		content.Size = UDim2.new(1, -20, 0, 0)
-		resizeBtn.Text = "+"
-		isMinimized = true
-	end
+local yPosition = 60
+
+-- === SECTION SECRET TOOLS ===
+local secretTools = {"Crystals", "Crystal", "Couch", "AgencyBook"}
+
+local secretFrame = Instance.new("Frame", _G2Tools)
+secretFrame.Size = UDim2.new(0.9, 0, 0, (#secretTools * 50) + 40)
+secretFrame.Position = UDim2.new(0.05, 0, 0, yPosition)
+secretFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Instance.new("UICorner", secretFrame).CornerRadius = UDim.new(0, 12)
+
+local secretLabel = Instance.new("TextLabel", secretFrame)
+secretLabel.Size = UDim2.new(1, 0, 0, 30)
+secretLabel.Position = UDim2.new(0, 0, 0, 0)
+secretLabel.Text = "✨ SECRET TOOLS ✨"
+secretLabel.TextColor3 = Color3.fromRGB(0, 255, 0)
+secretLabel.BackgroundTransparency = 1
+secretLabel.TextScaled = true
+secretLabel.Font = Enum.Font.Arcade
+
+for i, toolName in ipairs(secretTools) do
+    local button = Instance.new("TextButton", secretFrame)
+    button.Size = UDim2.new(0.9, 0, 0, 40)
+    button.Position = UDim2.new(0.05, 0, 0, 30 + (i-1)*45)
+    button.Text = toolName
+    button.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+    button.TextColor3 = Color3.fromRGB(0, 255, 0)
+    button.TextScaled = true
+    button.Font = Enum.Font.Arcade
+    Instance.new("UICorner", button).CornerRadius = UDim.new(0, 8)
+
+    button.MouseButton1Click:Connect(function()
+        RE:InvokeServer("PickingTools", toolName)
+    end)
+end
+
+yPosition = yPosition + secretFrame.Size.Y.Offset + 20
+
+-- === SECTION TOOLS ORDONNÉS ===
+local allTools = {}
+for _, item in ipairs(giveTools:GetChildren()) do
+    if (item:IsA("Tool") or item:IsA("Model") or item:IsA("Part")) and not table.find(secretTools, item.Name) then
+        allTools[item.Name] = true
+    end
+end
+
+local sortedTools = {}
+for name, _ in pairs(allTools) do
+    table.insert(sortedTools, name)
+end
+table.sort(sortedTools)
+
+local toolsFrame = Instance.new("Frame", _G2Tools)
+toolsFrame.Size = UDim2.new(0.9, 0, 0, (#sortedTools * 50) + 40)
+toolsFrame.Position = UDim2.new(0.05, 0, 0, yPosition)
+toolsFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Instance.new("UICorner", toolsFrame).CornerRadius = UDim.new(0, 12)
+
+local toolsLabel = Instance.new("TextLabel", toolsFrame)
+toolsLabel.Size = UDim2.new(1, 0, 0, 30)
+toolsLabel.Position = UDim2.new(0, 0, 0, 0)
+toolsLabel.Text = "🛠️ TOOLS 🛠️"
+toolsLabel.TextColor3 = Color3.fromRGB(0, 255, 0)
+toolsLabel.BackgroundTransparency = 1
+toolsLabel.TextScaled = true
+toolsLabel.Font = Enum.Font.Arcade
+
+local buttons = {}
+
+for i, toolName in ipairs(sortedTools) do
+    local button = Instance.new("TextButton", toolsFrame)
+    button.Size = UDim2.new(0.9, 0, 0, 40)
+    button.Position = UDim2.new(0.05, 0, 0, 30 + (i-1)*45)
+    button.Text = toolName
+    button.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+    button.TextColor3 = Color3.fromRGB(0, 255, 0)
+    button.TextScaled = true
+    button.Font = Enum.Font.Arcade
+    Instance.new("UICorner", button).CornerRadius = UDim.new(0, 8)
+
+    button.MouseButton1Click:Connect(function()
+        RE:InvokeServer("PickingTools", toolName)
+    end)
+
+    table.insert(buttons, {Button = button, Name = toolName:lower()})
+end
+
+-- === RECHERCHE FILTRANTE ===
+searchBox:GetPropertyChangedSignal("Text"):Connect(function()
+    local query = searchBox.Text:lower()
+    for _, data in ipairs(buttons) do
+        data.Button.Visible = (query == "" or data.Name:find(query))
+    end
 end)
