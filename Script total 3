@@ -1,83 +1,113 @@
+--// Flshty Hub GRATUIT + VERSION AVEC KEY //
+--by flashtynooo
+--and by my flshty_testers
 
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local mouse = player:GetMouse()
+local UIS = game:GetService("UserInputService")
+local Clipboard = setclipboard or toclipboard
 
-
-
-
-local player = game.Players.LocalPlayer
-local CoreGui = Game:GetService("CoreGui")
-if CoreGui:FindFirstChild("Flshty_TrollHub") then
-    CoreGui.Flshty_TrollHub:Destroy()
+-- Si un hub est déjà ouvert, le supprimer avant de relancer
+local oldGui = game.CoreGui:FindFirstChild("FlshtyKeyHub")
+if oldGui then
+    oldGui:Destroy()
 end
 
-local gui = Instance.new("ScreenGui", game.CoreGui)
-gui.Name = "Flshty_TrollHub"
-gui.ResetOnSpawn = false
-gui.DisplayOrder = 10000000000
+local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
+ScreenGui.Name = "FlshtyKeyHub"
+ScreenGui.ResetOnSpawn = false
 
-local frame = Instance.new("Frame", gui)
-frame.Size = UDim2.new(0, 300, 0, 160)
-frame.Position = UDim2.new(0.5, -140, 0.5, -90)
-frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-frame.Active = true
-frame.Draggable = true
+local MainFrame = Instance.new("Frame", ScreenGui)
+MainFrame.Size = UDim2.new(0, 300, 0, 250)
+MainFrame.Position = UDim2.new(0.5, -150, 0.5, -125)
+MainFrame.BackgroundColor3 = Color3.fromRGB(130, 0, 255)
+MainFrame.Active = true
+MainFrame.Draggable = true
 
-local corner = Instance.new("UICorner", frame)
-corner.CornerRadius = UDim.new(0, 10)
+local UICorner = Instance.new("UICorner", MainFrame)
+UICorner.CornerRadius = UDim.new(0, 12)
 
+local Title = Instance.new("TextLabel", MainFrame)
+Title.Size = UDim2.new(1, 0, 0, 30)
+Title.Position = UDim2.new(0, 0, 0, 0)
+Title.Text = "FLSHTY HUB ACCESS"
+Title.TextColor3 = Color3.fromRGB(57, 255, 20)
+Title.BackgroundTransparency = 1
+Title.TextScaled = true
+Title.Font = Enum.Font.Code
 
-local textbox = Instance.new("TextBox", frame)
-textbox.PlaceholderText = "Code in Discord"
-textbox.Text = ""
-textbox.Size = UDim2.new(0.6, -10, 0, 30)
-textbox.Position = UDim2.new(0.05, 0, 0.2, 0)
-textbox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-textbox.TextColor3 = Color3.fromRGB(255, 255, 255)
-textbox.Font = Enum.Font.Code
-textbox.TextScaled = true
-Instance.new("UICorner", textbox)
+local FreeButton = Instance.new("TextButton", MainFrame)
+FreeButton.Size = UDim2.new(0.8, 0, 0, 40)
+FreeButton.Position = UDim2.new(0.1, 0, 0.25, 0)
+FreeButton.Text = "🚀 Start Flshty Hub for free"
+FreeButton.BackgroundColor3 = Color3.fromRGB(200, 0, 200)
+FreeButton.TextColor3 = Color3.fromRGB(0, 255, 255)
+FreeButton.TextScaled = true
+FreeButton.Font = Enum.Font.Arcade
+local UICorner2 = Instance.new("UICorner", FreeButton)
+UICorner2.CornerRadius = UDim.new(0, 8)
 
-local sendBtn = Instance.new("TextButton", frame)
-sendBtn.Size = UDim2.new(0.3, 0, 0, 30)
-sendBtn.Position = UDim2.new(0.65, 0, 0.2, 0)
-sendBtn.Text = "Send"
-sendBtn.BackgroundColor3 = Color3.fromRGB(80, 0, 0)
-sendBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-sendBtn.Font = Enum.Font.Code
-sendBtn.TextScaled = true
-Instance.new("UICorner", sendBtn)
+local CodeBox = Instance.new("TextBox", MainFrame)
+CodeBox.Size = UDim2.new(0.8, 0, 0, 40)
+CodeBox.Position = UDim2.new(0.1, 0, 0.45, 0)
+CodeBox.PlaceholderText = "Enter code here!"
+CodeBox.Text = ""
+CodeBox.BackgroundColor3 = Color3.fromRGB(30, 0, 50)
+CodeBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+CodeBox.TextScaled = true
+CodeBox.Font = Enum.Font.Code
+local UICorner3 = Instance.new("UICorner", CodeBox)
+UICorner3.CornerRadius = UDim.new(0, 8)
 
-local orText = Instance.new("TextLabel", frame)
-orText.Text = "Or"
-orText.Size = UDim2.new(1, 0, 0, 35)
-orText.Position = UDim2.new(0, 0, 0.35, 0)
-orText.BackgroundTransparency = 1
-orText.TextColor3 = Color3.fromRGB(150, 150, 150)
-orText.Font = Enum.Font.Code
-orText.TextScaled = true
+local CopyButton = Instance.new("TextButton", MainFrame)
+CopyButton.Size = UDim2.new(0.8, 0, 0, 40)
+CopyButton.Position = UDim2.new(0.1, 0, 0.65, 0)
+CopyButton.Text = "📋 Copy link Key System"
+CopyButton.BackgroundColor3 = Color3.fromRGB(200, 0, 200)
+CopyButton.TextColor3 = Color3.fromRGB(0, 255, 255)
+CopyButton.TextScaled = true
+CopyButton.Font = Enum.Font.Arcade
+local UICorner4 = Instance.new("UICorner", CopyButton)
+UICorner4.CornerRadius = UDim.new(0, 8)
 
-local flshtyBtn = Instance.new("TextButton", frame)
-flshtyBtn.Text = "Flshty hub"
-flshtyBtn.Size = UDim2.new(0.8, 0, 0, 35)
-flshtyBtn.Position = UDim2.new(0.1, 0, 0.65, 0)
-flshtyBtn.BackgroundColor3 = Color3.fromRGB(120, 0, 120)
-flshtyBtn.TextColor3 = Color3.fromRGB(0, 255, 255)
-flshtyBtn.Font = Enum.Font.Arcade
-flshtyBtn.TextScaled = true
-Instance.new("UICorner", flshtyBtn)
+local function launchFreeHub()
+    -- Destroy le hub existant immédiatement si il existe encore
+    local existing = game.CoreGui:FindFirstChild("FlshtyKeyHub")
+    if existing then
+        existing:Destroy()
+    end
 
+    -- Lancement du Free Flshty Hub complet
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Intro"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Copy"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Script%20total%202"))()
+end
 
--- Si le code est correct
-sendBtn.MouseButton1Click:Connect(function()
-	if textbox.Text == "Flshty_user" then
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Game-hub-protection/obf_6f69vZ7XlkSXPW57oj8MZ93UnPLD4Pb21Y5Kdl2GC5dzU1ql38SK14K96T9Zvt5t.lua%20(1).txt"))()
-		gui:Destroy()
-	end
+local function launchKeyHub()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flshty-hub-discord-user/Hub%20flshty%20discord%20user"))()
+end
+
+FreeButton.MouseButton1Click:Connect(function()
+    launchFreeHub()
+    MainFrame:Destroy()
 end)
 
--- Flshty hub exécution
-flshtyBtn.MouseButton1Click:Connect(function()
-gui:Destroy()
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Intro"))()
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Copy"))()
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Every-hub-every-games/Script%20total%202"))()
-	end)
+CopyButton.MouseButton1Click:Connect(function()
+    if Clipboard then
+        Clipboard("https://link-hub.net/1366319/7R789PjMo6Sf")
+    end
+end)
+
+CodeBox.FocusLost:Connect(function(enter)
+    if enter then
+        if CodeBox.Text == "%zX7ؚv_pTqyLؚ9kW3uF#tؚ2JrVbQx_s8MؚZnE4dؚLjA6cP" then
+            launchKeyHub()
+            MainFrame:Destroy()
+        else
+            CodeBox.Text = "❌ Code invalide"
+            wait(1)
+            CodeBox.Text = ""
+        end
+    end
+end)
