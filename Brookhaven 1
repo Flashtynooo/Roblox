@@ -38,7 +38,7 @@ Title.BackgroundTransparency = 1
 Title.Font = Enum.Font.Code
 
 -- Ajout de la catégorie "Soon"
-local buttonNames = {"Info", "Music", "Tools", "Soon"}
+local buttonNames = {"Info", "Music", "Player", "Tools", "Soon"}
 local buttons = {}
 
 for i, name in ipairs(buttonNames) do
@@ -78,20 +78,23 @@ end
 
 _G2info = createCategoryFrame("Info")
 _G2music = createCategoryFrame("Music")
-
+_G2Player = createCategoryFrame("Player")
 _G2Tools = createCategoryFrame("Tools")
 _G2Soon = createCategoryFrame("Soon")
 
 function _G.ShowCategory(name)
 	_G2info.Visible = false
 	_G2music.Visible = false
-	_G2Tools.Visible = false
+        _G2Player.Visible = false
+        _G2Tools.Visible = false
 	_G2Soon.Visible = false
 
 	if name == "Info" then
 		_G2info.Visible = true
 	elseif name == "Music" then
 		_G2music.Visible = true
+        elseif name == "Player" then
+		_G2Player.Visible = true
 	elseif name == "Tools" then
 		_G2Tools.Visible = true
 	elseif name == "Soon" then
@@ -278,6 +281,89 @@ if not folder or not giveTools then
     warn("❌ WorkspaceCom ou 001_GiveTools non trouvé.")
     return
 end
+
+
+
+
+_G2Player.CanvasSize = UDim2.new(0, 0, 0, 9999)
+_G2Player:ClearAllChildren()
+-- BOUTON AUTO-UNBAN DANS LA SECTION PLAYER
+
+local autoUnbanUsed = false
+
+local autoUnbanButton = Instance.new("TextButton", _G2Player)
+autoUnbanButton.Size = UDim2.new(0.8, 0, 0, 40)
+autoUnbanButton.Position = UDim2.new(0.1, 0, 0, 10)
+autoUnbanButton.BackgroundColor3 = Color3.fromRGB(200, 0, 200)
+autoUnbanButton.TextColor3 = Color3.fromRGB(0, 255, 255)
+autoUnbanButton.Font = Enum.Font.Arcade
+autoUnbanButton.TextSize = 18
+autoUnbanButton.Text = "Auto-Unban"
+Instance.new("UICorner", autoUnbanButton).CornerRadius = UDim.new(0, 12)
+
+autoUnbanButton.MouseButton1Click:Connect(function()
+	if autoUnbanUsed then return end
+	autoUnbanUsed = true
+
+	-- Ton code anti-ban ici :
+	-- AUTO-UNBAN (WAIT 1s AVANT SUPPRESSION POUR BYPASS)
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+-- Supprime tous les BannedBlock existants avec un délai de 1s
+for _, obj in ipairs(game:GetDescendants()) do
+    if obj:IsA("BasePart") and obj.Name == "BannedBlock" then
+        task.spawn(function()
+            task.wait(1)
+            pcall(function()
+                obj:Destroy()
+            end)
+        end)
+    end
+end
+
+-- Surveille les nouveaux descendants
+game.DescendantAdded:Connect(function(obj)
+    if obj:IsA("BasePart") and obj.Name == "BannedBlock" then
+        task.spawn(function()
+            task.wait(1)
+            pcall(function()
+                obj:Destroy()
+            end)
+        end)
+    end
+
+    -- Surveille les renommages post-création
+    if obj:IsA("BasePart") then
+        obj:GetPropertyChangedSignal("Name"):Connect(function()
+            if obj.Name == "BannedBlock" then
+                task.spawn(function()
+                    task.wait(1)
+                    pcall(function()
+                        obj:Destroy()
+                    end)
+                end)
+            end
+        end)
+    end
+end)
+
+	-- Exemple de placeholder :
+	pcall(function()
+		game.Players.LocalPlayer.Character.Humanoid.Health = game.Players.LocalPlayer.Character.Humanoid.MaxHealth
+	end)
+
+	-- Feedback visuel après clic
+	autoUnbanButton.Text = "✅ Unbanned"
+	autoUnbanButton.BackgroundColor3 = Color3.fromRGB(0, 170, 0)
+	wait(0.5)
+	autoUnbanButton.BackgroundColor3 = Color3.fromRGB(0, 100, 0)
+end)
+
+
+
+
+
 
 _G2Tools.CanvasSize = UDim2.new(0, 0, 0, 9999)
 _G2Tools:ClearAllChildren()
