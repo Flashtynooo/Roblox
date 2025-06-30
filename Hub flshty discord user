@@ -29,6 +29,7 @@ end
 
 _G.AddCategory("member hub", {
     { "Flshty hub member", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flshty-hub-discord-user/Discord%20total%20main" },
+    { "no fe boombox", "https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Flshty-hub-discord-user/No%20fe%20boombox%20i" },
     { "more... possible?", "" }
 
 })
