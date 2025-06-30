@@ -1,0 +1,132 @@
+local player = game.Players.LocalPlayer
+local mouse = player:GetMouse()
+
+local gui = Instance.new("ScreenGui")
+gui.Name = "MusicHubGUI"
+gui.ResetOnSpawn = false
+gui.Parent = player:WaitForChild("PlayerGui")
+
+local frame = Instance.new("Frame", gui)
+frame.Size = UDim2.new(0, 250, 0, 190)
+frame.Position = UDim2.new(0.5, -125, 0.5, -95)
+frame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+frame.Active = true
+frame.Draggable = true
+
+local textbox = Instance.new("TextBox", frame)
+textbox.Size = UDim2.new(1, -20, 0, 30)
+textbox.Position = UDim2.new(0, 10, 0, 10)
+textbox.PlaceholderText = "find song & play ID song"
+textbox.Text = ""
+textbox.TextScaled = true
+textbox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+textbox.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+local playBtn = Instance.new("TextButton", frame)
+playBtn.Size = UDim2.new(0.5, -15, 0, 30)
+playBtn.Position = UDim2.new(0, 10, 0, 50)
+playBtn.Text = "▶️ PLAY"
+playBtn.TextScaled = true
+playBtn.BackgroundColor3 = Color3.fromRGB(0, 100, 0)
+playBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+local stopBtn = Instance.new("TextButton", frame)
+stopBtn.Size = UDim2.new(0.5, -15, 0, 30)
+stopBtn.Position = UDim2.new(0.5, 5, 0, 50)
+stopBtn.Text = "⏹️ STOP"
+stopBtn.TextScaled = true
+stopBtn.BackgroundColor3 = Color3.fromRGB(100, 0, 0)
+stopBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+local scroll = Instance.new("ScrollingFrame", frame)
+scroll.Size = UDim2.new(1, -20, 0, 90)
+scroll.Position = UDim2.new(0, 10, 0, 90)
+scroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+scroll.ScrollBarThickness = 6
+scroll.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+scroll.BorderSizePixel = 0
+
+local uiList = Instance.new("UIListLayout", scroll)
+uiList.SortOrder = Enum.SortOrder.Name
+uiList.Padding = UDim.new(0, 5)
+
+local sound = Instance.new("Sound", player:WaitForChild("PlayerGui"))
+sound.Volume = 2
+
+local isLooping = false
+
+_G._G42Music = _G._G42Music or {
+    {Name="Parry Gripp - Raining Tacos", Id="142376088"},
+    {Name="Relaxed Scene", Id="1848354536"},
+    {Name="Fight through Adversity", Id="9038254260"},
+    {Name="Bad Time Undertale Yanderetale", Id="134453206423714"},
+    {Name="HR - EEYUH!", Id="16190782181"},
+    {Name="Din1c - METAMORPHOSIS", Id="15689451063"},
+    {Name="Life in an Elevator", Id="1841647093"},
+    {Name="Paradise Falls", Id="1837879082"},
+    {Name="TOMA FUNK PHONK", Id="129098116998483"},
+    {Name="Din1c - can you", Id="15689448519"},
+    {Name="Doors Ending Theme", Id="103086632976213"},
+    {Name="Obama Boss Fight", Id="131902818695416"},
+    {Name="1xmxxd - Doors", Id="13530436461"},
+}
+
+local function refreshList(filter)
+    for _, c in ipairs(scroll:GetChildren()) do
+        if c:IsA("TextButton") then c:Destroy() end
+    end
+    local count = 0
+    for _, music in ipairs(_G._G42Music) do
+        if filter == "" or music.Name:lower():find(filter:lower()) or music.Id:find(filter) then
+            local btn = Instance.new("TextButton", scroll)
+            btn.Size = UDim2.new(1, 0, 0, 30)
+            btn.Text = music.Name
+            btn.Name = music.Id
+            btn.TextScaled = true
+            btn.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+            btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+            
+            btn.MouseButton1Click:Connect(function()
+                isLooping = true
+                sound:Stop()
+                sound.SoundId = "rbxassetid://"..music.Id
+                sound:Play()
+            end)
+            count = count + 1
+        end
+    end
+    scroll.CanvasSize = UDim2.new(0, 0, 0, count * 35)
+end
+
+textbox:GetPropertyChangedSignal("Text"):Connect(function()
+    refreshList(textbox.Text)
+end)
+
+playBtn.MouseButton1Click:Connect(function()
+    local id = textbox.Text:match("%d+")
+    if id then
+        isLooping = true
+        sound:Stop()
+        sound.SoundId = "rbxassetid://"..id
+        sound:Play()
+    end
+end)
+
+stopBtn.MouseButton1Click:Connect(function()
+    isLooping = false
+    sound:Stop()
+end)
+
+sound.Ended:Connect(function()
+    if isLooping then
+        wait(0.1)
+        sound:Play()
+    end
+end)
+
+refreshList("")
+
+_G._G42AddMusic = function(name, id)
+    table.insert(_G._G42Music, {Name = name, Id = tostring(id)})
+    refreshList(textbox.Text)
+end
