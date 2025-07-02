@@ -70,6 +70,8 @@ _G._G42Music = _G._G42Music or {
     {Name="Doors Ending Theme", Id="103086632976213"},
     {Name="Obama Boss Fight", Id="131902818695416"},
     {Name="1xmxxd - Doors", Id="13530436461"},
+	{Name="Curiosity", id = "80712503354465" },
+	{Name=" P (Ims) [Key After Key]", id = "136274352281439" },
 }
 
 local function refreshList(filter)
