@@ -239,6 +239,8 @@ local predefined = {
 	{ name = "~Deja Vu~", id = "16831106636" },
 	{ name = "HERE I COME", id = "78534559289195" },
 	{ name = "Squid game carousel", id = "70418542248389" },
+	{ name = "Curiosity", id = "80712503354465" },
+	{ name = " P (Ims) [Key After Key]", id = "136274352281439" },
 }
 
 local musicFrame = Instance.new("Frame", _G2music)
