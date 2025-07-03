@@ -101,7 +101,7 @@ end)
 
 CodeBox.FocusLost:Connect(function(enter)
     if enter then
-        if CodeBox.Text == "%zX7ؚv_pTqyLؚ9kW3uF#tؚ2JrVbQx_s8MؚZnE4dؚLjA6cP" then
+        if CodeBox.Text == "%vX7ؚv_pTqyLؚ9kWRuF#tؚ2JrVbQ7_s8MؚZnE4dؚLjA6c" then
             launchKeyHub()
             MainFrame:Destroy()
         else
