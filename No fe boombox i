@@ -1,135 +1,240 @@
+
+
+
 local player = game.Players.LocalPlayer
-local mouse = player:GetMouse()
+local gui = player:WaitForChild("PlayerGui"):FindFirstChild("MusicHubGUI")
 
-local gui = Instance.new("ScreenGui")
-gui.Name = "MusicHubGUI"
-gui.ResetOnSpawn = false
-gui.Parent = player:WaitForChild("PlayerGui")
+if gui then
+    gui:Destroy()
+end
 
-local frame = Instance.new("Frame", gui)
-frame.Size = UDim2.new(0, 250, 0, 190)
-frame.Position = UDim2.new(0.5, -125, 0.5, -95)
-frame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-frame.Active = true
-frame.Draggable = true
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+local SoundService = game:GetService("SoundService")
 
-local textbox = Instance.new("TextBox", frame)
-textbox.Size = UDim2.new(1, -20, 0, 30)
-textbox.Position = UDim2.new(0, 10, 0, 10)
-textbox.PlaceholderText = "find song & play ID song"
-textbox.Text = ""
-textbox.TextScaled = true
-textbox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-textbox.TextColor3 = Color3.fromRGB(255, 255, 255)
+local sound = Instance.new("Sound")
+sound.Name = "FlshtySoundMusic"
+sound.Parent = SoundService
+sound.Volume = 1
+sound.PlaybackSpeed = 1
+sound.Looped = false
 
-local playBtn = Instance.new("TextButton", frame)
-playBtn.Size = UDim2.new(0.5, -15, 0, 30)
-playBtn.Position = UDim2.new(0, 10, 0, 50)
-playBtn.Text = "▶️ PLAY"
-playBtn.TextScaled = true
-playBtn.BackgroundColor3 = Color3.fromRGB(0, 100, 0)
-playBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-
-local stopBtn = Instance.new("TextButton", frame)
-stopBtn.Size = UDim2.new(0.5, -15, 0, 30)
-stopBtn.Position = UDim2.new(0.5, 5, 0, 50)
-stopBtn.Text = "⏹️ STOP"
-stopBtn.TextScaled = true
-stopBtn.BackgroundColor3 = Color3.fromRGB(100, 0, 0)
-stopBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-
-local scroll = Instance.new("ScrollingFrame", frame)
-scroll.Size = UDim2.new(1, -20, 0, 90)
-scroll.Position = UDim2.new(0, 10, 0, 90)
-scroll.CanvasSize = UDim2.new(0, 0, 0, 0)
-scroll.ScrollBarThickness = 6
-scroll.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-scroll.BorderSizePixel = 0
-
-local uiList = Instance.new("UIListLayout", scroll)
-uiList.SortOrder = Enum.SortOrder.Name
-uiList.Padding = UDim.new(0, 5)
-
-local sound = Instance.new("Sound", player:WaitForChild("PlayerGui"))
-sound.Volume = 2
-
-local isLooping = false
-
-_G._G42Music = _G._G42Music or {
-    {Name="Parry Gripp - Raining Tacos", Id="142376088"},
-    {Name="Relaxed Scene", Id="1848354536"},
-    {Name="Fight through Adversity", Id="9038254260"},
-    {Name="Bad Time Undertale Yanderetale", Id="134453206423714"},
-    {Name="HR - EEYUH!", Id="16190782181"},
-    {Name="Din1c - METAMORPHOSIS", Id="15689451063"},
-    {Name="HERE I COME", Id="78534559289195"},
-    {Name="Life in an Elevator", Id="1841647093"},
-    {Name="Paradise Falls", Id="1837879082"},
-    {Name="TOMA FUNK PHONK", Id="129098116998483"},
-    {Name="Din1c - can you", Id="15689448519"},
-    {Name="Doors Ending Theme", Id="103086632976213"},
-    {Name="Obama Boss Fight", Id="131902818695416"},
-    {Name="1xmxxd - Doors", Id="13530436461"},
-	{Name="Curiosity", id = "80712503354465" },
-	{Name=" P (Ims) [Key After Key]", id = "136274352281439" },
+local musicList = {
+    {Name = "Parry Gripp - Raining Tacos", Id = "142376088"},
+    {Name = "Relaxed Scene", Id = "1848354536"},
+    {Name = "Fight through Adversity", Id = "9038254260"},
+    {Name = "Bad Time Undertale Yanderetale", Id = "134453206423714"},
+    {Name = "HR - EEYUH!", Id = "16190782181"},
+    {Name = "Din1c - METAMORPHOSIS", Id = "15689451063"},
+    {Name = "HERE I COME", Id = "78534559289195"},
+    {Name = "Life in an Elevator", Id = "1841647093"},
+    {Name = "Paradise Falls", Id = "1837879082"},
+    {Name = "TOMA FUNK PHONK", Id = "129098116998483"},
+    {Name = "Din1c - can you", Id = "15689448519"},
+    {Name = "Doors Ending Theme", Id = "103086632976213"},
+    {Name = "Obama Boss Fight", Id = "131902818695416"},
+    {Name = "1xmxxd - Doors", Id = "13530436461"},
+    {Name = "Curiosity", Id = "80712503354465"},
+    {Name = "P (Ims) [Key After Key]", Id = "136274352281439"},
+    {Name = "OIIA OIIA (Spinning Car)", Id = "75852725594939"},
 }
 
-local function refreshList(filter)
-    for _, c in ipairs(scroll:GetChildren()) do
-        if c:IsA("TextButton") then c:Destroy() end
+local gui = Instance.new("ScreenGui", playerGui)
+gui.Name = "MusicHubGUI"
+gui.ResetOnSpawn = false
+
+local mainFrame = Instance.new("Frame", gui)
+mainFrame.Size = UDim2.new(0, 300, 0, 250) -- petit et compact
+mainFrame.Position = UDim2.new(0.5, -150, 0.5, -125)
+mainFrame.BackgroundColor3 = Color3.fromRGB(130, 0, 255)
+mainFrame.Active = true
+mainFrame.Draggable = true
+
+local uicorner = Instance.new("UICorner", mainFrame)
+uicorner.CornerRadius = UDim.new(0, 12)
+
+local uistroke = Instance.new("UIStroke", mainFrame)
+uistroke.Thickness = 2
+uistroke.Color = Color3.fromRGB(255, 20, 147)
+
+local title = Instance.new("TextLabel", mainFrame)
+title.Size = UDim2.new(1, 0, 0, 30)
+title.Position = UDim2.new(0, 0, 0, 0)
+title.BackgroundTransparency = 1
+title.Text = "🎶 Boombox no FE🎶"
+title.TextScaled = true
+title.Font = Enum.Font.Arcade
+title.TextColor3 = Color3.fromRGB(57, 255, 20)
+
+-- La seule TextBox
+local searchBox = Instance.new("TextBox", mainFrame)
+searchBox.Size = UDim2.new(1, -20, 0, 30)
+searchBox.Position = UDim2.new(0, 10, 0, 35)
+searchBox.PlaceholderText = "Tape nom ou ID, puis Play"
+searchBox.Text = ""
+searchBox.TextScaled = true
+searchBox.BackgroundColor3 = Color3.fromRGB(40, 0, 40)
+searchBox.TextColor3 = Color3.fromRGB(0, 255, 255)
+searchBox.Font = Enum.Font.Code
+
+-- Pitch
+local pitchBox = Instance.new("TextBox", mainFrame)
+pitchBox.Size = UDim2.new(0.48, -10, 0, 30)
+pitchBox.Position = UDim2.new(0, 10, 0, 70)
+pitchBox.PlaceholderText = "Pitch (1)"
+pitchBox.Text = ""
+pitchBox.TextScaled = true
+pitchBox.BackgroundColor3 = Color3.fromRGB(40, 0, 40)
+pitchBox.TextColor3 = Color3.fromRGB(0, 255, 255)
+pitchBox.Font = Enum.Font.Code
+
+-- Volume
+local volumeBox = Instance.new("TextBox", mainFrame)
+volumeBox.Size = UDim2.new(0.48, -10, 0, 30)
+volumeBox.Position = UDim2.new(0.52, 0, 0, 70)
+volumeBox.PlaceholderText = "Volume (1)"
+volumeBox.Text = ""
+volumeBox.TextScaled = true
+volumeBox.BackgroundColor3 = Color3.fromRGB(40, 0, 40)
+volumeBox.TextColor3 = Color3.fromRGB(0, 255, 255)
+volumeBox.Font = Enum.Font.Code
+
+-- Bouton Play
+local playBtn = Instance.new("TextButton", mainFrame)
+playBtn.Size = UDim2.new(1, -20, 0, 35)
+playBtn.Position = UDim2.new(0, 10, 0, 105)
+playBtn.Text = "▶️ PLAY"
+playBtn.TextScaled = true
+playBtn.BackgroundColor3 = Color3.fromRGB(0, 150, 0)
+playBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+playBtn.Font = Enum.Font.Arcade
+
+-- Bouton Stop
+local stopBtn = Instance.new("TextButton", mainFrame)
+stopBtn.Size = UDim2.new(1, -20, 0, 35)
+stopBtn.Position = UDim2.new(0, 10, 0, 145)
+stopBtn.Text = "⏹️ STOP"
+stopBtn.TextScaled = true
+stopBtn.BackgroundColor3 = Color3.fromRGB(150, 0, 0)
+stopBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+stopBtn.Font = Enum.Font.Arcade
+
+-- ScrollingFrame pour la liste
+local scroll = Instance.new("ScrollingFrame", mainFrame)
+scroll.Size = UDim2.new(1, -20, 0, 65)
+scroll.Position = UDim2.new(0, 10, 0, 185)
+scroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+scroll.ScrollBarThickness = 6
+scroll.BackgroundColor3 = Color3.fromRGB(60, 0, 60)
+scroll.BorderSizePixel = 0
+
+local uicornerScroll = Instance.new("UICorner", scroll)
+uicornerScroll.CornerRadius = UDim.new(0, 10)
+
+local uiList = Instance.new("UIListLayout", scroll)
+uiList.SortOrder = Enum.SortOrder.LayoutOrder
+uiList.Padding = UDim.new(0, 5)
+
+-- Fonction pour filtrer et rafraîchir la liste en fonction de la TextBox
+local function refreshList(text)
+    for _, child in ipairs(scroll:GetChildren()) do
+        if child:IsA("TextButton") then
+            child:Destroy()
+        end
     end
     local count = 0
-    for _, music in ipairs(_G._G42Music) do
-        if filter == "" or music.Name:lower():find(filter:lower()) or music.Id:find(filter) then
+    local filter = text or ""
+    for _, music in ipairs(musicList) do
+        if filter == "" or
+           music.Name:lower():find(filter:lower()) or
+           tostring(music.Id):find(filter) then
             local btn = Instance.new("TextButton", scroll)
             btn.Size = UDim2.new(1, 0, 0, 30)
-            btn.Text = music.Name
-            btn.Name = music.Id
+            btn.BackgroundColor3 = Color3.fromRGB(120, 0, 120)
+            btn.TextColor3 = Color3.fromRGB(0, 255, 255)
+            btn.Font = Enum.Font.Code
             btn.TextScaled = true
-            btn.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
-            btn.TextColor3 = Color3.fromRGB(255, 255, 255)
-            
-            btn.MouseButton1Click:Connect(function()
-                isLooping = true
-                sound:Stop()
-                sound.SoundId = "rbxassetid://"..music.Id
-                sound:Play()
+            btn.Text = "🎵 "..music.Name
+            btn.Name = tostring(music.Id)
+
+            btn.MouseEnter:Connect(function()
+                btn.BackgroundColor3 = Color3.fromRGB(160, 0, 160)
             end)
-            count = count + 1
+            btn.MouseLeave:Connect(function()
+                btn.BackgroundColor3 = Color3.fromRGB(120, 0, 120)
+            end)
+
+            btn.MouseButton1Click:Connect(function()
+                sound.SoundId = "rbxassetid://" .. music.Id
+                sound:Play()
+                -- Appliquer pitch & volume si valides
+                local pitchVal = tonumber(pitchBox.Text)
+                sound.PlaybackSpeed = (pitchVal and pitchVal > 0) and pitchVal or 1
+                local volumeVal = tonumber(volumeBox.Text)
+                sound.Volume = (volumeVal and volumeVal >= 0 and volumeVal <= 5) and volumeVal or 1
+            end)
+            count += 1
         end
     end
     scroll.CanvasSize = UDim2.new(0, 0, 0, count * 35)
 end
 
-textbox:GetPropertyChangedSignal("Text"):Connect(function()
-    refreshList(textbox.Text)
+-- Connexion : rafraîchir la liste quand tu tapes dans la TextBox (recherche + ID)
+searchBox:GetPropertyChangedSignal("Text"):Connect(function()
+    refreshList(searchBox.Text)
 end)
 
+-- Jouer la musique depuis la TextBox si c'est un ID valide au clic Play
 playBtn.MouseButton1Click:Connect(function()
-    local id = textbox.Text:match("%d+")
-    if id then
-        isLooping = true
-        sound:Stop()
-        sound.SoundId = "rbxassetid://"..id
+    local text = searchBox.Text
+    local idToPlay = nil
+
+    if text and #text > 0 then
+        -- Si c'est un ID numérique
+        if tonumber(text) then
+            idToPlay = text
+        else
+            -- Essayer de trouver par nom dans la liste
+            for _, music in ipairs(musicList) do
+                if music.Name:lower() == text:lower() then
+                    idToPlay = music.Id
+                    break
+                end
+            end
+        end
+    end
+
+    if idToPlay then
+        sound.SoundId = "rbxassetid://" .. idToPlay
         sound:Play()
+        -- pitch & volume
+        local pitchVal = tonumber(pitchBox.Text)
+        sound.PlaybackSpeed = (pitchVal and pitchVal > 0) and pitchVal or 1
+        local volumeVal = tonumber(volumeBox.Text)
+        sound.Volume = (volumeVal and volumeVal >= 0 and volumeVal <= 5) and volumeVal or 1
+    else
+        warn("ID ou nom introuvable ou invalide.")
     end
 end)
 
+-- Bouton Stop
 stopBtn.MouseButton1Click:Connect(function()
-    isLooping = false
     sound:Stop()
 end)
 
-sound.Ended:Connect(function()
-    if isLooping then
-        wait(0.1)
-        sound:Play()
-    end
+-- Modifications en direct pour pitch & volume
+pitchBox:GetPropertyChangedSignal("Text"):Connect(function()
+    local pitchVal = tonumber(pitchBox.Text)
+    sound.PlaybackSpeed = (pitchVal and pitchVal > 0) and pitchVal or 1
 end)
 
-refreshList("")
+volumeBox:GetPropertyChangedSignal("Text"):Connect(function()
+    local volumeVal = tonumber(volumeBox.Text)
+    sound.Volume = (volumeVal and volumeVal >= 0 and volumeVal <= 5) and volumeVal or 1
+end)
 
-_G._G42AddMusic = function(name, id)
-    table.insert(_G._G42Music, {Name = name, Id = tostring(id)})
-    refreshList(textbox.Text)
-end
+refreshList("") -- initial
+
+sound.Ended:Connect(function()
+    sound:Play()
+end)
