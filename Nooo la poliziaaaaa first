@@ -1,7 +1,2 @@
-spawn(function()
-    while wait(1) do
-        if _G.KKO89 == true and _G.ILFKG == true then
-            print("🐱")
-        end
-    end
-end)
+print("🐱")
+
