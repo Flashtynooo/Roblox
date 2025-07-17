@@ -188,12 +188,7 @@ end)
 
 
 
-spawn(function()
-    while wait(0.5) do
-        if _G.KKO89 == true and _G.ILFKG == true then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Lasted-script-i-like-money/Nooo%20la%20poliziaaaaa%20first"))()
-            break
-        end
-    end
-end)
+if _G.KKO89 == true and _G.ILFKG == true then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Lasted-script-i-like-money/Nooo%20la%20poliziaaaaa%20first"))()
+end
 
