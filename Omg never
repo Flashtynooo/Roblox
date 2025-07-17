@@ -192,4 +192,11 @@ end)
 
 
 
+local player = game.Players.LocalPlayer
+local kickMessage = "Nooooooo la poliziaaaaa 👮 🚔"
+
+if not _G.HUB_LOADER then
+    player:Kick(kickMessage)
+end
+
 
