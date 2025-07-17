@@ -1,3 +1,11 @@
+player = game.Players.LocalPlayer
+gui = player.PlayerGui:FindFirstChild("KeySystemHub")
+if gui then
+    gui:Destroy()
+end 
+
+wait(0.5)
+
 _G.HUB_LOADER = true
 
 print("✅ Loader exécuté avec succès, tu peux maintenant lancer ton KeySystem Hub.")
