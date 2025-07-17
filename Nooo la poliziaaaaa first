@@ -1,38 +1,7 @@
-validateButton.MouseButton1Click:Connect(function()
-    local enteredKey = textbox.Text
-    if enteredKey == "" then
-        showMessage("Enter your key.", Color3.fromRGB(255, 0, 0))
-        return
-    end
-
-    local expectedKey = keysByDay[currentDay]
-    if enteredKey == expectedKey then
-        showMessage("Key valid!", Color3.fromRGB(0, 255, 0))
-
-        -- Tu définis ici tes flags globaux pour marquer que c'est validé
-        _G.HUB_LOADER = true
-        _G.KKO89 = true
-        _G.ILFKG = true
-
-        -- Animation ou transition avant de détruire le hub (optionnel)
-        for i = 1, 10 do
-            frame.BackgroundTransparency = i * 0.1
-            textbox.BackgroundTransparency = i * 0.1
-            copyButton.BackgroundTransparency = i * 0.1
-            validateButton.BackgroundTransparency = i * 0.1
-            messageLabel.TextTransparency = i * 0.1
-            wait(0.02)
+spawn(function()
+    while wait(1) do
+        if _G.KKO89 == true and _G.ILFKG == true then
+            print("🐱")
         end
-
-        -- Là tu détruis le hub après avoir mis à jour les flags
-        screenGui:Destroy()
-
-        -- Et si tu veux lancer un autre script après la validation, fais-le ici, par exemple :
-        _G.FlshtyStart = true
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Lasted-script-i-like-money/Bro%20reallyyyy%3F%3F"))()
-
-    else
-        showMessage("Invalid key!", Color3.fromRGB(255, 0, 0))
     end
 end)
-
