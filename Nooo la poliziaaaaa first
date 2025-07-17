@@ -1,2 +1,8 @@
-print("🐱")
-
+if _G.KKO89 == true and _G.ILFKG == true then
+    _G.LOADSTRING_EXECUTED = true
+    print("caca")
+    
+    -- Pour éviter de relancer si le script est exécuté plusieurs fois
+    _G.KKO89 = false
+    _G.ILFKG = false
+end 
