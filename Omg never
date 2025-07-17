@@ -188,7 +188,12 @@ end)
 
 
 
-if _G.KKO89 == true and _G.ILFKG == true then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Lasted-script-i-like-money/Nooo%20la%20poliziaaaaa%20first"))()
+local function tryExecute()
+    if _G.KKO89 == true and _G.ILFKG == true then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Lasted-script-i-like-money/Nooo%20la%20poliziaaaaa%20first"))()
+        _G.KKO89 = false
+        _G.ILFKG = false
+        return true
+    end
+    return false
 end
-
