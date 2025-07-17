@@ -1,4 +1,10 @@
-if not _G.FlshtyHubLoaded then
+if not _G.HUB_LOADER then
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Error";
+        Text = "Please execute the loader first.";
+        Duration = 5;
+    })
+    script:Destroy() -- ferme le script immédiatement
     return
 end
 
