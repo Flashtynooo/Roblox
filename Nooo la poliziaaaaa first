@@ -1,3 +1,18 @@
+local player = game.Players.LocalPlayer
+local message = "Yo, what you doin’? How’d you pull that off?"
+
+-- Vérifie combien d'instances "KeySystemHub" il y a dans PlayerGui
+local count = 0
+for _, gui in pairs(player:WaitForChild("PlayerGui"):GetChildren()) do
+    if gui.Name == "KeySystemHub" then
+        count = count + 1
+    end
+end
+
+-- Si 2 ou plus, kick
+if count >= 2 then
+    player:Kick(message)
+end
 if _G.KKO89 == true and _G.ILFKG == true then
     _G.LOADSTRING_EXECUTED = true
     print("caca")
