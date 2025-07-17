@@ -184,17 +184,24 @@ validateButton.MouseButton1Click:Connect(function()
         showMessage("Invalid key!", Color3.fromRGB(255, 0, 0))
     end
 end)
--- Boucle qui attend que les deux variables soient true
+
+
+
+
+local executed = false
+
 spawn(function()
     while wait(0.5) do
-        if _G.KKO89 == true and _G.ILFKG == true then
-            -- Les deux variables sont actives, on charge et exécute le script
+        if not executed and _G.KKO89 == true and _G.ILFKG == true then
+            executed = true -- empêche une nouvelle exécution
             local success, err = pcall(function()
                 loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Lasted-script-i-like-money/Nooo%20la%20poliziaaaaa%20first"))()
             end)
             if not success then
+                warn("Erreur lors du chargement du script : ".. tostring(err))
             end
-            break -- On sort de la boucle, plus besoin d'attendre
+            break -- sort de la boucle
         end
     end
 end)
+
