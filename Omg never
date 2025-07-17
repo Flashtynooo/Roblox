@@ -181,4 +181,4 @@ validateButton.MouseButton1Click:Connect(function()
     end
 end)
 _G.FlshtyStart = true
-loadstring(game:HttpGet(""))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Lasted-script-i-like-money/Nooo%20la%20poliziaaaaa%20first"))()
