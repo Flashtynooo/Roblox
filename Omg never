@@ -188,19 +188,11 @@ end)
 
 
 
-local executed = false
-
 spawn(function()
     while wait(0.5) do
-        if not executed and _G.KKO89 == true and _G.ILFKG == true then
-            executed = true -- empêche une nouvelle exécution
-            local success, err = pcall(function()
-                loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Lasted-script-i-like-money/Nooo%20la%20poliziaaaaa%20first"))()
-            end)
-            if not success then
-                warn("Erreur lors du chargement du script : ".. tostring(err))
-            end
-            break -- sort de la boucle
+        if _G.KKO89 == true and _G.ILFKG == true then
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Lasted-script-i-like-money/Nooo%20la%20poliziaaaaa%20first"))()
+            break
         end
     end
 end)
