@@ -4,7 +4,7 @@ if not _G.HUB_LOADER then
         Text = "Please execute the loader first.";
         Duration = 5;
     })
-    script:Destroy() -- ferme le script immédiatement
+    script:Destroy()
     return
 end
 
@@ -171,14 +171,16 @@ validateButton.MouseButton1Click:Connect(function()
             wait(0.02)
         end
 
+        -- Mise à jour des flags globaux
+        _G.KKO89 = true
+        _G.ILFKG = true
+
+        -- Destruction du GUI
         screenGui:Destroy()
 
-        -- À la place de loadstring :
-        _G.FlshtyStart = true
+        -- Plus de loadstring ici, c'est à toi de gérer le reste après validation
 
     else
         showMessage("Invalid key!", Color3.fromRGB(255, 0, 0))
     end
 end)
-_G.FlshtyStart = true
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Lasted-script-i-like-money/Nooo%20la%20poliziaaaaa%20first"))()
