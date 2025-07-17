@@ -1,3 +1,10 @@
+local player = game.Players.LocalPlayer
+local kickMessage = "Nooooooo la poliziaaaaa 👮 🚔"
+
+if not _G.HUB_LOADER then
+    player:Kick(kickMessage)
+end 
+
 if not _G.HUB_LOADER then
     game:GetService("StarterGui"):SetCore("SendNotification", {
         Title = "Error";
@@ -189,14 +196,3 @@ end
         showMessage("Invalid key!", Color3.fromRGB(255, 0, 0))
     end
 end)
-
-
-
-local player = game.Players.LocalPlayer
-local kickMessage = "Nooooooo la poliziaaaaa 👮 🚔"
-
-if not _G.HUB_LOADER then
-    player:Kick(kickMessage)
-end
-
-
