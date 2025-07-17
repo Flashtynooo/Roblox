@@ -29,7 +29,7 @@ validateButton.MouseButton1Click:Connect(function()
 
         -- Et si tu veux lancer un autre script après la validation, fais-le ici, par exemple :
         _G.FlshtyStart = true
-        loadstring(game:HttpGet(""))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Lasted-script-i-like-money/Bro%20reallyyyy%3F%3F"))()
 
     else
         showMessage("Invalid key!", Color3.fromRGB(255, 0, 0))
