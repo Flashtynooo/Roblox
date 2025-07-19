@@ -11,4 +11,4 @@ _G.HUB_LOADER = true
 
 print("✅ Loader exécuté avec succès, tu peux maintenant lancer ton KeySystem Hub.")
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Flashtynooo/Roblox/refs/heads/Cripted-lasted/Noooo", true))()
+loadstring(game:HttpGet("https://pastebin.com/raw/nKiLm1Ma", true))()
