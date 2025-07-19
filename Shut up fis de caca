@@ -1,3 +1,4 @@
+_G.RED_FLAG = true
 player = game.Players.LocalPlayer
 gui = player.PlayerGui:FindFirstChild("KeySystemHub")
 if gui then
