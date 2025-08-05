@@ -1,0 +1,139 @@
+local player = game.Players.LocalPlayer
+local char = player.Character or player.CharacterAdded:Wait()
+local hrp = char:WaitForChild("HumanoidRootPart")
+local humanoid = char:WaitForChild("Humanoid")
+
+local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
+ScreenGui.Name = "FlshtyHub"
+ScreenGui.ResetOnSpawn = false
+
+local MainFrame = Instance.new("Frame", ScreenGui)
+MainFrame.Name = "MainHub"
+MainFrame.Size = UDim2.new(0, 200, 0, 100)
+MainFrame.Position = UDim2.new(0.5, -150, 0.5, -100)
+MainFrame.BackgroundColor3 = Color3.fromRGB(130, 0, 255)
+MainFrame.BorderSizePixel = 0
+MainFrame.BackgroundTransparency = 0.1
+MainFrame.Active = true
+MainFrame.Draggable = true
+MainFrame.ClipsDescendants = true
+
+local UICorner = Instance.new("UICorner", MainFrame)
+UICorner.CornerRadius = UDim.new(0, 16)
+
+local UIStroke = Instance.new("UIStroke", MainFrame)
+UIStroke.Thickness = 2
+UIStroke.Color = Color3.fromRGB(255, 20, 147)
+UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+
+local Title = Instance.new("TextLabel", MainFrame)
+Title.Size = UDim2.new(1, 0, 0, 30)
+Title.Position = UDim2.new(0, 0, 0, 0)
+Title.Text = "Build a Boat"
+Title.TextColor3 = Color3.fromRGB(57, 255, 20)
+Title.TextScaled = true
+Title.BackgroundTransparency = 1
+Title.Font = Enum.Font.Code
+
+local Button = Instance.new("TextButton", MainFrame)
+Button.Size = UDim2.new(0.8, 0, 0, 40)
+Button.Position = UDim2.new(0.1, 0, 0.4, 0)
+Button.Text = "Farm: OFF"
+Button.BackgroundColor3 = Color3.fromRGB(200, 0, 200)
+Button.TextColor3 = Color3.fromRGB(0, 255, 255)
+Button.TextScaled = true
+Button.Font = Enum.Font.Arcade
+local UICorner2 = Instance.new("UICorner", Button)
+UICorner2.CornerRadius = UDim.new(0, 12)
+
+spawn(function()
+	while wait(0.1) do
+		UIStroke.Color = Color3.fromRGB(math.random(100,255), 0, math.random(100,255))
+	end
+end)
+
+-- Logic
+local farming = false
+
+local function farmScript()
+	local originalGravity = workspace.Gravity
+	local char = player.Character or player.CharacterAdded:Wait()
+	local hrp = char:WaitForChild("HumanoidRootPart")
+	local humanoid = char:WaitForChild("Humanoid")
+
+	local positions = {
+		Vector3.new(-46, 35, 1326),
+		Vector3.new(-46, 52, 2093),
+		Vector3.new(-83, 45, 2886),
+		Vector3.new(-74, 61, 3638),
+		Vector3.new(-69, 38, 4422),
+		Vector3.new(-63, 17, 5201),
+		Vector3.new(-55, 51, 5923),
+		Vector3.new(-84, 43, 6723),
+		Vector3.new(-47, 18, 7500),
+		Vector3.new(-63, 35, 8268),
+		Vector3.new(-36, -75, 8771)
+	}
+
+	local finalPos = Vector3.new(-54, -360, 9490)
+
+	-- Désactive le saut et la gravité
+	workspace.Gravity = 0
+	humanoid.JumpPower = 0
+	humanoid.Jump = false
+
+	-- Push
+	local function pushForward()
+		local vel = Instance.new("BodyVelocity")
+		vel.Velocity = Vector3.new(0, 0, 200)
+		vel.MaxForce = Vector3.new(1, 0, 1) * 1e6
+		vel.P = 1e5
+		vel.Parent = hrp
+		task.wait(0.5)
+		vel:Destroy()
+	end
+
+	for _, pos in ipairs(positions) do
+		if not farming then break end
+		hrp.CFrame = CFrame.new(pos)
+		task.wait(0.2)
+		pushForward()
+		task.wait(0.3)
+	end
+
+	if farming then
+		hrp.CFrame = CFrame.new(finalPos)
+	end
+
+	-- Réactive la gravité et saut si on arrête ici
+	if not farming then
+		workspace.Gravity = originalGravity
+		humanoid.JumpPower = 50
+		player:LoadCharacter()
+	end
+end
+
+local function startLoop()
+	while farming do
+		farmScript()
+		for i = 1, 18 do
+			if not farming then break end
+			task.wait(1)
+		end
+	end
+end
+
+-- Bouton ON/OFF
+Button.MouseButton1Click:Connect(function()
+	farming = not farming
+	Button.Text = "Farm: " .. (farming and "ON" or "OFF")
+
+	if farming then
+		startLoop()
+	else
+		workspace.Gravity = 196
+		local hum = player.Character:FindFirstChildOfClass("Humanoid")
+		if hum then hum.JumpPower = 50 end
+		player:LoadCharacter()
+	end
+end)
