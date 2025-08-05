@@ -1,0 +1,97 @@
+-- Exécuter uniquement si le jeu a cet ID précis
+if game.PlaceId == 100232043370527 then
+
+	--==[ Flshty Hub - INF Money Script ]==--
+
+	local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
+	ScreenGui.Name = "FlshtyHub_INF"
+	ScreenGui.ResetOnSpawn = false
+
+	local MainFrame = Instance.new("Frame", ScreenGui)
+	MainFrame.Name = "MainHub"
+	MainFrame.Size = UDim2.new(0, 210, 0, 110)
+	MainFrame.Position = UDim2.new(0.5, -160, 0.5, -110)
+	MainFrame.BackgroundColor3 = Color3.fromRGB(130, 0, 255)
+	MainFrame.BorderSizePixel = 0
+	MainFrame.BackgroundTransparency = 0.1
+	MainFrame.Active = true
+	MainFrame.Draggable = true
+	MainFrame.ClipsDescendants = true
+
+	Instance.new("UICorner", MainFrame).CornerRadius = UDim.new(0, 16)
+
+	local UIStroke = Instance.new("UIStroke", MainFrame)
+	UIStroke.Thickness = 2
+	UIStroke.Color = Color3.fromRGB(255, 20, 147)
+	UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+
+	-- Glitch visuel du contour
+	task.spawn(function()
+		while true do
+			UIStroke.Color = Color3.fromRGB(math.random(100,255), 0, math.random(100,255))
+			task.wait(0.1)
+		end
+	end)
+
+	-- Titre
+	local Title = Instance.new("TextLabel", MainFrame)
+	Title.Size = UDim2.new(1, 0, 0, 30)
+	Title.Position = UDim2.new(0, 0, 0, 0)
+	Title.Text = "to the MOON 🚀"
+	Title.TextColor3 = Color3.fromRGB(57, 255, 20)
+	Title.TextScaled = true
+	Title.BackgroundTransparency = 1
+	Title.Font = Enum.Font.Code
+
+	-- Bouton INF Money
+	local Button = Instance.new("TextButton", MainFrame)
+	Button.Size = UDim2.new(0.8, 0, 0, 20)
+	Button.Position = UDim2.new(0.1, 0, 0.4, 0)
+	Button.Text = "💸 Get ≈ INF Money"
+	Button.BackgroundColor3 = Color3.fromRGB(200, 0, 200)
+	Button.TextColor3 = Color3.fromRGB(0, 255, 255)
+	Button.TextScaled = true
+	Button.Font = Enum.Font.Arcade
+	Instance.new("UICorner", Button).CornerRadius = UDim.new(0, 12)
+
+	-- Cooldown anti-spam (5 secondes)
+	local canClick = true
+
+	Button.MouseButton1Click:Connect(function()
+		if not canClick then return end
+		canClick = false
+
+		local args = {
+			{
+				["\005"] = {
+					{
+						n = 0
+					}
+				}
+			},
+			{}
+		}
+
+		local ReplicatedStorage = game:GetService("ReplicatedStorage")
+		local Players = game:GetService("Players")
+		local LocalPlayer = Players.LocalPlayer
+		local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+		local HRP = Character:WaitForChild("HumanoidRootPart")
+
+		-- Étape 1 : FireServer
+		ReplicatedStorage:WaitForChild("ReliableRedEvent"):FireServer(unpack(args))
+		wait(1)
+
+		-- Étape 2 : TP
+		HRP.CFrame = CFrame.new(1211109075, 6528804072, 115200049)
+		wait(1)
+
+		-- Étape 3 : FireServer à nouveau
+		ReplicatedStorage:WaitForChild("ReliableRedEvent"):FireServer(unpack(args))
+
+		-- Réactivation après cooldown
+		task.delay(5, function()
+			canClick = true
+		end)
+	end)
+end
