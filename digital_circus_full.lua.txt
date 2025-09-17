@@ -1,0 +1,2983 @@
+-- Generated The Amazing Digital Circus - full sequence
+-- Format: for each note: local args = {"play", N} then FireServer, then wait(0.7)
+-- For chords [..]: one block per inner key, then wait(0.8)
+
+local args = {
+    "play",
+    13
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    32
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    29
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    25
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    9
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    27
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    10
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    29
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    21
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    17
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    36
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    22
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    34
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    10
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    30
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    18
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    34
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    30
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    8
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    18
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    22
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    21
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    8
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    20
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    24
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    32
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    35
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    36
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    1
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    6
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    44
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    10
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    8
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    44
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    40
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    6
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    5
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    44
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    3
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    34
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    8
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    44
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    34
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    1
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    6
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    44
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    10
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    8
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    44
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    40
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    6
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    5
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    44
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    3
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    34
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    8
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    44
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    34
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    3
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    6
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    13
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    32
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    5
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    13
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    32
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    7
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    34
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    6
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    32
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    5
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    13
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    29
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    30
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    31
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    32
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    6
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    13
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    32
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    5
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    13
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    32
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    3
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    34
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    34
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    3
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    35
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    8
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    32
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    1
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    6
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    13
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    32
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    5
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    13
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    32
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    7
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    34
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    6
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    32
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    5
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    13
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    29
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    30
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    31
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    32
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    6
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    13
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    32
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    5
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    13
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    3
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    3
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    40
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    20
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    40
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    1
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    6
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    44
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    10
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    8
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    44
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    40
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    6
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    5
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    44
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    3
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    34
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    8
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    44
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    34
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    1
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    6
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    44
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    10
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    8
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    44
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    40
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    6
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    5
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    44
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    3
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    34
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    8
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    44
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    34
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    3
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    6
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    13
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    32
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    5
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    13
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    32
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    7
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    34
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    6
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    32
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    5
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    13
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    29
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    30
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    31
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    32
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    6
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    13
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    32
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    5
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    13
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    32
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    3
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    34
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    34
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    3
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    35
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    8
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    32
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    1
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    6
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    13
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    32
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    5
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    13
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    32
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    7
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    34
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    6
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    32
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    5
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    13
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    29
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    30
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    31
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    32
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    6
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    13
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    32
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    5
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    13
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    3
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    3
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    34
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    8
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    25
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    32
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    12
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    24
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    31
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    13
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    26
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    38
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    13
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    25
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    1
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    6
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    44
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    10
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    8
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    44
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    40
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    6
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    5
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    44
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    3
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    34
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    8
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    44
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    34
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    1
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    6
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    44
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    10
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    8
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    44
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    40
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    6
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    5
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    44
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    3
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    34
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    8
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    44
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    34
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    3
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    3
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    25
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    22
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    10
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    25
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    27
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    8
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    32
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    22
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    3
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    25
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    27
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    3
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    3
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    8
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    8
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    40
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    39
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    13
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    29
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    37
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    8
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    9
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    33
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    4
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    2
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    38
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    2
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    38
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    4
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    40
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    6
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    42
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    8
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    44
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    43
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    8
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    43
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    42
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.7)
+
+local args = {
+    "play",
+    1
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    41
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
+
+local args = {
+    "play",
+    1
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+local args = {
+    "play",
+    13
+}
+workspace:WaitForChild("GlobalPianoConnector"):FireServer(unpack(args))
+wait(0.8)
